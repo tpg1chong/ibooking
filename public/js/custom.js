@@ -957,16 +957,13 @@ var Config = {
 					var plugin = obj[1];
 
 					if (typeof $.fn[plugin]==='undefined') {
-						// console.log( $.fn[plugin] );
 						Event.getPlugin( plugin ).done( fn ).fail();
 					}
-					else{
-						console.log( '1111' );
-					}
 				}
+				
 				// 
-				else if( name=='client:auth' ){
-					app.client = {
+				else if( name=='client' ){
+					/*app.client = {
 						init: function ( options ) {
 							this.options = options;
 							return this;
@@ -977,15 +974,14 @@ var Config = {
 								callback( this.options );
 							}
 
-							/*if( typeof error==='function'  ){
+							if( typeof error==='function'  ){
 								error();
-							}*/
+							}
 
 							return this;
 						}
-					};
+					};*/
 				}
-
 
 			    i++;
 			}

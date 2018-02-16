@@ -17,7 +17,8 @@ $form   ->field("user_name")
         ->autocomplete('off')
         ->addClass('inputtext')
         ->placeholder('')
-        ->attr('autofocus', '1');
+        ->attr('autofocus', '1')
+        ->value( isset($_GET['name']) ? $_GET['name']: '' );
 
 $form   ->field("user_login")
         ->label('Username')

@@ -325,10 +325,25 @@ if ( typeof Object.create !== 'function' ) {
 		effect: 5,
 	};
 
-	$.lightbox = function ( options ) {
+	$.lightbox = function ( a, b, c ) {
+
 		var $this = Object.create( Lightbox );
-		$this.set( options );
-		return $this;
+
+		
+		if( typeof a==='object' ){
+			$this.set( b || {} );
+			$this.open( a );
+		}
+		else {
+			if( c ){
+				$this.set( c || {} );
+				$this.load( a, b || {} );
+			}
+			else{
+				$this.set( b || {} );
+				$this.load( a );
+			}			
+		}
 	};
 	
 })( jQuery, window, document );
