@@ -31,14 +31,12 @@ d88' `8b   88bP"Y88b   888P"Y88b  "888P"Y88b   888' `88b
 		// var fullWidth = $(window).width();
 		init(), $(window).load(function(){
 
-			app.load('plugin:lightbox', function () {
+			/*app.load('plugin:lightbox', function () {
 
 				$.lightbox( app.getUri('__test/lightbox/form'), function (e) {
 					
 				});
-
-			});
-			
+			});*/
 
 		}), $(window).resize(function() {
 			console.log( 'resize' );
