@@ -33,11 +33,8 @@ d88' `8b   88bP"Y88b   888P"Y88b  "888P"Y88b   888' `88b
 
 			app.load('plugin:lightbox', function () {
 
-
-				$.lightbox( app.getUri('__test/lightbox/form'), {name: 'Chong'}, {
-					onSubmit: function ( $form, e ) {
-						e.close();
-					}
+				$.lightbox( app.getUri('__test/lightbox/form'), function (e) {
+					
 				});
 
 			});
