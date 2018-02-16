@@ -1,4 +1,4 @@
-<form class="js-submit-form" data-action="inlineSubmit">
+<form class="js-submit-form" data-action="inlineSubmit" action="<?=URL?>__test/save">
 	<input type="text" name="ame">
 	<button class="btn" type="submit">Ok</button>
 

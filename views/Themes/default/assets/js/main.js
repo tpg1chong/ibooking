@@ -32,14 +32,13 @@ d88' `8b   88bP"Y88b   888P"Y88b  "888P"Y88b   888' `88b
 		init(), $(window).load(function(){
 
 			app.load('plugin:lightbox', function () {
-
-				// console.log( 111 );
-				var $pop = $.lightbox().open({
-					body: 555
-				});
-
-				console.log( $pop );
-				// $.lightbox().close();
+				
+				$.lightbox({
+					onSubmit: function ( $form, e ) {
+						
+						e.close();
+					}
+				}).load( app.getUri('__test/lightbox/form') );
 			});
 			
 

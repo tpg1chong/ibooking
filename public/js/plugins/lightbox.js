@@ -18,8 +18,6 @@ if ( typeof Object.create !== 'function' ) {
 
 			var uri = self.$elem.attr('href');
 			self.$elem.removeAttr('href');
-
-			console.log( 'uri: ', uri );
 			
 			if( !self.options.toggle || !uri ) return false;
 
@@ -28,12 +26,11 @@ if ( typeof Object.create !== 'function' ) {
 				self.load( uri );
 			});
 		},
-
 		set: function ( options ) {
 			this.options = $.extend( {}, $.fn.lightbox.settings, options );
 		},
 
-		load: function (url, post, callback) {
+		load: function (url, post, f) {
 			var self = this;
 			Event.showMsg({ load:true });
 
@@ -49,7 +46,7 @@ if ( typeof Object.create !== 'function' ) {
 					return false;
 				}
 
-				self.open( results, callback );
+				self.open( $.extend( {}, self.options, results), f );
 			});
 		},
 		fetch: function(url, getData){
@@ -66,13 +63,11 @@ if ( typeof Object.create !== 'function' ) {
 				Event.showMsg({ text: "Error 404", load: true , auto: true });
 			});
 		},
-
-		open: function (options, callback) {
+		open: function (options, f) {
 			var self = this;
 
 			// set options
 			self.settings = $.extend( {}, $.fn.lightbox.settings, options );
-			console.log( self.settings );
 			// setElemDialog
 			
 			self.setElemDialog();
@@ -90,8 +85,25 @@ if ( typeof Object.create !== 'function' ) {
 				self.display();
 			}
 
+
+
+
+			if( typeof f==='function' ){
+
+				f.call( {
+					onSubmit: function () {
+						return '11';
+					}
+				} );
+
+
+				// f( self )
+				// f.apply();
+			}
+
 			// return self;
 		},
+
 
 		newElemDialog: function () {
 			var self = this;
@@ -263,24 +275,28 @@ if ( typeof Object.create !== 'function' ) {
 
 			// show
 			self.$dialog.addClass("show").addClass('active');
-
+			self.$dialog.data( self );
 
 			// event close
 			self.$dialog.find('[data-action=close]').click(function() {
 				self.close();
 			});
-		},
 
+			self.$dialog.delegate('form', 'submit', function(e) {
+				
+				if( typeof self.settings.onSubmit === 'function' ){
+					e.stopPropagation(); e.preventDefault();
+					self.options.onSubmit( $(this), self );
+				}
+			});
+		},
 		close: function ( $el ) {
 			var self = this;
 
 			var scroll = parseInt( $("#doc").css("top") );
 				scroll= scroll < 0 ? scroll*-1:scroll;
 
-			console.log( scroll );
 			self.$dialog.removeClass("show");
-
-			console.log( 'close' );
 
 			setTimeout( function(){
 				self.$dialog.remove();

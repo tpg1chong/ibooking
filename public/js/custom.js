@@ -627,8 +627,13 @@ var Event = {
 			});
 		}
 
-		if( result.onDialog==true ){ }
-		else{ Dialog.close(); }
+		if( result.onDialog ){ }
+		else{ 
+			var dialog = $form.closest('.model-dialog').data();
+			if( dialog ){
+				dialog.close();
+			}
+		}
 
 		if( result.link ){
 			self.showMsg({ link: result.link, text: result.message, bg: 'yellow', sleep: result.link.sleep });

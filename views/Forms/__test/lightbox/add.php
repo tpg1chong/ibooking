@@ -38,10 +38,10 @@ $form   ->field("password")
 
 
 # set form
-$arr['form'] = '<form class="form-emp-add" method="post" action="'.URL. 'auth/save"></form>';
+$arr['form'] = '<form class="js-submit-form" method="post" action="'.URL. '__test/save"></form>';
 
 # body
-$arr['body'] = $form->html();
+$arr['body'] = $form->html().'<a class="btn" href="'.URL.'__test/lightbox" data-plugins="lightbox">dialog</a>';
 
 # title
 $arr['title']= 'สร้างผู้ใช้ใหม่';
