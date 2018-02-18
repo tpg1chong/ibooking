@@ -8,7 +8,6 @@
 		<p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin.</p>
 	</header>
 	
-
 	<div class="items col-3 show-picture"><?php for ($i=0; $i < 6; $i++) { 
 		?><div class="item"><div class="item-outer">
 			<div class="pic"><img src="<?=IMAGES?>demo/<?=$i?>.jpg"></div>

@@ -8,10 +8,18 @@ class Index extends Controller {
 
     public function index() {
         
-        $this->view->render('home/display');
+        /*$this->view->elem('body')->addClass('home');
+        $this->view->setPage('has_home', 1);
+
+        $this->view->render('design/home');*/
+
+        $this->error();
     }
 
     public function search($page=null) {
+
+
+    	// print_r($page); die;
         $this->error();
     }
 }

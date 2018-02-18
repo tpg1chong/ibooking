@@ -160,15 +160,6 @@ class Controller {
             $me = $this->model->query('users')->get( Cookie::get( COOKIE_KEY_USER ) );
         }
 
-        // print_r($_SERVER); die;
-
-        // ทดสอบระบบ Demo // Auto Login
-        if( empty($me) && $this->format=='html' && $this->pathName!='auth' && !isset($_REQUEST['connection']) ){
-
-            $this->_autoLoginWithGoogle();
-            die;
-        }
-
         if( !empty($me) ){
             $this->me =  $me;
 
@@ -188,8 +179,6 @@ class Controller {
 
             // 
             $this->setPagePermit();
-        }else if( $this->pathName!='auth' ) {
-            $this->login();
         }
     }
 
@@ -236,9 +225,7 @@ class Controller {
         if( empty($_REQUEST['g-recaptcha-response']) && $attempt>2 ){
             $error['captcha'] = 'คุณป้อนรหัสไม่ถูกต้อง?';
         }
-        if( !empty($_POST) && empty($error) ){
-
-            
+        if( !empty($_POST) && empty($error) ){            
             try {
                 $form = new Form();
 
@@ -279,9 +266,7 @@ class Controller {
                 $this->view->setData('post', $post);
             } catch (Exception $e) {
                 $error = $this->_getError( $e->getMessage() );
-            }
-
-            
+            }            
         }
 
         if(!empty($error)){
@@ -328,64 +313,17 @@ class Controller {
             'has_footer' => false,
         );
 
-        if( $this->pathName=='printer' ){
-            $this->system['theme'] = 'printer';
-        }
-
         if( empty($this->system['theme']) ){
-            // $options['has_menu'] = true;
             $options['has_topbar'] = true;
+            $options['has_footer'] = true;
             $this->system['theme'] = 'default';
         }
 
-        
-        $this->view->setPage('image_logo_url', IMAGES.'logo/25x25.png');
+        // $this->view->setPage('image_logo_url', IMAGES.'logo/25x25.png');
 
         $this->view->setPage('theme', $this->system['theme']);
         $this->view->setPage('theme_options', $options);  
     }
 
-
-
-    public function getCalendarId() {
-        $lang = $this->lang->getCode();
-
-        $calendarId = array();
-        array_push($calendarId, "{$lang}.th#holiday@group.v.calendar.google.com");
-        // array_push($calendarId, $this->me['user_email']);
-        array_push($calendarId, 'thaipropertyguide.com_i43s582pm9ttup8lcad2la4o2c@group.calendar.google.com');
-        array_push($calendarId, 'tol10dbd2nbbks25qe5e4p3qn0@group.calendar.google.com');
-
-        return $calendarId;
-    }
-
-    public function _autoLoginWithGoogle( $redirect = null)
-    {
-        
-        if( $redirect==null ){
-            $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https" : "http";
-            $redirect = isset($_REQUEST['next']) ? $_REQUEST['next']: $protocol.'://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-        }
-
-        if( !empty($redirect) ){
-            Session::set('login_redirect_uri', $redirect);
-        }
-
-        $google = new Google();
-        $client = $google->client;
-
-        if( !empty($this->me['user_email']) ){
-            $client->setLoginHint($this->me['user_email']);
-        }
-
-        $client->isAccessTokenExpired(true);
-        $client->getRefreshToken();
-        $client->setRedirectUri( URL . 'auth/google_oauth2/');
-
-        $client->setScopes( $google->_scopes );
-        $client->isAccessTokenExpired(true);
-
-        $getAuthUrl = $client->createAuthUrl();
-        header('Location: ' . filter_var($getAuthUrl, FILTER_SANITIZE_URL));
-    }
+   
 }
