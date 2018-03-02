@@ -411,10 +411,46 @@ body.home .page-search-wrap{
 .lazyload-container img, .lazyload-container video {
     width: 100%;
 }
+.lazyload-overlay{
+    
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+
+    background-color: transparent;
+    background-image: linear-gradient(180deg, #00236b 3%, rgba(30,115,190,0.23) 36%);
+    opacity: 0.5;
+    transition: background 0.3s, border-radius 0.3s, opacity 0.3s;
+}
+.lazyload-background-video-container{
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    overflow: hidden;
+    z-index: 0;
+    -webkit-transition: opacity 1s;
+    -o-transition: opacity 1s;
+    transition: opacity 1s;
+}
+.elementor embed, .elementor iframe, .elementor object, .elementor video {
+    max-width: 100%;
+    width: 100%;
+    margin: 0;
+    line-height: 1;
+    border: none;
+}
+.elementor .elementor-html5-video {
+    -o-object-fit: cover;
+    object-fit: cover;
+}
 
 /* -- nav-extras -- */
 .nav-extras .nav>li{display: inline-block;float: left;}
-.nav-extras .nav>li>a{display: block;padding: 4px 12px;color: #fff;opacity: .8;border:1px solid transparent;border-radius: 6px}
+.nav-extras .nav>li>a{display: block;padding: 4px 12px;color: #fff;opacity: .8;border:1px solid transparent;border-radius: 15px}
 .nav-extras .nav>li>a:hover{text-decoration: none;opacity: 1}
 .nav-extras .nav>.signup>a{border-color: #fee000;color: #fee000;opacity:1}
 .nav-extras .nav>.signup>a:hover{box-shadow: 0 0 1px rgba(0,0,0,.3)}
