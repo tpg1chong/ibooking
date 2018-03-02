@@ -2,7 +2,6 @@
 Blog Detail
 --- Example Design --- 
 
-https://fromupnorth.com/roundup-great-web-design-inspiration-31e40943da05/
 https://www.booking.com/
 https://www.eventbanana.com
 http://www.bordeaux-events.com/
@@ -29,8 +28,13 @@ https://th.hotels.com
 
 https://www.canva.com/signup?signupRedirect=%2Fdesign%3Fcreate%3Dtrue%26media%3DMACWSogVREs&loginRedirect=%2Fdesign%3Fcreate%3Dtrue%26media%3DMACWSogVREs&referrer=logo-templates
 
-
+#Banner: 
 http://demo.smartaddons.com/#sj-xmas
 https://dribbble.com/shots/2109403-Booking-com-redesign-concept/attachments/381752
 
 https://www.hum.com/ menu
+
+http://themes.themegoods.com/?theme=GrandTour
+
+
+https://www.behance.net/gallery/10959669/Travel-Agency-Responsive-Hotel-Online-Booking-Template

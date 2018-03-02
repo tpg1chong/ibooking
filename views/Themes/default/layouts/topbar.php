@@ -71,7 +71,7 @@ $has_home = $this->getPage('has_home');
 
 	<?php if( !empty($has_home) ){ ?>
 	<div class="lazyload-container">
-		<img class="" src="<?=IMAGES?>demo/9.jpg">
+		<img class="" src="<?=IMAGES?>demo/pexels-photo-225630.jpeg">
 	</div>
 	<?php }?>
 </header>

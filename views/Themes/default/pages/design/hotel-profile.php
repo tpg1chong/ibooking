@@ -7,7 +7,22 @@
 	</ul>
 </nav>
 
+
+
 <div class="property-profile container module">
 	
 
+	<div class="card post">
+		<div class="row-fluid">
+			<div class="span8">
+				<div class="featured-image stage">
+					<div class="pic"><img src="<?=IMAGES?>/demo/1.jpg"></div>
+				</div>
+				<div class=""></div>
+			</div>
+			<div class="span4">
+				sds
+			</div>
+		</div>
+	</div>
 </div>
