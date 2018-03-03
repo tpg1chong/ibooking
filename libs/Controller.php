@@ -317,6 +317,8 @@ class Controller {
             $options['has_topbar'] = true;
             $options['has_footer'] = true;
             $this->system['theme'] = 'default';
+
+            $this->view->css( FONTS.'ficon/css/ficon.css', 1 );
         }
 
         // $this->view->setPage('image_logo_url', IMAGES.'logo/25x25.png');
@@ -325,5 +327,4 @@ class Controller {
         $this->view->setPage('theme_options', $options);  
     }
 
-   
 }

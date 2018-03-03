@@ -1,8 +1,9 @@
 <?php
 
+
+
 $form = new Form();
 $form = $form->create()
-	// set From
 	->elem('div')
 	->addClass('form-insert');
 
@@ -28,7 +29,6 @@ $form   ->field("user_login")
 
 $form   ->field('auto_password')
         ->text('<div class="fsm"><label class="checkbox" for="auto_password"><input type="checkbox" id="auto_password" name="auto_password" checked><span class="mls">กำหนดรหัสผ่านอัตโนมัติ</span></label></div>');
-
 
 $form   ->field("password")
         ->label('Password')

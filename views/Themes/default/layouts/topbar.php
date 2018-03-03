@@ -70,6 +70,7 @@ $has_home = $this->getPage('has_home');
 	
 
 	<?php if( !empty($has_home) ){ ?>
+
 	<div class="lazyload-container elementor">
 
 		<div class="lazyload-background-video-container">
@@ -77,12 +78,11 @@ $has_home = $this->getPage('has_home');
 			<video class="elementor-background-video-hosted elementor-html5-video" autoplay="" loop="" muted="" src="<?=IMAGES?>demo/City-hongkong.mp4"></video>
 		</div>
 
-		<div class="lazyload-background-image-container">
+		<!-- <div class="lazyload-background-image-container"> -->
 			<!-- <img class="" src="<?=IMAGES?>demo/9.jpg"> -->
-		</div>
+		<!-- </div> -->
 
 		<div class="lazyload-overlay"></div>
-	</div>
 	<?php }?>
 </header>
 

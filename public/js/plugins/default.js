@@ -3872,6 +3872,7 @@ if ( typeof Object.create !== 'function' ) {
 		data_post: {}
 	};
 
+	/* -- _update -- */
 	var _update = {
 		init: function(options, elem) {
 			var self = this;
