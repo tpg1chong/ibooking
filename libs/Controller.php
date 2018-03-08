@@ -4,16 +4,15 @@ class Controller {
 
     public $format = "html";
     public $pathName = "";
+
+
     function __construct() {
         $this->fn = new Fn();
-        $this->format = $this->_httprequestFormat();
-        $this->lang = new Langs();
-
+        $this->format =  $this->_httprequestFormat();
+        
         // View
         $this->view = new View();
         $this->view->format = $this->format;
-
-        $this->view->setPage('locale', $this->lang->getCode() );
     }
  
     private function _httprequestFormat() {
@@ -35,7 +34,6 @@ class Controller {
     public function loadModel($name, $modelPath = 'models/') {
 
         $path = $modelPath . $name.'_model.php';
-        $this->pathName = $name;
         
         if (file_exists($path)) {
             require $modelPath .$name.'_model.php';
@@ -46,97 +44,9 @@ class Controller {
         else{
             $this->model = new Model();
         }
-        
-        $this->system = $this->model->query('system')->get();
-        if( !empty($this->system) ){
-            $this->setupSystem();
-            $this->view->setData('system', $this->system);
-        }
 
-        $this->_modifyPage();
+        $this->init( $name );
         $this->handleLogin();
-    }
-
-
-    // Permit Page
-    public function setPagePermit() {
-
-        $permit = $this->model->query('system')->permit( !empty($this->me['access']) ? $this->me['access']:array() );
-
-        if( !empty($this->me['permission']) ){
-
-            foreach ($permit as $key => $value) {
-                
-                if( !empty($this->me['permission'][ $key ]) ){
-                    $permit[$key] = array_merge($value, $this->me['permission'][ $key ]);
-                }
-            }
-
-        }
-
-        // print_r($permit); die;
-        
-        $this->permit = $permit;
-        $this->view->setData('permit', $this->permit);
-    }
-
-    // set Data Default Page
-    public function setupSystem(){
-
-        $url = isset($_GET['url']) ?$_GET['url']:'';
-        $title = '';
-        if( !empty($url) ){
-            $url = trim($url, '/');
-            $url = str_replace('-', ' ', $url);
-            $title = str_replace('/', ' - ', $url);
-        }
-
-        if( empty($title) && !empty($this->system['title']) ){
-            $title = $this->system['title'];
-        }
-
-        $this->view->setPage('title', $title);
-
-        $on = str_replace(' ', '-', $url);
-        if( empty($on) ) $on = 'index';
-
-        $this->view->setPage('on', $on );
-
-        $this->system['url'] = URL.$on;
-        $keys = array('site_name', 'type', 'url', 'image', 'keywords', 'color', 'facebook_app_id');
-        foreach ($keys as $key) {
-            if( !empty($this->system[$key]) ){
-
-                if( $key=='site_name' ){
-                    $this->view->setPage('site', $this->system[$key] );
-                }
-
-                $this->view->setPage($key, $this->system[$key] );
-            }
-        }
-
-        if( !empty($this->system['blurb']) || !empty($this->system['description']) ){
-
-            $description  ='';
-            if( !empty($this->system['blurb']) ){
-                $description = $this->system['blurb'];
-            }
-            else{
-                $description = $this->fn->q('text')->more($this->system['description']);
-            }
-
-            $this->view->setPage('description',  $description );
-        }  
-    
-        
-        $this->view->setPage('logo', IMAGES.'logo/top-logo.png' );
-        if( empty($this->system['image']) ){
-            $this->view->setPage( 'image', IMAGES.'logo/top-logo.png' );
-        }
-
-        if( !empty($this->system['theme']) ){
-            $this->view->setPage('theme',  $this->system['theme'] );
-        }
     }
 
     // return FORM Error
@@ -164,21 +74,24 @@ class Controller {
             $this->me =  $me;
 
             if( !empty($this->me['lang']) ){
-
                 Session::init();
                 Session::set('lang', $this->me['lang']);
                 
                 $this->lang->set( $this->me['lang'] );
             }
 
-            $this->model->me = $this->me;
-            $this->view->me = $this->me;
+            
             $this->view->setData('me', $this->me);
-
             Cookie::set( COOKIE_KEY_USER, $this->me['id'], time() + (3600*24));
 
             // 
-            $this->setPagePermit();
+            /* -- authorization -- */
+            $this->page['auth'] = $this->model->query('system')->auth( !empty($this->me['access']) ? $this->me['access']: array() );
+            $this->view->setPage('auth', $this->page['auth']);
+            $this->view->setPage('me', $this->me);
+        }
+        else if( !empty($this->page['loggedOn']) ) {
+            $this->login();
         }
     }
 
@@ -290,41 +203,162 @@ class Controller {
             $this->view->setData('next', $next);
         }
 
-        $this->view->setPage('title',  $this->system['title'] );
+        $this->view->setPage('title', Translate::Val('Login') . ' - ' . $this->page['title'] );
+        $this->view->setPage('theme', 'login');
+
+
+        /*$this->format = $this->_httprequestFormat();
+        $this->view->setPage('locale', $this->lang->getCode() );*/
+
+        /*
         $this->view->setData('redirect', $redirect);
         $this->view->setPage('name', $this->lang->getCode()=='th'?'เข้าสู่ระบบ': 'Login');
-        $this->view->setPage('theme', 'login');
+        
         $this->view->setPage('theme_options', array(
             'has_topbar' => false,
             'has_footer' => false,
             'has_menu' => false,
-        ));
+        ));*/
 
         $this->view->render( 'default' );
         exit;
     }
 
-    /* -- _modifyPage --*/
-    public function _modifyPage() {
-        
-        $options = array(
-            'has_topbar' => false,
-            'has_menu' => false,
-            'has_footer' => false,
-        );
+    /* -- init --*/
+    public function init($on) {
 
-        if( empty($this->system['theme']) ){
-            $options['has_topbar'] = true;
-            $options['has_footer'] = true;
-            $this->system['theme'] = 'default';
+        // Get Data System
+        $this->page = array_merge(array(
+            'elem' => array(),
+            'data' => array(),
+            'theme_options' => array()
+        ), $this->model->query('system')->get() );
+        $this->page['on'] = $on;
 
-            $this->view->css( FONTS.'ficon/css/ficon.css', 1 );
+
+        $theme = array('name'=>'');
+        // set Theme
+        if( $on == 'admin' ){
+            $this->page['theme'] = 'admin';
+            $this->page['loggedOn'] = true;
         }
 
-        // $this->view->setPage('image_logo_url', IMAGES.'logo/25x25.png');
+        if( empty($this->page['theme']) ){
 
-        $this->view->setPage('theme', $this->system['theme']);
-        $this->view->setPage('theme_options', $options);  
+            $this->page['theme'] = 'default';
+            $this->page['theme_options'] = array('topbar'=>true, 'footer'=>true);
+        }
+
+        $this->view->page = $this->page;
+        // authorization
+    }
+
+
+
+    // Permit Page
+    public function setPagePermit() {
+
+        $permit = $this->model->query('system')->permit( !empty($this->me['access']) ? $this->me['access']:array() );
+
+        if( !empty($this->me['permission']) ){
+
+            foreach ($permit as $key => $value) {
+                
+                if( !empty($this->me['permission'][ $key ]) ){
+                    $permit[$key] = array_merge($value, $this->me['permission'][ $key ]);
+                }
+            }
+
+        }
+
+        // print_r($permit); die;
+        
+        $this->permit = $permit;
+        $this->view->setData('permit', $this->permit);
+
+        /*echo 'options page';
+        print_r($this->page); die;
+
+        # Check Permit
+        if( !empty($this->page['data']['permit']) && !empty($this->page['theme_options']['logged']) ){
+
+            $on = $this->page['on'];
+            if( empty($on) ) $on = $name;
+
+            if( empty($this->page['data']['permit'][$on][$this->page['action']]) ){
+
+                if( $this->format=='json' ){
+                    echo json_encode(array(
+                        'error' => 404,
+                        'message' => 'Page not found'
+                    )); exit;
+                }
+                else{
+                    $this->setPage('title', 'Page not found');
+                    $name = 'error';
+                }
+                
+            }
+        }*/
+    }
+
+    // set Data Default Page
+    public function setupSystem(){
+
+        $url = isset($_GET['url']) ?$_GET['url']:'';
+        $title = '';
+        if( !empty($url) ){
+            $url = trim($url, '/');
+            $url = str_replace('-', ' ', $url);
+            $title = str_replace('/', ' - ', $url);
+        }
+
+        if( empty($title) && !empty($this->system['title']) ){
+            $title = $this->system['title'];
+        }
+
+        $this->view->setPage('title', $title);
+
+        $on = str_replace(' ', '-', $url);
+        if( empty($on) ) $on = 'index';
+
+        $this->view->setPage('on', $on );
+
+        $this->system['url'] = URL.$on;
+        $keys = array('site_name', 'type', 'url', 'image', 'keywords', 'color', 'facebook_app_id');
+        foreach ($keys as $key) {
+            if( !empty($this->system[$key]) ){
+
+                if( $key=='site_name' ){
+                    $this->view->setPage('site', $this->system[$key] );
+                }
+
+                $this->view->setPage($key, $this->system[$key] );
+            }
+        }
+
+        if( !empty($this->system['blurb']) || !empty($this->system['description']) ){
+
+            $description  ='';
+            if( !empty($this->system['blurb']) ){
+                $description = $this->system['blurb'];
+            }
+            else{
+                $description = $this->fn->q('text')->more($this->system['description']);
+            }
+
+            $this->view->setPage('description',  $description );
+        }  
+    
+        
+        $this->view->setPage('logo', IMAGES.'logo/top-logo.png' );
+        if( empty($this->system['image']) ){
+            $this->view->setPage( 'image', IMAGES.'logo/top-logo.png' );
+        }
+
+        if( !empty($this->system['theme']) ){
+            $this->view->setPage('theme',  $this->system['theme'] );
+        }
     }
 
 }

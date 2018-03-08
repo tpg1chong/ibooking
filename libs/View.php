@@ -3,23 +3,7 @@
 class View {
 
     // protected $_data = array();
-    public $page = array(
-        'format' => 'default',
-        'title' => '',
-        'on' => '',
-
-        'theme' => 'default',
-        'theme_options' => array(
-            'has_topbar' => true,
-            'has_footer' => true
-        ),
-
-        'head' => null,
-        'elem' => array(),
-        'data' => array(),
-
-        'navigation' => array(),
-    );
+    public $page = array();
 
     function __construct() {
 
@@ -86,6 +70,7 @@ class View {
         }
     }
 
+    
     /**/
     /* Elem : */
     /**/
@@ -94,7 +79,7 @@ class View {
     // elem
     public function elem($elem=null){
         $this->_currentElem = $elem;
-        $this->page['elem'][] = $elem;
+        // $this->page['elem'][] = $elem;
         return $this;
     }
     public function addClass($class){

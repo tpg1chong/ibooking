@@ -12,8 +12,6 @@ class Demo_Controller extends Controller {
         $this->view->setPage('has_home', 1);
 
         $this->view->render('design/home');
-
-        
     }
 
     public function search()

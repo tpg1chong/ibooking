@@ -22,27 +22,22 @@ class System_Model extends Model{
     }
 
     /**/
-    /* permit */
+    /* -- authorization -- */
     /**/
-    public function permit( $access=array() ) {
-
-        $permit = array('view'=>0,'edit'=>0, 'del'=>0, 'add'=>0);
+    public function auth( $access=array() ) {
 
         // Settings
         $arr = array( 
-            'notifications' => array('view'=>1),
-            'calendar' => array('view'=>1),
+            // 'notifications' => array('view'=>1),
+            // 'calendar' => array('view'=>1),
 
-            'my' => array('view'=>1,'edit'=>1),
+            // 'my' => array('view'=>1,'edit'=>1),
 
             # customers
             'companies' => array('view'=>1),
             'customers' => array('view'=>1),
 
             # property
-            'property' => array('view'=>1),
-            'property_listing' => array('view'=>1),
-            'property_building' => array('view'=>1),
 
             'tasks' => array('view'=>1, 'add'=>1), 
         );
@@ -172,27 +167,14 @@ class System_Model extends Model{
             $object[$value['option_name']] = $value['option_value'];
         }
 
-        $contacts = $this->db->select( "SELECT contact_type as type, contact_name as name, contact_value as value FROM system_contacts" );
-
-
-        $_contacts = array();
-        foreach ($contacts as $key => $value) {
-            $_contacts[ $value['type'] ][] = $value; 
-        }
-
-        $object['contacts'] = $_contacts;
-        $object['navigation'] = $this->navigation();
-
-
-        if( !empty($object['location_city']) ){
-            
+        /*if( !empty($object['location_city']) ){
             $city_name = $this->getCityName( $object['location_city'] );
         }
 
 
         if( !empty($object['working_time_desc']) ){
             $object['working_time_desc'] = json_decode($object['working_time_desc'], true);
-        }
+        }*/
 
         return $object;
     }
@@ -366,7 +348,6 @@ class System_Model extends Model{
 
         return $a;
     }
-
 
     public function working_time( $date ){
 

@@ -109,9 +109,10 @@ class Bootstrap {
         if (file_exists($file)) {
             require $file;
 
-            $page = str_replace('-', '', $this->_url[0]).'_Controller';
+            $page = str_replace('-', '', $this->_url[0]);
+            $controller = "{$page}_Controller";
             
-            $this->_controller = new $page;
+            $this->_controller = new $controller;
             $this->_controller->loadModel($page, $this->_modelPath);
         } else {
 
