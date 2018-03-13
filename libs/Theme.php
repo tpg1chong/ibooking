@@ -52,17 +52,17 @@ class Theme extends View{
         }
 
         // has Left Menu
-        if( !empty($this->options['has_menu']) ){
-            $hasPushedLeft = 1;
+        if( !empty($this->options['leftMenu']) ){
+            $hasPushedLeft = true;
             $cls = $this->elem('body')->attr('class');
             
             if( !empty($cls) ){
                 if( in_array('is-overlay-left', explode(' ', $cls)) ) {
-                    $hasPushedLeft = 0;
+                    $hasPushedLeft = false;
                 }
             }
 
-            if( $hasPushedLeft==1 ){
+            if( $hasPushedLeft ){
 
                 Session::init();
                 $isPushedLeft = Session::get('isPushedLeft');
@@ -128,25 +128,27 @@ class Theme extends View{
     }
     public function _render($name, $options=array()) {
 
+        $themeName = $this->getPage('theme');
         # head
-        if( empty($this->options['has_head']) ){
-            require 'views/Layouts/default/head.php';
+        if( !empty($this->options['head']) && file_exists(WWW_VIEW."Themes/{$themeName}/layouts/head.php") ){
+            require "views/Themes/{$themeName}/layouts/head.php";
         }
         else{
-            require "views/Themes/{$this->getPage('theme')}/layouts/head.php";
+            require 'views/Layouts/default/head.php';
+            
         }
 
         # start: doc
         echo '<div id="doc">';
 
         # topbar
-        if( !empty($this->options['has_topbar']) ){
-            require "views/Themes/{$this->getPage('theme')}/layouts/topbar.php";
+        if( !empty($this->options['topbar']) && file_exists(WWW_VIEW."Themes/{$themeName}/layouts/topbar.php") ){
+            require "views/Themes/{$themeName}/layouts/topbar.php";
         }
 
         # menu
-        if( !empty($this->options['has_menu']) ){
-            require "views/Themes/{$this->getPage('theme')}/layouts/navigation-main.php";
+        if( !empty($this->options['leftMenu']) && file_exists(WWW_VIEW."Themes/{$themeName}/layouts/navigation-main.php") ){
+            require "views/Themes/{$themeName}/layouts/navigation-main.php";
         }
 
         # content
@@ -155,8 +157,8 @@ class Theme extends View{
         echo '</div>';
 
         # footer
-        if( !empty($this->options['has_footer']) ){
-            require "views/Themes/{$this->getPage('theme')}/layouts/footer.php";
+        if( !empty($this->options['footer']) && file_exists(WWW_VIEW."Themes/{$themeName}/layouts/footer.php") ){
+            require "views/Themes/{$themeName}/layouts/footer.php";
         }
 
         # end: doc

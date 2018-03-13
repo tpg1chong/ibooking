@@ -4,7 +4,7 @@ date_default_timezone_set("Asia/Bangkok");
 
 // Always provide a TRAILING SLASH (/) AFTER A PATH
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https" : "http";
-$pathName = 'iBooking';
+$pathName = 'place';
 define('URL', $protocol.'://'.$_SERVER['HTTP_HOST'].'/'.$pathName.'/');
 
 // Set DATABASE

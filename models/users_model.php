@@ -7,23 +7,23 @@ class Users_Model extends Model{
     }
 
     private $_objType = "users";
-    private $_table = "users u LEFT JOIN users_role r ON u.user_role_id=r.role_id";
+    private $_table = "users u LEFT JOIN users_roles r ON u.user_role_id=r.role_id";
     private $_field = "
-          u.iduser as id
-        , firstname
-        , lastname
+          user_id
+        , user_name
         , user_email
         , user_login
-        , phone
+        , user_lang
+        , user_is_owner
 
-        , username
-        , enable
-        , allowoutside
-        , updatedate
+        , user_mode
+        , user_lastvisit
+        , user_enabled
 
         , role_id
+        , role_name
     ";
-    private $_cutNamefield = "user_";
+    private $_prefixField = "user_";
 
     public function is_user($text){
         $c = $this->db->count('users', "(user_login=:txt AND user_login!='') OR (user_email=:txt AND user_email!='')", array(':txt'=>$text));
@@ -60,8 +60,8 @@ class Users_Model extends Model{
 
     
     /* -- find -- */
-    public function get($id){
-        $sth = $this->db->prepare("SELECT {$this->_field} FROM {$this->_table} WHERE iduser=:id LIMIT 1");
+    public function findById($id){
+        $sth = $this->db->prepare("SELECT {$this->_field} FROM {$this->_table} WHERE user_id=:id LIMIT 1");
         $sth->execute( array( ':id' => $id  ) );
         return $sth->rowCount()==1 ? $this->convert( $sth->fetch( PDO::FETCH_ASSOC ) ): array();
     }
@@ -121,13 +121,8 @@ class Users_Model extends Model{
     }
     public function convert($data){
 
-        $data['fullname'] = trim($data['firstname']);
-        if( !empty($data['lastname']) ){
-            $data['fullname'] .= ' '.trim($data['lastname']);
-        }
-
-
-        $data['access'] = $this->setAccess($data['role_id']);
+        $data = $this->__cutPrefixField($this->_prefixField, $data);
+        $data['access'] = $this->setAccess( $data['role_id'] );
 
         return $data;
     }
@@ -164,8 +159,9 @@ class Users_Model extends Model{
         return $sth->rowCount()==1 ? $fdata['id']: false;
     }
 
+    
     /* -- admin roles -- */
-    public function roles($type='') {
+    public function admin_roles($type='') {
         return $this->db->select("SELECT role_id as id, role_name as name FROM users_role ORDER BY role_name");
     }
 

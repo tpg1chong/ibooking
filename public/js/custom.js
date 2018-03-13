@@ -928,7 +928,7 @@ var PHP = {
 	}
 };
 var Config = {
-		uri: window.location.origin + '/iBooking/',
+		uri: window.location.origin + '/place/',
 		plugins: {},
 	},
 	app = {

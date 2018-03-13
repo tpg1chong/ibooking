@@ -9,6 +9,7 @@ class Controller {
     function __construct() {
         $this->fn = new Fn();
         $this->format =  $this->_httprequestFormat();
+        $this->lang = new Langs();
         
         // View
         $this->view = new View();
@@ -25,7 +26,7 @@ class Controller {
 
         return $_q;
     }
-
+    
     /**
      * 
      * @param string $name Name of the model
@@ -67,7 +68,7 @@ class Controller {
         Session::init();
 
         if ( Cookie::get( COOKIE_KEY_USER ) ) {
-            $me = $this->model->query('users')->get( Cookie::get( COOKIE_KEY_USER ) );
+            $me = $this->model->query('users')->findById( Cookie::get( COOKIE_KEY_USER ) );
         }
 
         if( !empty($me) ){
@@ -86,11 +87,10 @@ class Controller {
 
             // 
             /* -- authorization -- */
-            $this->page['auth'] = $this->model->query('system')->auth( !empty($this->me['access']) ? $this->me['access']: array() );
-            $this->view->setPage('auth', $this->page['auth']);
-            $this->view->setPage('me', $this->me);
+            $this->pageOptions['auth'] = $this->model->query('system')->auth( !empty($this->me['access']) ? $this->me['access']: array() );
+            $this->view->setPage('auth', $this->pageOptions['auth']);
         }
-        else if( !empty($this->page['loggedOn']) ) {
+        else if( !empty( $this->getPage('loggedOn') ) ) {
             $this->login();
         }
     }
@@ -121,8 +121,11 @@ class Controller {
 
     // Page Login
     public function login() {
-
         Session::init();
+
+        $render = $this->getPage('render');
+        $render = in_array($render, array('forgot_password') )? $render: '';
+
         $attempt = Session::get('login_attempt');
         if( isset($attempt) && $attempt>=2 ){
             $this->view->setData('captcha', true);
@@ -181,7 +184,6 @@ class Controller {
                 $error = $this->_getError( $e->getMessage() );
             }            
         }
-
         if(!empty($error)){
 
             if( isset($attempt) ){
@@ -192,67 +194,68 @@ class Controller {
             $this->view->setData('error', $error);
         }
 
-        $redirect = URL;
+        $redirect = URL.$this->getPage('theme').'/';
+        $redirect = !empty($render) ? $redirect.$render.'/':'';
+
         $next = isset($_REQUEST['next']) ? $_REQUEST['next']: '';
-        
-        if( in_array($this->view->getPage('theme'), array('manage')) ){
-            $redirect = URL.$this->view->getPage('theme');
-        }
         
         if( !empty( $next) ){
             $this->view->setData('next', $next);
         }
 
-        $this->view->setPage('title', Translate::Val('Login') . ' - ' . $this->page['title'] );
+        $this->view->setData('redirect', $redirect);
+        $title = $this->pageOptions['title'];
+        $title = !empty($title)? Translate::Val('Login') . ' - ' . $title: Translate::Val('Login');
+
+        $this->view->setPage('title', $title );
         $this->view->setPage('theme', 'login');
 
-
-        /*$this->format = $this->_httprequestFormat();
-        $this->view->setPage('locale', $this->lang->getCode() );*/
-
-        /*
-        $this->view->setData('redirect', $redirect);
-        $this->view->setPage('name', $this->lang->getCode()=='th'?'เข้าสู่ระบบ': 'Login');
-        
-        $this->view->setPage('theme_options', array(
-            'has_topbar' => false,
-            'has_footer' => false,
-            'has_menu' => false,
-        ));*/
-
-        $this->view->render( 'default' );
+        $this->view->render( !empty($render) ? $render: 'default' );
         exit;
     }
+
+    private $pageOptions = array(
+        'elem' => array(),
+        'data' => array(),
+        'theme_options' => array(),
+    );
 
     /* -- init --*/
     public function init($on) {
 
         // Get Data System
-        $this->page = array_merge(array(
-            'elem' => array(),
-            'data' => array(),
-            'theme_options' => array()
-        ), $this->model->query('system')->get() );
-        $this->page['on'] = $on;
+        $this->pageOptions = array_merge($this->pageOptions, $this->model->query('system')->get() );
+        $this->pageOptions['on'] = $on;
 
-
-        $theme = array('name'=>'');
         // set Theme
-        if( $on == 'admin' ){
-            $this->page['theme'] = 'admin';
-            $this->page['loggedOn'] = true;
+
+        if( empty($this->pageOptions['theme']) ){
+
+            $this->pageOptions['theme'] = 'default';
+            $this->pageOptions['theme_options'] = array('topbar'=>true, 'footer'=>true);
         }
 
-        if( empty($this->page['theme']) ){
-
-            $this->page['theme'] = 'default';
-            $this->page['theme_options'] = array('topbar'=>true, 'footer'=>true);
-        }
-
-        $this->view->page = $this->page;
+        $this->view->page = $this->pageOptions;
         // authorization
     }
 
+    public function setPage($key, $val=null) {
+
+        if( is_array($key) ){
+            foreach ($key as $key => $val) {
+                $this->pageOptions[$key] = $val;
+            }
+        }
+        else{
+            $this->pageOptions[$key] = $val;
+        }
+
+        return $this;
+    }
+    public function getPage($key)
+    {
+        return !empty($this->pageOptions[$key]) ? $this->pageOptions[$key]: null;
+    }
 
 
     // Permit Page
@@ -277,15 +280,15 @@ class Controller {
         $this->view->setData('permit', $this->permit);
 
         /*echo 'options page';
-        print_r($this->page); die;
+        print_r($this->pageOptions); die;
 
         # Check Permit
-        if( !empty($this->page['data']['permit']) && !empty($this->page['theme_options']['logged']) ){
+        if( !empty($this->pageOptions['data']['permit']) && !empty($this->pageOptions['theme_options']['logged']) ){
 
-            $on = $this->page['on'];
+            $on = $this->pageOptions['on'];
             if( empty($on) ) $on = $name;
 
-            if( empty($this->page['data']['permit'][$on][$this->page['action']]) ){
+            if( empty($this->pageOptions['data']['permit'][$on][$this->pageOptions['action']]) ){
 
                 if( $this->format=='json' ){
                     echo json_encode(array(

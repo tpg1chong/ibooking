@@ -112,7 +112,7 @@ class Bootstrap {
             $page = str_replace('-', '', $this->_url[0]);
             $controller = "{$page}_Controller";
             
-            $this->_controller = new $controller;
+            $this->_controller = new $controller($this->_url);
             $this->_controller->loadModel($page, $this->_modelPath);
         } else {
 
