@@ -15,31 +15,36 @@ class System_Model extends Model{
             // 'notifications' => array('view'=>1),
             // 'calendar' => array('view'=>1),
 
-            // 'my' => array('view'=>1,'edit'=>1),
-
-            # customers
-            'companies' => array('view'=>1),
-            'customers' => array('view'=>1),
-
-            # property
-
-            'tasks' => array('view'=>1, 'add'=>1), 
+            'view_website' => array('view'=>1),
+            'my' => array('view'=>1,'edit'=>1),
         );
 
         // is admin 
         if( in_array(1, $access) ){ 
 
             // set settings
-            $arr['company'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);  
+            $arr['overview'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);  
 
             # setting
-            $arr['department'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
-            $arr['position'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
-            $arr['employees'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
+            $arr['seo'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
+            $arr['analytics'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
+            $arr['social'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
 
             #People
-            $arr['organization_category'] = array('view'=>1,'edit'=>1,'del'=>1, 'add'=>1);
-            $arr['people_position'] = array('view'=>1,'edit'=>1,'del'=>1, 'add'=>1);
+            $arr['site_manager'] = array('view'=>1,'edit'=>1,'del'=>1, 'add'=>1);
+
+            $arr['authorization'] = array('view'=>1,'edit'=>1,'del'=>1, 'add'=>1);
+
+            # blog
+            $arr['blog_manager'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
+
+            $arr['blog_category'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
+            $arr['blog_topic'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
+
+
+            # member
+            $arr['member_manager'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
+
 
             # property
             $arr['type'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
@@ -65,7 +70,8 @@ class System_Model extends Model{
             $arr['people'] = array('view'=>1,'edit'=>1,'del'=>1, 'add'=>1);
            
             #property
-            $arr['property'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
+            $arr['property_manager'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
+            
             $arr['property_listing'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
             $arr['property_building'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
 

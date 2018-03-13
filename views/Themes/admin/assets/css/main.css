@@ -16,6 +16,7 @@ body, input, textarea, select, button {
     font-family: 'WOL_Reg', 'Leelawadee UI', Leelawadee, 'Segoe UI', Tahoma, Helvetica, sans-serif;
     font-size: 16px;
 }
+a{color: #3899ec}
 h1, h2, h3 {
     font-weight: bold;
 }
@@ -133,6 +134,11 @@ input[type=checkbox]:disabled, input[type=radio]:disabled {
 abbr[title] {
     text-decoration: none;
 }
+
+.container{
+    /*max-width: 940px*/
+}
+/* -- model -- */
 .model-dialog .model-container {
     border-radius: 6px;
 }
@@ -306,8 +312,12 @@ textarea, .inputtext {
     bottom: 0;
     border: 1px solid rgba(0, 0, 0, .1);
 }
+.btn{
+    padding-left: 15px;
+    padding-right: 15px
+}
 .btn:before, .btn {
-    border-radius: 3px;
+    border-radius: 15px;
 }
 .btn-large.btn:before, .btn-large.btn {
     border-radius: 20px;
@@ -1054,6 +1064,10 @@ body.is-pushed-left .navigation-btn-trigger span {
     position: absolute;
     top: 0;
     height: 60px;
+    color: #fff
+}
+.navigation-main-header a{
+    color: #fff
 }
 .navigation-main-header .anchor {
     padding: 10px 15px;
@@ -1061,11 +1075,10 @@ body.is-pushed-left .navigation-btn-trigger span {
 }
 .navigation-main-header .anchor .avatar {
     border-radius: 50%;
-    width: 38px;
-    height: 38px;
 }
-.navigation-main-header .anchor .spacer {
-    height: 40px;
+
+.navigation-main-header .anchor .fullname {
+    line-height: 1
 }
 .navigation-main-header .anchor .subname {
     font-size: 80%;
@@ -2651,7 +2664,7 @@ body.hidden-tobar #tobar {
     display: block;
     font-size: 14px;
     font-weight: bold;
-    margin: 10px 0 0;
+    margin: 10px 0 4px;
 }
 .settings-nav-header-link:hover {
     text-decoration: none;
@@ -4309,8 +4322,14 @@ to {
 #item_days_fieldset, #item_night_fieldset {
     width: 60px;
 }
+
+/* -- form -- */
+.control-group{
+    margin-bottom: 8px;
+}
 .control-group .inputtext, .control-group select, .tag-input-wrapper {
     background-color: #fff;
+    border-radius: 4px;
 }
 .control-group .select-box .inputtext {
     border-width: 1px;
@@ -4338,6 +4357,12 @@ to {
 .settings-accordion {
     max-width: 575px;
 }
+.form-actions{
+    margin-top: 15px;
+}
+
+
+
 img#SettingsContent_accountOwnerButton {
     width: 90px;
     height: 34px;
@@ -9026,20 +9051,15 @@ table.table-plan td {
 .timeline .item .disc {
     padding: 5px;
 }
-body, input, textarea, select, button {
-    font-size: 20px;
-}
+
 .fsm {
-    font-size: 18px;
+    font-size: 90%;
 }
-@media(max-width:1600px) {
-    body, input, textarea, select, button {
-    font-size: 18px;
+.fss {
+    font-size: 80%;
 }
-.fsm {
-    font-size: 16px;
-}
-}.table-standard-reports th, .table-standard-reports td {
+
+.table-standard-reports th, .table-standard-reports td {
     border-color: #000;
 }
 .table-standard-reports thead th {
@@ -9580,4 +9600,112 @@ body, input, textarea, select, button {
 }
 .has-image .intl-pui-image .i-plus{
     display: none;
+}
+
+
+/* -- .admin-settings -- */
+.admin-settings .settings-header {
+    margin-bottom: 24px;
+}
+.admin-settings .settings-title {
+    font-size: 42px;
+    color: #2b5672;
+}
+.admin-settings .box,.admin-settings .setting-box {
+    background-color: #fff;
+    border: 1px solid #eee;
+}
+.admin-settings .box {
+    border-radius: 8px;
+    padding: 18px;
+    max-width: 900px
+}
+.admin-settings .box + .box{
+    margin-top: 24px;
+}
+.admin-settings .box-content {
+    padding-top: 24px;
+}
+.admin-settings .title-box {
+    border-bottom: 1px dashed #ccc;
+    padding-bottom: 8px;
+    
+}
+.admin-settings .title-box p{
+    font-size: 13px;
+    color: #444
+}
+.admin-settings .title-box .title {
+    font-size: 20px;
+    color: #000
+}
+.admin-settings .form-horizontal .control-label{
+    font-weight: normal;
+    width: 180px;
+    text-align: left;
+}
+.admin-settings .form-horizontal .controls{
+    margin-left: 200px;
+}
+.admin-settings .form-insert .form-actions{
+    text-align: right;
+    margin-top: 24px;
+}
+.admin-settings .form-insert .form-actions .btn-submit{
+    font-size: 13px;
+    font-weight: normal;
+}
+
+
+/* -- social-connections -- */
+.social-connections{
+    margin-top: 24px;
+}
+.social-connections .anchor {
+    margin-top: 12px;
+    margin-bottom: 12px;
+    position: relative;
+}
+.social-connections .btn{
+    position: absolute;
+    top: 50%;
+    margin-top: -15px;
+    right: 0
+}
+.social-box .social-connections .avatar {
+    border-radius: 50%;
+    display: inline-block;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.social-box .social-connections .google .avatar {
+    background-image: url(../images/google-new.svg?1520325760);
+
+}
+.social-box .social-connections .facebook .avatar {
+    background-image: url(../images/facebook.png?1520325760);
+}
+
+/* -- business-settings --*/
+#business-settings #categories_fieldset,
+#business-settings #business_location_fieldset,
+#business-settings #business_location_country_fieldset,
+#business-settings #business_location_state_fieldset,
+#business-settings #business_name_fieldset
+{
+    float: left;
+    margin-right: 24px;
+}
+#business-settings #categories_fieldset,
+#business-settings #business_name_fieldset,
+#business-settings #business_phone_fieldset,
+#business-settings #business_location_fieldset,
+#business-settings #business_location_country_fieldset,
+#business-settings #site_goals_fieldset{
+
+    width: 48%;
+}
+#business-settings #business_location_state_fieldset{
+    width: 260px;
 }

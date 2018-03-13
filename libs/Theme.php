@@ -93,9 +93,8 @@ class Theme extends View{
             $this->elem('body')->addClass( 'hasTopbar' );
         }
 
-        /**/
-        /* source file */
-        /**/
+
+        /* -- source file -- */
         $source = array();
         $source[] = array('type'=>'css', 'name'=> 'icon');
         $source[] = array('type'=>'css', 'name'=> 'respontsive');

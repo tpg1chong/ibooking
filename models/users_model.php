@@ -72,7 +72,7 @@ class Users_Model extends Model{
             'limit' => isset($_REQUEST['limit'])? $_REQUEST['limit']:50,
             'more' => true,
 
-            'sort' => isset($_REQUEST['sort'])? $_REQUEST['sort']: 'firstname',
+            'sort' => isset($_REQUEST['sort'])? $_REQUEST['sort']: 'lastvisit',
             'dir' => isset($_REQUEST['dir'])? $_REQUEST['dir']: 'DESC',
             
             'time'=> isset($_REQUEST['time'])? $_REQUEST['time']:time(),
@@ -95,7 +95,7 @@ class Users_Model extends Model{
         $arr['total'] = $this->db->count($this->_table, $condition, $params);
 
         $limit = !empty($options['unlimit']) ? '': $this->limited( $options['limit'], $options['pager'] );
-        $orderby = $this->orderby( $options['sort'], $options['dir'] );
+        $orderby = $this->orderby( $this->_prefixField.$options['sort'], $options['dir'] );
         $where = !empty($condition) ? "WHERE {$condition}":'';
         $sql = "SELECT {$this->_field} FROM {$this->_table} {$where} {$orderby} {$limit}";
         // echo $sql; die;
@@ -162,7 +162,7 @@ class Users_Model extends Model{
     
     /* -- admin roles -- */
     public function admin_roles($type='') {
-        return $this->db->select("SELECT role_id as id, role_name as name FROM users_role ORDER BY role_name");
+        return $this->db->select("SELECT role_id as id, role_name as name FROM users_roles ORDER BY role_name");
     }
 
 }

@@ -2217,10 +2217,11 @@ if ( typeof Object.create !== 'function' ) {
 			self.elem = elem;
 			self.$elem = $(elem);
 
-			self.$btnSubmit = self.$elem.find('.btn.btn-submit');
+			self.$submit = self.$elem.find('.btn.btn-submit');
 
 			self.setDefault();
 			self.initEvent();
+			self.update();
 		},
 
 		setDefault: function() {
@@ -2254,9 +2255,9 @@ if ( typeof Object.create !== 'function' ) {
 		},
 
 		update: function ( $el ) {
-			var self = this, disabled = false;
+			var self = this, is = false;
 
-			$.each( self.$elem.find(':input'), function () {
+			$.each( self.$elem.find(':input').not('[disabled], .disabled'), function () {
 				var obj = $(this);
 				var default_value = this.defaultValue;
 				var currentVal = obj.val();
@@ -2268,19 +2269,15 @@ if ( typeof Object.create !== 'function' ) {
 				}
 
 				if( default_value != currentVal ){
-					disabled = true;
+					is = true;
 					return false;
 				}
 			});
 
 			// display
-			if( self.$btnSubmit.hasClass('disabled') && disabled==true ){
-				self.$btnSubmit.removeClass('disabled');
-			}
-			else if( !self.$btnSubmit.hasClass('disabled') && disabled==false ){
-				self.$btnSubmit.addClass('disabled');
-			}
-		}};
+			self.$submit.toggleClass('disabled', !is);
+		}
+	};
 	$.fn.changeForm = function() {
 		return this.each(function() {
 			var change = Object.create( changeForm );
