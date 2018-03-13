@@ -41,7 +41,9 @@ $url = '';
 
 				<td class="status"><?php 
 
-					echo '<select class="inputtext selector" name="user_role_id">';
+
+
+					echo '<select class="inputtext"'.(!empty($item['is_owner'])? ' disabled':'').' data-action="selector" name="user_role_id">';
 
 					foreach ($this->roles as $val) {
 
