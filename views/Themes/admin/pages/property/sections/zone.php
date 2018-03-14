@@ -1,13 +1,13 @@
 <?php
 
-
+$this->direction = URL.'property/';
 $this->dataList = array();
 
 ?><div class="setting-header cleafix">
 
 	<div class="rfloat">
 
-		<a class="btn btn-blue" data-plugins="dialog" href="<?=$url?>add"><i class="icon-plus mrs"></i><span><?=Translate::Val('Add New')?></span></a>
+		<a class="btn btn-blue" data-plugins="lightbox" href="<?=$this->direction?>add_zone"><i class="icon-plus mrs"></i><span><?=Translate::Val('Add New')?></span></a>
 
 	</div>
 

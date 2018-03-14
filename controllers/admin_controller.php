@@ -103,8 +103,16 @@ class Admin_Controller extends Controller
     /* -- property -- */
     public function property($section='available')
     {
+
         $this->view->setPage('on', 'property_manager');
         $this->view->setData('section', $section);
+
+
+        if( $section=='type' ){
+            $types = $this->model->query('property')->type->find();
+
+            $this->view->setData('typesList', $types['items'] );
+        }
 
         $this->view->render("property/display");
     }

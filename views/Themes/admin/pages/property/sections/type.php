@@ -1,13 +1,12 @@
 <?php
 
-
-$this->dataList = array();
+$this->direction = URL.'property/';
 
 ?><div class="setting-header cleafix">
 
 	<div class="rfloat">
 
-		<a class="btn btn-blue" data-plugins="dialog" href="<?=$url?>add"><i class="icon-plus mrs"></i><span><?=Translate::Val('Add New')?></span></a>
+		<a class="btn btn-blue" data-plugins="lightbox" href="<?=$this->direction?>add/type"><i class="icon-plus mrs"></i><span><?=Translate::Val('Add New')?></span></a>
 
 	</div>
 
@@ -20,14 +19,13 @@ $this->dataList = array();
 			<th class="name">Type</th>
 			<th class="status">เปิดใช้งาน</th>
 			<th class="actions"></th>
-
 		</tr>
 
-		<?php foreach ($this->dataList as $key => $item) { ?>
+		<?php foreach ($this->typesList as $key => $item) { ?>
 		<tr data-id="<?=$item['id']?>">
 			<td class="name fwb"><?php
 
-				echo '<a href="'.$url.'edit/'.$item['id'].'" data-plugins="dialog">'.$item['name'].'</a>';
+				echo '<a href="'.$this->direction.'edit/type/'.$item['id'].'" data-plugins="lightbox">'.$item['name'].'</a>';
 			?></td>
 		
 
@@ -42,15 +40,15 @@ $this->dataList = array();
 
 				$dropdown[] = array(
 	                'text' => Translate::Val('Edit'),
-	                'href' => $url.'edit/'.$item['id'],
-	                'attr' => array('data-plugins'=>'dialog'),
+	                'href' => $this->direction.'edit/type/'.$item['id'],
+	                'attr' => array('data-plugins'=>'lightbox'),
 	                // 'icon' => 'pencil'
 	            );
 
 				$dropdown[] = array(
 	                'text' => Translate::Val('Delete'),
-	                'href' => $url.'del/'.$item['id'],
-	                'attr' => array('data-plugins'=>'dialog'),
+	                'href' => $this->direction.'del/'.$item['id'],
+	                'attr' => array('data-plugins'=>'lightbox'),
 	                // 'icon' => 'remove'
 	            );
 
