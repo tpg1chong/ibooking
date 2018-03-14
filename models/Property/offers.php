@@ -1,15 +1,15 @@
 <?php
 
-class Zone extends Model
+class offers extends Model
 {
 	public function __construct() {
 		parent::__construct();
     }
 
 
-    private $_table = 'property_zone';
+    private $_table = 'property_room_offers';
     private $_field = '*';
-    private $_prefixField = 'zone_';
+    private $_prefixField = 'offer_';
 
 
     public function get($id)

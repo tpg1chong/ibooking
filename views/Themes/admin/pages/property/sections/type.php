@@ -21,13 +21,13 @@ $this->direction = URL.'property/';
 			<th class="actions"></th>
 		</tr>
 
-		<?php foreach ($this->typesList as $key => $item) { ?>
+		<?php foreach ($this->dataList as $key => $item) { ?>
 		<tr data-id="<?=$item['id']?>">
 			<td class="name fwb"><?php
 
 				echo '<a href="'.$this->direction.'edit/type/'.$item['id'].'" data-plugins="lightbox">'.$item['name'].'</a>';
 			?></td>
-		
+
 
 			<td class="status">
 				<label class="checkbox"><input data-action="change" type="checkbox" name="forum_enabled"<?=( !empty($item['enabled'])? ' checked':'' )?>></label>
@@ -54,20 +54,20 @@ $this->direction = URL.'property/';
 
 	            if( !empty($dropdown) ){
 
-	            
+
 				echo '<a data-plugins="dropdown" class="btn btn-no-padding" data-options="'.$this->fn->stringify( array(
                         'select' => $dropdown,
                         'settings' =>array(
                             'axisX'=> 'right',
                             'parentElem'=>'.setting-main'
-                        ) 
+                        )
                     ) ).'"><i class="icon-ellipsis-v"></i></a>';
 
 				}
 
 
 				?>
-					
+
 			</td>
 
 		</tr>

@@ -27,7 +27,7 @@ class Users_Model extends Model{
 
     public function is_user($text){
         $c = $this->db->count('users', "(user_login=:txt AND user_login!='') OR (user_email=:txt AND user_email!='')", array(':txt'=>$text));
-        
+
         return $c;
     }
     public function is_name($text) {
@@ -37,7 +37,7 @@ class Users_Model extends Model{
 
     /* -- actions -- */
     public function insert(&$data) {
-        
+
         $data["{$this->_cutNamefield}created"] = date('c');
         $data["{$this->_cutNamefield}updated"] = date('c');
 
@@ -58,7 +58,7 @@ class Users_Model extends Model{
         $this->db->delete($this->_objType, "{$this->_cutNamefield}id={$id}");
     }
 
-    
+
     /* -- find -- */
     public function findById($id){
         $sth = $this->db->prepare("SELECT {$this->_field} FROM {$this->_table} WHERE user_id=:id LIMIT 1");
@@ -74,15 +74,15 @@ class Users_Model extends Model{
 
             'sort' => isset($_REQUEST['sort'])? $_REQUEST['sort']: 'lastvisit',
             'dir' => isset($_REQUEST['dir'])? $_REQUEST['dir']: 'DESC',
-            
+
             'time'=> isset($_REQUEST['time'])? $_REQUEST['time']:time(),
-            
+
             // 'enabled' => isset($_REQUEST['enabled'])? $_REQUEST['enabled']:1,
 
         ), $options);
 
         $date = date('Y-m-d H:i:s', $options['time']);
-        
+
         $condition = "";
         $params = array();
 
@@ -139,7 +139,7 @@ class Users_Model extends Model{
     /* -- Login -- */
     public function login($user, $pess){
 
-        $sth = $this->db->prepare("SELECT iduser as id FROM {$this->_objType} WHERE (user_login=:login AND user_pass=:pass) OR (user_email=:login AND user_pass=:pass)");
+        $sth = $this->db->prepare("SELECT user_id as id FROM {$this->_objType} WHERE (user_login=:login AND user_pass=:pass) OR (user_email=:login AND user_pass=:pass)");
 
         $sth->execute( array(
             ':login' => $user,
@@ -159,7 +159,7 @@ class Users_Model extends Model{
         return $sth->rowCount()==1 ? $fdata['id']: false;
     }
 
-    
+
     /* -- admin roles -- */
     public function admin_roles($type='') {
         return $this->db->select("SELECT role_id as id, role_name as name FROM users_roles ORDER BY role_name");
