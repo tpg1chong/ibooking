@@ -21,6 +21,10 @@ class Property_Controller extends Controller {
             $this->view->setPage('path', 'Themes/admin/forms/property/type');
             $this->view->render('add');
         }
+        elseif( $action=='zone' ){
+            $this->view->setPage('path', 'Themes/admin/forms/property/zone');
+            $this->view->render('add');
+        }
         else if($action=='property'){
             $this->view->setPage('path', 'Themes/admin/forms/property');
             $this->view->render('add');
@@ -33,8 +37,9 @@ class Property_Controller extends Controller {
             $this->view->setData('item', $item);
             $this->add( 'property' );
         }
-        else if( $action=='type' ){
-            $item = $this->model->type->get($id);
+        else{
+            $item = $this->model->{$action}->get($id);
+            if( empty($item) ) $this->error();
             $this->view->setData('item', $item);
             $this->add( $action );
         }
@@ -85,6 +90,41 @@ class Property_Controller extends Controller {
             }
         }
 
+        /* Save: zone  */
+        else if( $action=='zone' ) {
+            $id = isset($_POST['id']) ? $_POST['id']: null;
+            if( !empty($id) ){
+                $item = $this->model->zone->get($id);
+                if( empty($item) ) $this->error();
+            }
+
+            try {
+                $form = new Form();
+                $form   ->post('zone_code')
+                        ->post('zone_name')->val('is_empty');
+
+                $form->submit();
+                $postData = $form->fetch();
+
+                if( empty($arr['error']) ){
+
+                    if( !empty($item) ){
+                        $this->model->zone->update( $id, $postData );
+                    }
+                    else{
+                        $this->model->zone->insert( $postData );
+                        $id = $postData['id'];
+                    }
+
+                    $arr['message'] = 'Saved!';
+                    $arr['url'] = !empty($_REQUEST['next']) ? $_REQUEST['next'] : 'refresh';
+                }
+
+            } catch (Exception $e) {
+                $arr['error'] = $this->_getError($e->getMessage());
+            }
+        }
+
         /* Save: Property  */
         else if( $action=='property' ){
 
@@ -98,13 +138,14 @@ class Property_Controller extends Controller {
     }
     public function del( $action='property', $id=null ) {
         
+        $id = isset($_REQUEST['id']) ? $_REQUEST['id']: $id;
         $path = 'Themes/admin/forms/property';
         if( is_numeric($action) && $id==null ){
             $item = $this->model->get($action);
         }
-        else if( $action=='type' ){
-            $path .= '/type';
-            $item = $this->model->type->get($id);
+        else{
+            $path .= "/{$action}";
+            $item = $this->model->{$action}->get($id);
         }
 
         if( empty($item) ) $this->error();
@@ -113,11 +154,11 @@ class Property_Controller extends Controller {
 
             if( !empty($item['permit']['del']) ){
 
-                if( $action=='type' ){
-                    $this->model->type->delete( $id );
+                if( $action=='property' ){
+                    $this->model->{$action}->delete( $id );
                 }
                 else{
-                    $this->model->delete( $id );
+                    $this->model->{$action}->delete( $id );
                 }
 
                 $arr['message'] = 'Deleted!';

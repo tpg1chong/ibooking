@@ -18,22 +18,23 @@ $form = $form->create()
 	->elem('div')
 	->addClass('form-insert');
 
-$form 	->field("type_code")
-    	->label($this->lang->translate('Code').'*')
+$form 	->field("zone_code")
+    	->label( 'Code*' )
         ->autocomplete('off')
         ->addClass('inputtext')
         ->placeholder('')
         ->value( !empty($this->item['code'])? $this->item['code']:'' );
 
-$form 	->field("type_name")
-    	->label($this->lang->translate('Name').'*')
+$form 	->field("zone_name")
+    	->label( 'Name*' )
         ->autocomplete('off')
         ->addClass('inputtext')
         ->placeholder('')
+        ->attr('autofocus', 1)
         ->value( !empty($this->item['name'])? $this->item['name']:'' );
 
 # set form
-$arr['form'] = '<form class="js-submit-form" method="post" action="'.URL. 'property/save_type"></form>';
+$arr['form'] = '<form class="js-submit-form" method="post" action="'.URL. 'property/save/zone/"></form>';
 
 # body
 $arr['body'] = $form->html();

@@ -1,13 +1,12 @@
 <?php
 
 $this->direction = URL.'property/';
-$this->dataList = array();
 
 ?><div class="setting-header cleafix">
 
 	<div class="rfloat">
 
-		<a class="btn btn-blue" data-plugins="lightbox" href="<?=$this->direction?>add_zone"><i class="icon-plus mrs"></i><span><?=Translate::Val('Add New')?></span></a>
+		<a class="btn btn-blue" data-plugins="lightbox" href="<?=$this->direction?>add/zone/"><i class="icon-plus mrs"></i><span><?=Translate::Val('Add New')?></span></a>
 
 	</div>
 
@@ -27,7 +26,7 @@ $this->dataList = array();
 		<tr data-id="<?=$item['id']?>">
 			<td class="name fwb"><?php
 
-				echo '<a href="'.$url.'edit/'.$item['id'].'" data-plugins="dialog">'.$item['name'].'</a>';
+				echo '<a href="'.$this->direction.'edit/zone/'.$item['id'].'" data-plugins="lightbox">'.$item['name'].'</a>';
 			?></td>
 		
 
@@ -42,15 +41,15 @@ $this->dataList = array();
 
 				$dropdown[] = array(
 	                'text' => Translate::Val('Edit'),
-	                'href' => $url.'edit/'.$item['id'],
-	                'attr' => array('data-plugins'=>'dialog'),
+	                'href' => $this->direction.'edit/zone/'.$item['id'],
+	                'attr' => array('data-plugins'=>'lightbox'),
 	                // 'icon' => 'pencil'
 	            );
 
 				$dropdown[] = array(
 	                'text' => Translate::Val('Delete'),
-	                'href' => $url.'del/'.$item['id'],
-	                'attr' => array('data-plugins'=>'dialog'),
+	                'href' => $this->direction.'del/zone/'.$item['id'],
+	                'attr' => array('data-plugins'=>'lightbox'),
 	                // 'icon' => 'remove'
 	            );
 
@@ -61,7 +60,7 @@ $this->dataList = array();
                         'select' => $dropdown,
                         'settings' =>array(
                             'axisX'=> 'right',
-                            'parent'=>'.setting-main'
+                            'parentElem'=>'.setting-main'
                         ) 
                     ) ).'"><i class="icon-ellipsis-v"></i></a>';
 

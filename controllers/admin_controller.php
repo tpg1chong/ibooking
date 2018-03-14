@@ -110,8 +110,11 @@ class Admin_Controller extends Controller
 
         if( $section=='type' ){
             $types = $this->model->query('property')->type->find();
-
             $this->view->setData('typesList', $types['items'] );
+        }
+        elseif( $section=='zone' ){
+            $results = $this->model->query('property')->zone->find();
+            $this->view->setData('dataList', $results['items'] );
         }
 
         $this->view->render("property/display");
