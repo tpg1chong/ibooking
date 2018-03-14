@@ -127,17 +127,17 @@ class Admin_Controller extends Controller
 
     public function blog($section='published')
     {
-        if( $section=='forum' ){
-            $this->view->setData('forumList', array());
-        }
-
-        if( $section=='category' ){
-            $this->view->setData('categoryList', array());
-        }
-
 
         $this->view->setPage('on', 'blog_manager');
         $this->view->setData('section', $section);
+
+        
+        if( in_array($section, array('forum', 'category')) ) {
+            $results = $this->model->query('blog')->{$section}->find();
+            $this->view->setData('dataList', $results['items'] );
+        }
+
+        
         $this->view->render("blog/display");
     }
 }

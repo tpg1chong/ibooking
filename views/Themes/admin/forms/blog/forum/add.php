@@ -1,7 +1,7 @@
 <?php
 
 # title
-$title = 'Property Type';
+$title = 'Forum';
 
 if( !empty($this->item) ){
     $arr['title']= $title;
@@ -11,28 +11,22 @@ else{
     $arr['title']= $title;
 }
 
+
 $form = new Form();
 $form = $form->create()
 	// set From
 	->elem('div')
 	->addClass('form-insert');
 
-$form 	->field("type_code")
-    	->label( 'Code*' )
+$form   ->field("forum_name")
         ->autocomplete('off')
         ->addClass('inputtext')
-        ->placeholder('')
-        ->value( !empty($this->item['code'])? $this->item['code']:'' );
-
-$form 	->field("type_name")
-    	->label( 'Name*' )
-        ->autocomplete('off')
-        ->addClass('inputtext')
+        ->attr('autoselect', 1)
         ->placeholder('')
         ->value( !empty($this->item['name'])? $this->item['name']:'' );
 
 # set form
-$arr['form'] = '<form class="js-submit-form" method="post" action="'.URL. 'property/save/type/"></form>';
+$arr['form'] = '<form class="js-submit-form" method="post" action="'.URL.'blog/save/forum/"></form>';
 
 # body
 $arr['body'] = $form->html();

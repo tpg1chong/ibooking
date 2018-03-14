@@ -1,8 +1,13 @@
-<div class="setting-header cleafix">
+<?php
+
+
+$this->direction = URL.'blog/';
+
+?><div class="setting-header cleafix">
 
 	<div class="rfloat">
 
-		<a class="btn btn-blue" data-plugins="dialog" href="<?=$url?>add"><i class="icon-plus mrs"></i><span><?=Translate::Val('Add New')?></span></a>
+		<a class="btn btn-blue" data-plugins="lightbox" href="<?=$this->direction?>add/forum/"><i class="icon-plus mrs"></i><span><?=Translate::Val('Add New')?></span></a>
 
 	</div>
 
@@ -19,11 +24,11 @@
 
 		</tr>
 
-		<?php foreach ($this->forumList as $key => $item) { ?>
+		<?php foreach ($this->dataList as $key => $item) { ?>
 		<tr data-id="<?=$item['id']?>">
 			<td class="name fwb"><?php
 
-				echo '<a href="'.$url.'edit/'.$item['id'].'" data-plugins="dialog">'.$item['name'].'</a>';
+				echo '<a href="'.$this->direction.'edit/forum/'.$item['id'].'" data-plugins="lightbox">'.$item['name'].'</a>';
 			?></td>
 			
 			<td class="status">
@@ -41,26 +46,25 @@
 
 				$dropdown[] = array(
 	                'text' => Translate::Val('Edit'),
-	                'href' => $url.'edit/'.$item['id'],
-	                'attr' => array('data-plugins'=>'dialog'),
+	                'href' => $this->direction.'edit/forum/'.$item['id'],
+	                'attr' => array('data-plugins'=>'lightbox'),
 	                // 'icon' => 'pencil'
 	            );
 
 				$dropdown[] = array(
 	                'text' => Translate::Val('Delete'),
-	                'href' => $url.'del/'.$item['id'],
-	                'attr' => array('data-plugins'=>'dialog'),
+	                'href' => $this->direction.'del/forum/'.$item['id'],
+	                'attr' => array('data-plugins'=>'lightbox'),
 	                // 'icon' => 'remove'
 	            );
 
 	            if( !empty($dropdown) ){
-
 	            
 				echo '<a data-plugins="dropdown" class="btn btn-no-padding" data-options="'.$this->fn->stringify( array(
                         'select' => $dropdown,
                         'settings' =>array(
                             'axisX'=> 'right',
-                            'parent'=>'.setting-main'
+                            'parentElem'=>'.setting-main'
                         ) 
                     ) ).'"><i class="icon-ellipsis-v"></i></a>';
 
