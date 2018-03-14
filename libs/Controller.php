@@ -67,6 +67,7 @@ class Controller {
     public function handleLogin(){
         Session::init();
 
+        $loggedOn = $this->getPage('loggedOn');
         if ( Cookie::get( COOKIE_KEY_USER ) ) {
             $me = $this->model->query('users')->findById( Cookie::get( COOKIE_KEY_USER ) );
         }
@@ -90,7 +91,7 @@ class Controller {
             $this->pageOptions['auth'] = $this->model->query('system')->auth( !empty($this->me['access']) ? $this->me['access']: array() );
             $this->view->setPage('auth', $this->pageOptions['auth']);
         }
-        else if( !empty( $this->getPage('loggedOn') ) ) {
+        else if( !empty( $loggedOn ) ) {
             $this->login();
         }
     }
