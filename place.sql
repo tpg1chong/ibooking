@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 13, 2018 at 03:55 PM
+-- Generation Time: Mar 14, 2018 at 09:58 AM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.2
 
@@ -21,6 +21,183 @@ SET time_zone = "+00:00";
 --
 -- Database: `place`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `location_city`
+--
+
+CREATE TABLE `location_city` (
+  `city_id` int(4) NOT NULL,
+  `city_code` varchar(2) NOT NULL,
+  `city_name` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `location_country`
+--
+
+CREATE TABLE `location_country` (
+  `country_region_id` int(1) NOT NULL,
+  `country_id` int(3) NOT NULL,
+  `country_name` varchar(128) NOT NULL,
+  `country_code` varchar(2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `location_geography`
+--
+
+CREATE TABLE `location_geography` (
+  `geo_id` int(2) NOT NULL,
+  `geo_name` varchar(128) NOT NULL,
+  `geo_sequence` int(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `location_region`
+--
+
+CREATE TABLE `location_region` (
+  `region_id` int(1) NOT NULL,
+  `region_name` varchar(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `property`
+--
+
+CREATE TABLE `property` (
+  `property_building_id` int(11) NOT NULL,
+  `property_id` int(11) NOT NULL,
+  `property_name` varchar(128) NOT NULL,
+  `property_status` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `property_building`
+--
+
+CREATE TABLE `property_building` (
+  `building_id` int(11) NOT NULL,
+  `building_name` varchar(160) NOT NULL,
+  `building_type` int(4) NOT NULL,
+  `building_zone` int(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `property_facilities`
+--
+
+CREATE TABLE `property_facilities` (
+  `facilitie_id` int(4) NOT NULL,
+  `facilitie_name` varchar(128) NOT NULL,
+  `facilitie_enabled` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `property_payment_options`
+--
+
+CREATE TABLE `property_payment_options` (
+  `payment_id` int(2) NOT NULL,
+  `payment_name` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `property_room_amenities`
+--
+
+CREATE TABLE `property_room_amenities` (
+  `amenitie_id` int(2) NOT NULL,
+  `amenitie_name` varchar(128) NOT NULL,
+  `amenitie_disabled` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `property_room_offers`
+--
+
+CREATE TABLE `property_room_offers` (
+  `offer_id` int(2) NOT NULL,
+  `offer_name` varchar(128) NOT NULL,
+  `offer_disabled` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `property_transportation`
+--
+
+CREATE TABLE `property_transportation` (
+  `transport_id` int(2) NOT NULL,
+  `transport_name` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `property_type`
+--
+
+CREATE TABLE `property_type` (
+  `type_id` int(4) NOT NULL,
+  `type_code` varchar(2) NOT NULL,
+  `type_name` varchar(128) NOT NULL,
+  `type_enabled` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `property_type`
+--
+
+INSERT INTO `property_type` (`type_id`, `type_code`, `type_name`, `type_enabled`) VALUES
+(1, 'ap', 'Apartment', 1),
+(2, 'co', 'Condominium', 1),
+(3, 'ht', 'Hotel', 1),
+(4, '', 'House', NULL),
+(5, '', 'dsfdsfds', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `property_zone`
+--
+
+CREATE TABLE `property_zone` (
+  `zone_id` int(4) NOT NULL,
+  `zone_code` varchar(2) NOT NULL,
+  `zone_name` varchar(128) NOT NULL,
+  `zone_enabled` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `property_zone`
+--
+
+INSERT INTO `property_zone` (`zone_id`, `zone_code`, `zone_name`, `zone_enabled`) VALUES
+(2, '', 'rryr', 1),
+(3, '', 'sdfdsf', 1);
 
 -- --------------------------------------------------------
 
@@ -102,6 +279,99 @@ INSERT INTO `users_roles` (`role_id`, `role_name`) VALUES
 --
 
 --
+-- Indexes for table `location_city`
+--
+ALTER TABLE `location_city`
+  ADD PRIMARY KEY (`city_id`),
+  ADD KEY `city_id` (`city_id`);
+
+--
+-- Indexes for table `location_country`
+--
+ALTER TABLE `location_country`
+  ADD PRIMARY KEY (`country_id`),
+  ADD KEY `country_region_id` (`country_region_id`),
+  ADD KEY `country_id` (`country_id`);
+
+--
+-- Indexes for table `location_geography`
+--
+ALTER TABLE `location_geography`
+  ADD PRIMARY KEY (`geo_id`),
+  ADD KEY `geo_id` (`geo_id`);
+
+--
+-- Indexes for table `location_region`
+--
+ALTER TABLE `location_region`
+  ADD PRIMARY KEY (`region_id`),
+  ADD KEY `region_id` (`region_id`);
+
+--
+-- Indexes for table `property`
+--
+ALTER TABLE `property`
+  ADD PRIMARY KEY (`property_id`),
+  ADD KEY `property_building_id` (`property_building_id`),
+  ADD KEY `property_id` (`property_id`);
+
+--
+-- Indexes for table `property_building`
+--
+ALTER TABLE `property_building`
+  ADD PRIMARY KEY (`building_id`),
+  ADD KEY `building_type` (`building_type`),
+  ADD KEY `building_zone` (`building_zone`),
+  ADD KEY `building_id` (`building_id`);
+
+--
+-- Indexes for table `property_facilities`
+--
+ALTER TABLE `property_facilities`
+  ADD PRIMARY KEY (`facilitie_id`);
+
+--
+-- Indexes for table `property_payment_options`
+--
+ALTER TABLE `property_payment_options`
+  ADD PRIMARY KEY (`payment_id`),
+  ADD KEY `payment_id` (`payment_id`);
+
+--
+-- Indexes for table `property_room_amenities`
+--
+ALTER TABLE `property_room_amenities`
+  ADD PRIMARY KEY (`amenitie_id`),
+  ADD KEY `amenitie_id` (`amenitie_id`);
+
+--
+-- Indexes for table `property_room_offers`
+--
+ALTER TABLE `property_room_offers`
+  ADD PRIMARY KEY (`offer_id`),
+  ADD KEY `offer_id` (`offer_id`);
+
+--
+-- Indexes for table `property_transportation`
+--
+ALTER TABLE `property_transportation`
+  ADD PRIMARY KEY (`transport_id`);
+
+--
+-- Indexes for table `property_type`
+--
+ALTER TABLE `property_type`
+  ADD PRIMARY KEY (`type_id`),
+  ADD KEY `type_id` (`type_id`);
+
+--
+-- Indexes for table `property_zone`
+--
+ALTER TABLE `property_zone`
+  ADD PRIMARY KEY (`zone_id`),
+  ADD KEY `zone_id` (`zone_id`);
+
+--
 -- Indexes for table `system_info`
 --
 ALTER TABLE `system_info`
@@ -127,6 +397,84 @@ ALTER TABLE `users_roles`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `location_city`
+--
+ALTER TABLE `location_city`
+  MODIFY `city_id` int(4) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `location_country`
+--
+ALTER TABLE `location_country`
+  MODIFY `country_id` int(3) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `location_geography`
+--
+ALTER TABLE `location_geography`
+  MODIFY `geo_id` int(2) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `location_region`
+--
+ALTER TABLE `location_region`
+  MODIFY `region_id` int(1) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `property`
+--
+ALTER TABLE `property`
+  MODIFY `property_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `property_building`
+--
+ALTER TABLE `property_building`
+  MODIFY `building_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `property_facilities`
+--
+ALTER TABLE `property_facilities`
+  MODIFY `facilitie_id` int(4) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `property_payment_options`
+--
+ALTER TABLE `property_payment_options`
+  MODIFY `payment_id` int(2) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `property_room_amenities`
+--
+ALTER TABLE `property_room_amenities`
+  MODIFY `amenitie_id` int(2) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `property_room_offers`
+--
+ALTER TABLE `property_room_offers`
+  MODIFY `offer_id` int(2) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `property_transportation`
+--
+ALTER TABLE `property_transportation`
+  MODIFY `transport_id` int(2) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `property_type`
+--
+ALTER TABLE `property_type`
+  MODIFY `type_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `property_zone`
+--
+ALTER TABLE `property_zone`
+  MODIFY `zone_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `system_info`
