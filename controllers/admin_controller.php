@@ -107,33 +107,14 @@ class Admin_Controller extends Controller
         $this->view->setPage('on', 'property_manager');
         $this->view->setData('section', $section);
 
+        if( in_array($section, array('type', 'zone', 'facilities', 'amenities', 'offers', 'payment_options', 'transportation')) ){
+            $q = $section; 
 
-        if( $section=='type' ){
-            $results = $this->model->query('property')->type->find();
-            $this->view->setData('dataList', $results['items'] );
-        }
-        elseif( $section=='zone' ){
-            $results = $this->model->query('property')->zone->find();
-            $this->view->setData('dataList', $results['items'] );
-        }
-				elseif( $section=='facilities' ){
-            $results = $this->model->query('property')->facilities->find();
-            $this->view->setData('dataList', $results['items'] );
-        }
-				elseif( $section=='amenities' ){
-            $results = $this->model->query('property')->amenities->find();
-            $this->view->setData('dataList', $results['items'] );
-        }
-				elseif( $section=='offers' ){
-            $results = $this->model->query('property')->offers->find();
-            $this->view->setData('dataList', $results['items'] );
-        }
-				elseif( $section=='payment_options' ){
-            $results = $this->model->query('property')->payment->find();
-            $this->view->setData('dataList', $results['items'] );
-        }
-				elseif( $section=='transportation' ){
-            $results = $this->model->query('property')->transportation->find();
+            if( $q == 'payment_options'){
+                $q = 'payment';
+            }
+
+            $results = $this->model->query('property')->{$q}->find();
             $this->view->setData('dataList', $results['items'] );
         }
 
@@ -157,7 +138,6 @@ class Admin_Controller extends Controller
             $results = $this->model->query('blog')->{$section}->find();
             $this->view->setData('dataList', $results['items'] );
         }
-
         
         $this->view->render("blog/display");
     }
