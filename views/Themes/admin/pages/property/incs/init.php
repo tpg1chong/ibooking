@@ -35,3 +35,17 @@ $sub[] = array('key'=>'transportation', 'text'=>'Transportation', 'url' => $this
 $this->count_nav+=count($sub);
 $menu[] = array('text' => 'Management', 'url' => '', 'sub' => $sub);
 
+
+
+/*location*/
+$sub = array();
+$sub[] = array('key'=>'region', 'text'=>'Region', 'url' => $this->pageURL.'Region');
+$sub[] = array('key'=>'country', 'text'=>'Country', 'url' => $this->pageURL.'Country');
+$sub[] = array('key'=>'geography', 'text'=>'Geography', 'url' => $this->pageURL.'Geography');
+$sub[] = array('key'=>'city', 'text'=>'City', 'url' => $this->pageURL.'City');
+
+
+
+
+$this->count_nav+=count($sub);
+$menu[] = array('text' => 'Locations', 'url' => '', 'sub' => $sub);
