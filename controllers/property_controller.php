@@ -13,22 +13,14 @@ class Property_Controller extends Controller {
 
 
     /* -- Property Action -- */
-    public function add( $action='property' ) {
+    public function add( $action='' ) {
 
         if( empty($this->me) || $this->format!='json' ) $this->error();
+        $path = 'Themes/admin/forms/property';
+        $path .= !empty( $action ) ? "/{$action}":'';
 
-        if( $action=='type' ){
-            $this->view->setPage('path', 'Themes/admin/forms/property/type');
-            $this->view->render('add');
-        }
-        elseif( $action=='zone' ){
-            $this->view->setPage('path', 'Themes/admin/forms/property/zone');
-            $this->view->render('add');
-        }
-        else if($action=='property'){
-            $this->view->setPage('path', 'Themes/admin/forms/property');
-            $this->view->render('add');
-        }        
+        $this->view->setPage('path', $path);
+        $this->view->render('add');
     }
     public function edit( $action='property', $id=null )
     {
@@ -124,6 +116,174 @@ class Property_Controller extends Controller {
                 $arr['error'] = $this->_getError($e->getMessage());
             }
         }
+        /* Save: 	facilities  */
+        else if( $action=='facilities' ) {
+            $id = isset($_POST['id']) ? $_POST['id']: null;
+            if( !empty($id) ){
+                $item = $this->model->facilities->get($id);
+                if( empty($item) ) $this->error();
+            }
+
+            try {
+                $form = new Form();
+                $form->post('facilitie_name')->val('is_empty');
+
+                $form->submit();
+                $postData = $form->fetch();
+
+                if( empty($arr['error']) ){
+
+                    if( !empty($item) ){
+                        $this->model->facilities->update( $id, $postData );
+                    }
+                    else{
+                        $this->model->facilities->insert( $postData );
+                        $id = $postData['id'];
+                    }
+
+                    $arr['message'] = 'Saved!';
+                    $arr['url'] = !empty($_REQUEST['next']) ? $_REQUEST['next'] : 'refresh';
+                }
+
+            } catch (Exception $e) {
+                $arr['error'] = $this->_getError($e->getMessage());
+            }
+        }
+
+        /* Save: 	amenities  */
+        else if( $action=='amenities' ) {
+            $id = isset($_POST['id']) ? $_POST['id']: null;
+            if( !empty($id) ){
+                $item = $this->model->amenities->get($id);
+                if( empty($item) ) $this->error();
+            }
+
+            try {
+                $form = new Form();
+                $form->post('amenitie_name')->val('is_empty');
+
+                $form->submit();
+                $postData = $form->fetch();
+
+                if( empty($arr['error']) ){
+
+                    if( !empty($item) ){
+                        $this->model->amenities->update( $id, $postData );
+                    }
+                    else{
+                        $this->model->amenities->insert( $postData );
+                        $id = $postData['id'];
+                    }
+
+                    $arr['message'] = 'Saved!';
+                    $arr['url'] = !empty($_REQUEST['next']) ? $_REQUEST['next'] : 'refresh';
+                }
+
+            } catch (Exception $e) {
+                $arr['error'] = $this->_getError($e->getMessage());
+            }
+        }
+        /* Save: 	offers  */
+        else if( $action=='offers' ) {
+            $id = isset($_POST['id']) ? $_POST['id']: null;
+            if( !empty($id) ){
+                $item = $this->model->offers->get($id);
+                if( empty($item) ) $this->error();
+            }
+
+            try {
+                $form = new Form();
+                $form->post('offer_name')->val('is_empty');
+
+                $form->submit();
+                $postData = $form->fetch();
+
+                if( empty($arr['error']) ){
+
+                    if( !empty($item) ){
+                        $this->model->offers->update( $id, $postData );
+                    }
+                    else{
+                        $this->model->offers->insert( $postData );
+                        $id = $postData['id'];
+                    }
+
+                    $arr['message'] = 'Saved!';
+                    $arr['url'] = !empty($_REQUEST['next']) ? $_REQUEST['next'] : 'refresh';
+                }
+
+            } catch (Exception $e) {
+                $arr['error'] = $this->_getError($e->getMessage());
+            }
+        }
+        /* Save: 	payment  */
+        else if( $action=='payment' ) {
+            $id = isset($_POST['id']) ? $_POST['id']: null;
+            if( !empty($id) ){
+                $item = $this->model->payment->get($id);
+                if( empty($item) ) $this->error();
+            }
+
+            try {
+                $form = new Form();
+                $form->post('payment_name')->val('is_empty');
+
+                $form->submit();
+                $postData = $form->fetch();
+
+                if( empty($arr['error']) ){
+
+                    if( !empty($item) ){
+                        $this->model->payment->update( $id, $postData );
+                    }
+                    else{
+                        $this->model->payment->insert( $postData );
+                        $id = $postData['id'];
+                    }
+
+                    $arr['message'] = 'Saved!';
+                    $arr['url'] = !empty($_REQUEST['next']) ? $_REQUEST['next'] : 'refresh';
+                }
+
+            } catch (Exception $e) {
+                $arr['error'] = $this->_getError($e->getMessage());
+            }
+        }
+        /* Save: 	transportation  */
+        else if( $action=='transportation' ) {
+            $id = isset($_POST['id']) ? $_POST['id']: null;
+            if( !empty($id) ){
+                $item = $this->model->transportation->get($id);
+                if( empty($item) ) $this->error();
+            }
+
+            try {
+                $form = new Form();
+                $form->post('transport_name')->val('is_empty');
+
+                $form->submit();
+                $postData = $form->fetch();
+
+                if( empty($arr['error']) ){
+
+                    if( !empty($item) ){
+                        $this->model->transportation->update( $id, $postData );
+                    }
+                    else{
+                        $this->model->transportation->insert( $postData );
+                        $id = $postData['id'];
+                    }
+
+                    $arr['message'] = 'Saved!';
+                    $arr['url'] = !empty($_REQUEST['next']) ? $_REQUEST['next'] : 'refresh';
+                }
+
+            } catch (Exception $e) {
+                $arr['error'] = $this->_getError($e->getMessage());
+            }
+        }
+
+
 
         /* Save: Property  */
         else if( $action=='property' ){
@@ -132,12 +292,12 @@ class Property_Controller extends Controller {
         else{
             $arr['error'] = 400;
         }
-        
+
 
         echo json_encode($arr);
     }
     public function del( $action='property', $id=null ) {
-        
+
         $id = isset($_REQUEST['id']) ? $_REQUEST['id']: $id;
         $path = 'Themes/admin/forms/property';
         if( is_numeric($action) && $id==null ){

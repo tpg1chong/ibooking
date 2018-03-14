@@ -1,15 +1,15 @@
 <?php
 
-class Zone extends Model
+class payment extends Model
 {
 	public function __construct() {
 		parent::__construct();
     }
 
 
-    private $_table = 'property_zone';
+    private $_table = 'property_payment_options';
     private $_field = '*';
-    private $_prefixField = 'zone_';
+    private $_prefixField = 'payment_';
 
 
     public function get($id)
@@ -80,7 +80,7 @@ class Zone extends Model
 
 	public function insert(&$data)
 	{
-		if( !isset($data[$this->_prefixField.'enabled']) ) $data[$this->_prefixField.'enabled'] = 1;
+		
 
 		$this->db->insert($this->_table, $data);
         $data['id'] = $this->db->lastInsertId();

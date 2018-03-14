@@ -1,13 +1,12 @@
 <?php
 
-
-$this->dataList = array();
+$this->direction = URL.'property/';
 
 ?><div class="setting-header cleafix">
 
 	<div class="rfloat">
 
-		<a class="btn btn-blue" data-plugins="dialog" href="<?=$url?>add"><i class="icon-plus mrs"></i><span><?=Translate::Val('Add New')?></span></a>
+		<a class="btn btn-blue" data-plugins="lightbox" href="<?=$this->direction?>add/payment/"><i class="icon-plus mrs"></i><span><?=Translate::Val('Add New')?></span></a>
 
 	</div>
 
@@ -27,9 +26,9 @@ $this->dataList = array();
 		<tr data-id="<?=$item['id']?>">
 			<td class="name fwb"><?php
 
-				echo '<a href="'.$url.'edit/'.$item['id'].'" data-plugins="dialog">'.$item['name'].'</a>';
+				echo '<a href="'.$this->direction.'edit/payment/'.$item['id'].'" data-plugins="lightbox">'.$item['name'].'</a>';
 			?></td>
-		
+
 
 			<td class="status">
 				<label class="checkbox"><input data-action="change" type="checkbox" name="forum_enabled"<?=( !empty($item['enabled'])? ' checked':'' )?>></label>
@@ -42,34 +41,34 @@ $this->dataList = array();
 
 				$dropdown[] = array(
 	                'text' => Translate::Val('Edit'),
-	                'href' => $url.'edit/'.$item['id'],
-	                'attr' => array('data-plugins'=>'dialog'),
+	                'href' => $this->direction.'edit/payment/'.$item['id'],
+	                'attr' => array('data-plugins'=>'lightbox'),
 	                // 'icon' => 'pencil'
 	            );
 
 				$dropdown[] = array(
 	                'text' => Translate::Val('Delete'),
-	                'href' => $url.'del/'.$item['id'],
-	                'attr' => array('data-plugins'=>'dialog'),
+	                'href' => $this->direction.'del/payment/'.$item['id'],
+	                'attr' => array('data-plugins'=>'lightbox'),
 	                // 'icon' => 'remove'
 	            );
 
 	            if( !empty($dropdown) ){
 
-	            
+
 				echo '<a data-plugins="dropdown" class="btn btn-no-padding" data-options="'.$this->fn->stringify( array(
                         'select' => $dropdown,
                         'settings' =>array(
                             'axisX'=> 'right',
-                            'parent'=>'.setting-main'
-                        ) 
+                            'parentElem'=>'.setting-main'
+                        )
                     ) ).'"><i class="icon-ellipsis-v"></i></a>';
 
 				}
 
 
 				?>
-					
+
 			</td>
 
 		</tr>
