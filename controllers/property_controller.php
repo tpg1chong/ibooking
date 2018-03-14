@@ -29,7 +29,7 @@ class Property_Controller extends Controller {
     public function edit( $action='property', $id=null )
     {
         if( is_numeric($action) && $id==null ){
-            $item = $this->model->get($id);
+            $item = $this->model->get($action);
             $this->view->setData('item', $item);
             $this->add( 'property' );
         }
@@ -95,6 +95,46 @@ class Property_Controller extends Controller {
         
 
         echo json_encode($arr);
+    }
+    public function del( $action='property', $id=null ) {
+        
+        $path = 'Themes/admin/forms/property';
+        if( is_numeric($action) && $id==null ){
+            $item = $this->model->get($action);
+        }
+        else if( $action=='type' ){
+            $path .= '/type';
+            $item = $this->model->type->get($id);
+        }
+
+        if( empty($item) ) $this->error();
+
+        if( !empty($_POST) ){
+
+            if( !empty($item['permit']['del']) ){
+
+                if( $action=='type' ){
+                    $this->model->type->delete( $id );
+                }
+                else{
+                    $this->model->delete( $id );
+                }
+
+                $arr['message'] = 'Deleted!';
+                $arr['url'] = 'refresh';
+            }
+            else{
+                $arr['error'] = 1;
+                $arr['message'] = "Can't Delete";
+            }
+
+            echo json_encode( $arr );
+        }
+        else{
+            $this->view->setData('item', $item);
+            $this->view->setPage('path', $path );
+            $this->view->render('del');
+        }
     }
 
 

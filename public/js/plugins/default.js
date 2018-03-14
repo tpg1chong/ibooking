@@ -1802,20 +1802,24 @@ if ( typeof Object.create !== 'function' ) {
 			self.$model.html( self.$menu );
 
 			var offset = self.$elem.offset();
-			if( self.options.settings.parent ){
 
-				offset.top = self.$elem.position().top;
+			if( self.options.settings.parentElem ){
+				var $parentElem = $(self.options.settings.parentElem);
+				if( $parentElem.length==1 ){
 
-				offset.$parent = self.$elem.closest( self.options.settings.parent );
-				var parentoffset = offset.$parent.offset();
-				
-				var position = offset.$parent.css('position');
-				if( position=='undefined' ||  !position ){
-					offset.$parent.css('position', 'relative');
-				}
+					offset.top = self.$elem.position().top;
+
+					offset.$parent = self.$elem.closest( self.options.settings.parentElem );
+					var parentoffset = offset.$parent.offset();
 					
-				offset.left-=parentoffset.left;
-				offset.top += $(self.options.settings.parent).scrollTop();
+					var position = offset.$parent.css('position');
+					if( position=='undefined' ||  !position ){
+						offset.$parent.css('position', 'relative');
+					}
+						
+					offset.left -= parentoffset.left - $(self.options.settings.parentElem).offset().left;
+					offset.top += $parentElem.scrollTop();
+				}
 			}
 			
 			var settings = $.extend( {}, self.options.settings, offset );

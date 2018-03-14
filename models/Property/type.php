@@ -34,7 +34,7 @@ class Type extends Model
             'dir' => isset($_REQUEST['dir'])? $_REQUEST['dir']: 'ASC',
             
             'time'=> isset($_REQUEST['time'])? $_REQUEST['time']:time(),
-            'enabled'=> isset($_REQUEST['enabled'])? $_REQUEST['enabled']:true,
+            // 'enabled'=> isset($_REQUEST['enabled'])? $_REQUEST['enabled']:true,
 
         ), $options);
 

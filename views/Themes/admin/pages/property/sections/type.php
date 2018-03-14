@@ -47,7 +47,7 @@ $this->direction = URL.'property/';
 
 				$dropdown[] = array(
 	                'text' => Translate::Val('Delete'),
-	                'href' => $this->direction.'del/'.$item['id'],
+	                'href' => $this->direction.'del/type/'.$item['id'],
 	                'attr' => array('data-plugins'=>'lightbox'),
 	                // 'icon' => 'remove'
 	            );
@@ -59,7 +59,7 @@ $this->direction = URL.'property/';
                         'select' => $dropdown,
                         'settings' =>array(
                             'axisX'=> 'right',
-                            'parent'=>'.setting-main'
+                            'parentElem'=>'.setting-main'
                         ) 
                     ) ).'"><i class="icon-ellipsis-v"></i></a>';
 

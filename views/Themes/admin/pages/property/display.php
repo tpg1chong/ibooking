@@ -5,7 +5,7 @@ require_once 'incs/init.php';
 echo '<div id="mainContainer" data-plugins="main">';
 	if( $this->count_nav > 1 ){ require_once 'incs/leftMenu.php'; }
 
-	echo '<div role="content"><div role="main"><div class="pal mhl">';
+	echo '<div role="content"><div role="main" class="setting-main"><div class="pal mhl">';
 		
 		echo '<div id="site-settings" class="admin-settings">';
 			if( !empty($this->section) ){
