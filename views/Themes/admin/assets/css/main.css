@@ -2654,6 +2654,11 @@ body.hidden-tobar #tobar {
     z-index: 100;
     overflow-y: auto;
 }
+.settings-left.menu, .settings-left.menu .settings-nav{
+    background-color: transparent;
+    box-shadow: none;
+    padding-right: 0
+}
 .settings-left .settings-nav .head {
     font-weight: bold;
     color: #888;

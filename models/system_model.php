@@ -22,6 +22,9 @@ class System_Model extends Model{
         // is admin 
         if( in_array(1, $access) ){ 
 
+            // set menu
+            $arr['dashboard'] = array('view'=>1);
+
             // set settings
             $arr['overview'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);  
 
@@ -44,41 +47,26 @@ class System_Model extends Model{
 
             # member
             $arr['member_manager'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
+            $arr['inbox'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
 
 
             # property
-            $arr['type'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
-            $arr['zone'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
-            $arr['near_type'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
-            $arr['near'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
+            $arr['property_manager'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
+            $arr['property_type'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
+            $arr['property_zone'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
+            $arr['property_near'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
+            $arr['property_building'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
+
 
 
             #Data Management
             $arr['import'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
             $arr['export'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
 
-            // set menu
-            $arr['dashboard'] = array('view'=>1);
-            // $arr['events'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>0);
 
-            #customers
-            $arr['companies'] = array('view'=>1,'edit'=>1,'del'=>1, 'add'=>1);
-            $arr['customers'] = array('view'=>1,'edit'=>1,'del'=>1, 'add'=>1);
-
-            #People
-            $arr['organization'] = array('view'=>1,'edit'=>1,'del'=>1, 'add'=>1);
-            $arr['people'] = array('view'=>1,'edit'=>1,'del'=>1, 'add'=>1);
-           
+            #promotions
+            $arr['promotions'] = array('view'=>1,'edit'=>1,'del'=>1, 'add'=>1);
             #property
-            $arr['property_manager'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
-            
-            $arr['property_listing'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
-            $arr['property_building'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
-
-            #reports
-            $arr['tasks'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);    
-            $arr['reports'] = array('view'=>1);
-
 
 
             $arr['accounts'] = array('view'=>1);

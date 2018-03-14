@@ -9,14 +9,21 @@ $nav = array(
 
 		// Overview
 		  array('key'=>'overview', 'text'=> 'Overview', 'link'=>$this->pageURL.'overview', 'icon'=>'area-chart')
+		, array('key'=>'blog_manager', 'text'=> Translate::Val('Blog'), 'link'=>$this->pageURL.'blog', 'icon'=>'newspaper-o')
 	)
 	, array(
 
 		// Site
 		  array('key'=>'property_manager', 'text'=> Translate::Val('Property'), 'link'=>$this->pageURL.'property', 'icon'=>'home')
-		, array('key'=>'member_manager', 'text'=> Translate::Menu('Member'), 'link'=>$this->pageURL.'member', 'icon'=>'users')
+		, array('key'=>'promotions', 'text'=> Translate::Val('Promotions'), 'link'=>$this->pageURL.'promotions', 'icon'=>'tags')
 		
-		, array('key'=>'blog_manager', 'text'=> Translate::Val('Blog'), 'link'=>$this->pageURL.'blog', 'icon'=>'newspaper-o')
+	)
+	, array(
+
+		// Site
+		  array('key'=>'member_manager', 'text'=> Translate::Menu('Member'), 'link'=>$this->pageURL.'member', 'icon'=>'users')
+		, array('key'=>'inbox', 'text'=> Translate::Menu('Inbox'), 'link'=>$this->pageURL.'inbox', 'icon'=>'envelope-o')
+		
 	)
 	, array(
 		  array('key'=>'site_manager', 'text'=> 'Site Manager','link'=>$this->pageURL.'site','icon'=>'object-ungroup')

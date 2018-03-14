@@ -38,3 +38,9 @@ http://themes.themegoods.com/?theme=GrandTour
 
 
 https://www.behance.net/gallery/10959669/Travel-Agency-Responsive-Hotel-Online-Booking-Template
+
+
+Database:	getthatf_placedb
+Host:		localhost
+Username:	getthatf_place
+Password:	m26zYt3SY2

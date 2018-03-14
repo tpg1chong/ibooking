@@ -101,11 +101,32 @@ class Admin_Controller extends Controller
 
 
     /* -- property -- */
-    public function property($section='overview')
+    public function property($section='available')
     {
         $this->view->setPage('on', 'property_manager');
         $this->view->setData('section', $section);
 
         $this->view->render("property/display");
+    }
+    public function promotions()
+    {
+        $this->view->setPage('on', 'promotions');
+        $this->error();
+    }
+
+    public function blog($section='published')
+    {
+        if( $section=='forum' ){
+            $this->view->setData('forumList', array());
+        }
+
+        if( $section=='category' ){
+            $this->view->setData('categoryList', array());
+        }
+
+
+        $this->view->setPage('on', 'blog_manager');
+        $this->view->setData('section', $section);
+        $this->view->render("blog/display");
     }
 }
