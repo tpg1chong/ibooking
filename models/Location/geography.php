@@ -1,15 +1,15 @@
 <?php
 
-class Payment extends Model
+class Geography extends Model
 {
 	public function __construct() {
 		parent::__construct();
     }
 
 
-    private $_table = 'property_payment_options';
+    private $_table = 'location_geography';
     private $_field = '*';
-    private $_prefixField = 'payment_';
+    private $_prefixField = 'geo_';
 
 
     public function get($id)

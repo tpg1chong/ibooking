@@ -108,7 +108,7 @@ class Admin_Controller extends Controller
         $this->view->setData('section', $section);
 
         if( in_array($section, array('type', 'zone', 'facilities', 'amenities', 'offers', 'payment_options', 'transportation')) ){
-            $q = $section; 
+            $q = $section;
 
             if( $q == 'payment_options'){
                 $q = 'payment';
@@ -117,10 +117,33 @@ class Admin_Controller extends Controller
             $results = $this->model->query('property')->{$q}->find();
             $this->view->setData('dataList', $results['items'] );
         }
+				if( in_array($section, array('region', 'country', 'geography'))){
+
+					$results = $this->model->query('location')->{$section}->find();
+					$this->view->setData('dataList', $results['items'] );
+				}
 
 
         $this->view->render("property/display");
+
     }
+
+		public function location($section='available'){
+			$this->view->setPage('on', 'location');
+			$this->view->setData('section', $section);
+
+			if( in_array($section, array('region', 'country', 'geography'))){
+
+				$results = $this->model->query('location')->{$section}->find();
+				$this->view->setData('dataList', $results['items'] );
+			}
+
+
+			$this->view->render("location/display");
+
+		}
+
+
     public function promotions()
     {
         $this->view->setPage('on', 'promotions');
@@ -133,12 +156,12 @@ class Admin_Controller extends Controller
         $this->view->setPage('on', 'blog_manager');
         $this->view->setData('section', $section);
 
-        
+
         if( in_array($section, array('forum', 'category')) ) {
             $results = $this->model->query('blog')->{$section}->find();
             $this->view->setData('dataList', $results['items'] );
         }
-        
+
         $this->view->render("blog/display");
     }
 }

@@ -12,7 +12,7 @@ $sub[] = array('key'=>'not_available', 'text'=>'Not Available', 'url' => $this->
 $sub[] = array('key'=>'drafts', 'text'=>'Drafts', 'url' => $this->pageURL.'drafts');
 $sub[] = array('key'=>'promotions', 'text'=>'Promotions', 'url' => $this->pageURL.'promotions');
 
-$sub[] = array('key'=>'building', 'text'=>'Building', 'url' => $this->pageURL.'building');
+
 
 
 $this->count_nav+=count($sub);
@@ -34,18 +34,3 @@ $sub[] = array('key'=>'transportation', 'text'=>'Transportation', 'url' => $this
 
 $this->count_nav+=count($sub);
 $menu[] = array('text' => 'Management', 'url' => '', 'sub' => $sub);
-
-
-
-/*location*/
-$sub = array();
-$sub[] = array('key'=>'region', 'text'=>'Region', 'url' => $this->pageURL.'Region');
-$sub[] = array('key'=>'country', 'text'=>'Country', 'url' => $this->pageURL.'Country');
-$sub[] = array('key'=>'geography', 'text'=>'Geography', 'url' => $this->pageURL.'Geography');
-$sub[] = array('key'=>'city', 'text'=>'City', 'url' => $this->pageURL.'City');
-
-
-
-
-$this->count_nav+=count($sub);
-$menu[] = array('text' => 'Locations', 'url' => '', 'sub' => $sub);

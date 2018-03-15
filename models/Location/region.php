@@ -1,15 +1,15 @@
 <?php
 
-class Payment extends Model
+class Region extends Model
 {
 	public function __construct() {
 		parent::__construct();
     }
 
 
-    private $_table = 'property_payment_options';
+    private $_table = 'location_region';
     private $_field = '*';
-    private $_prefixField = 'payment_';
+    private $_prefixField = 'region_';
 
 
     public function get($id)
@@ -80,7 +80,6 @@ class Payment extends Model
 
 	public function insert(&$data)
 	{
-
 
 		$this->db->insert($this->_table, $data);
         $data['id'] = $this->db->lastInsertId();

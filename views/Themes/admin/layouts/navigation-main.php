@@ -14,25 +14,26 @@ $nav = array(
 	, array(
 
 		// Site
-		  array('key'=>'property_manager', 'text'=> Translate::Val('Property'), 'link'=>$this->pageURL.'property', 'icon'=>'home')
+		  array('key'=>'location', 'text'=> Translate::Val('Location'), 'link'=>$this->pageURL.'location', 'icon'=>'map')
+		, array('key'=>'property_manager', 'text'=> Translate::Val('Property'), 'link'=>$this->pageURL.'property', 'icon'=>'home')
 		, array('key'=>'promotions', 'text'=> Translate::Val('Promotions'), 'link'=>$this->pageURL.'promotions', 'icon'=>'tags')
-		
+
 	)
 	, array(
 
 		// Site
 		  array('key'=>'member_manager', 'text'=> Translate::Menu('Member'), 'link'=>$this->pageURL.'member', 'icon'=>'users')
 		, array('key'=>'inbox', 'text'=> Translate::Menu('Inbox'), 'link'=>$this->pageURL.'inbox', 'icon'=>'envelope-o')
-		
+
 	)
 	, array(
 		  array('key'=>'site_manager', 'text'=> 'Site Manager','link'=>$this->pageURL.'site','icon'=>'object-ungroup')
 		, array('key'=>'business', 'text'=> 'Business Info','link'=>$this->pageURL.'business','icon'=>'cog')
-		// authorization 
+		// authorization
 		, array('key'=>'authorization', 'text'=> 'Roles & Permissions', 'link'=>$this->pageURL.'account/authorization','icon'=>'users' )
 		, array('key'=>'my','text'=> 'Account Settings','link'=>$this->pageURL.'account/settings','icon'=>'user-circle')
 	)
-); 
+);
 
 
 
@@ -56,7 +57,7 @@ echo '<div class="navigation-main-content">';
 
 
 foreach ($nav as $items) {
-	
+
 	foreach ($items as $key => $value) {
 		if( empty($this->permit[$value['key']]['view']) ) unset($items[$key]);
 	}

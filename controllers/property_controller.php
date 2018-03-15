@@ -81,7 +81,6 @@ class Property_Controller extends Controller {
                 $arr['error'] = $this->_getError($e->getMessage());
             }
         }
-
         /* Save: zone  */
         else if( $action=='zone' ) {
             $id = isset($_POST['id']) ? $_POST['id']: null;
@@ -282,6 +281,108 @@ class Property_Controller extends Controller {
                 $arr['error'] = $this->_getError($e->getMessage());
             }
         }
+
+// Location
+        /* Save: 	region  */
+        else if( $action=='region' ) {
+            $id = isset($_POST['id']) ? $_POST['id']: null;
+            if( !empty($id) ){
+                $item = $this->model->region->get($id);
+                if( empty($item) ) $this->error();
+            }
+
+            try {
+                $form = new Form();
+                $form->post('region_name')->val('is_empty');
+
+                $form->submit();
+                $postData = $form->fetch();
+
+                if( empty($arr['error']) ){
+
+                    if( !empty($item) ){
+                        $this->model->region->update( $id, $postData );
+                    }
+                    else{
+                        $this->model->region->insert( $postData );
+                        $id = $postData['id'];
+                    }
+
+                    $arr['message'] = 'Saved!';
+                    $arr['url'] = !empty($_REQUEST['next']) ? $_REQUEST['next'] : 'refresh';
+                }
+
+            } catch (Exception $e) {
+                $arr['error'] = $this->_getError($e->getMessage());
+            }
+        }
+        /* Save: 	country  */
+        else if( $action=='country' ) {
+            $id = isset($_POST['id']) ? $_POST['id']: null;
+            if( !empty($id) ){
+                $item = $this->model->country->get($id);
+                if( empty($item) ) $this->error();
+            }
+
+            try {
+                $form = new Form();
+                $form->post('country_name')->val('is_empty');
+
+                $form->submit();
+                $postData = $form->fetch();
+
+                if( empty($arr['error']) ){
+
+                    if( !empty($item) ){
+                        $this->model->country->update( $id, $postData );
+                    }
+                    else{
+                        $this->model->country->insert( $postData );
+                        $id = $postData['id'];
+                    }
+
+                    $arr['message'] = 'Saved!';
+                    $arr['url'] = !empty($_REQUEST['next']) ? $_REQUEST['next'] : 'refresh';
+                }
+
+            } catch (Exception $e) {
+                $arr['error'] = $this->_getError($e->getMessage());
+            }
+        }
+        /* Save: 	geography  */
+        else if( $action=='geography' ) {
+            $id = isset($_POST['id']) ? $_POST['id']: null;
+            if( !empty($id) ){
+                $item = $this->model->geography->get($id);
+                if( empty($item) ) $this->error();
+            }
+
+            try {
+                $form = new Form();
+                $form->post('geo_name')->val('is_empty');
+
+                $form->submit();
+                $postData = $form->fetch();
+
+                if( empty($arr['error']) ){
+
+                    if( !empty($item) ){
+                        $this->model->geography->update( $id, $postData );
+                    }
+                    else{
+                        $this->model->geography->insert( $postData );
+                        $id = $postData['id'];
+                    }
+
+                    $arr['message'] = 'Saved!';
+                    $arr['url'] = !empty($_REQUEST['next']) ? $_REQUEST['next'] : 'refresh';
+                }
+
+            } catch (Exception $e) {
+                $arr['error'] = $this->_getError($e->getMessage());
+            }
+        }
+
 
 
 

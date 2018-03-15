@@ -1,6 +1,6 @@
 <?php
 
-class amenities extends Model
+class Amenities extends Model
 {
 	public function __construct() {
 		parent::__construct();

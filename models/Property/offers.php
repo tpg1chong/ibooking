@@ -1,6 +1,6 @@
 <?php
 
-class offers extends Model
+class Offers extends Model
 {
 	public function __construct() {
 		parent::__construct();

@@ -6,12 +6,12 @@ class System_Model extends Model{
         parent::__construct();
     }
 
-   
+
     /* -- Page Authorization -- */
     public function auth( $access=array() ) {
 
         // Settings
-        $arr = array( 
+        $arr = array(
             // 'notifications' => array('view'=>1),
             // 'calendar' => array('view'=>1),
 
@@ -19,14 +19,14 @@ class System_Model extends Model{
             'my' => array('view'=>1,'edit'=>1),
         );
 
-        // is admin 
-        if( in_array(1, $access) ){ 
+        // is admin
+        if( in_array(1, $access) ){
 
             // set menu
             $arr['dashboard'] = array('view'=>1);
 
             // set settings
-            $arr['overview'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);  
+            $arr['overview'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
 
             # setting
             $arr['seo'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
@@ -71,6 +71,9 @@ class System_Model extends Model{
 
             $arr['accounts'] = array('view'=>1);
             $arr['business'] = array('view'=>1);
+            
+            #location
+            $arr['location'] = array('view'=>1,'edit'=>1,'del'=>1, 'add'=>1);
         }
 
         /* Manage */
@@ -78,7 +81,7 @@ class System_Model extends Model{
 
             $arr['dashboard'] = array('view'=>1);
             $arr['employees'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
-      
+
             $arr['orders'] = array('view'=>1);
             $arr['booking'] = array('view'=>1);
 
@@ -92,7 +95,7 @@ class System_Model extends Model{
 
         if( in_array(3, $access) ){
         }
-        
+
 
         // PR
         if( in_array(4, $access) ){
@@ -134,7 +137,7 @@ class System_Model extends Model{
                     'option_value' => $value
                 ));
             }
-            
+
         }
     }
     public function get() {
@@ -153,7 +156,7 @@ class System_Model extends Model{
     }
 
 
-    
+
     /* -- Prefix Name -- */
     public function prefixName( $options=array() ){
 
@@ -164,7 +167,7 @@ class System_Model extends Model{
         return array_merge($a, $options);
     }
     public function getPrefixName($name) {
-       
+
        $prefix = $this->prefixName();
        foreach ($prefix as $key => $value) {
             if( $value['id'] == $name ){

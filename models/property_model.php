@@ -9,6 +9,8 @@ require_once 'Property/offers.php';
 require_once 'Property/payment.php';
 require_once 'Property/transportation.php';
 
+
+
 class Property_Model extends Model{
 
     public function __construct() {
@@ -21,6 +23,7 @@ class Property_Model extends Model{
         $this->offers = new offers();
         $this->payment = new payment();
         $this->transportation = new transportation();
+
     }
 
 
