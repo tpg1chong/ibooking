@@ -1,7 +1,7 @@
 <div id="account-settings" class="admin-settings">
 
 	<div class="settings-header clearfix">
-	  <div class="settings-title">Account Settings</div>
+	  	<div class="settings-title">Account Settings</div>
 	</div>
 
 	<div class="content">

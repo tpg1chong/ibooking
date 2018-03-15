@@ -47,6 +47,8 @@ $url = '';
 
 					foreach ($this->roles as $val) {
 
+						if( empty($item['is_owner']) && empty($val['display']) ) continue;
+
 						$see = $item['role_id']==$val['id'] ? ' selected':'';
 						echo '<option'.$see.' value="'.$val['id'].'">'.$val['name'].'</option>';
 					}
@@ -63,30 +65,12 @@ $url = '';
 					}
 				?></td>
 
-				
-
 				<td><a class="fcg link-hover-opacity" href="<?=$url?>change_password/<?=$item['id']?>" data-plugins="dialog"><img  src="<?=IMAGES?>reset-password-24.svg"></a></td>
 				<td><a class="fcg link-hover-opacity" href="<?=$url?>edit/<?=$item['id']?>" data-plugins="dialog"><img src="<?=IMAGES?>edit-person-24.svg"></a></td>
 				<td class="whitespace">
 					<?php
 
 					$dropdown = array();
-
-					/*if( empty($item['is_owner']) || $item['id']==$this->me['id'] ){
-						$dropdown[] = array(
-			                'text' => Translate::Val('Edit'),
-			                'href' => $url.'edit/'.$item['id'],
-			                'attr' => array('data-plugins'=>'dialog'),
-			                // 'icon' => 'pencil'
-			            );
-
-			            $dropdown[] = array(
-			                'text' => Translate::Val('Change Password'),
-			                'href' => $url.'change_password/'.$item['id'],
-			                'attr' => array('data-plugins'=>'dialog'),
-			                // 'icon' => 'pencil'
-			            );
-		        	}*/
 
 					if( empty($item['is_owner']) ){
 
@@ -118,7 +102,6 @@ $url = '';
 		            }
 
 		            if( !empty($dropdown) ){
-
 		            
 						echo '<a data-plugins="dropdown" class="btn btn-no-padding" data-options="'.$this->fn->stringify( array(
 	                        'select' => $dropdown,

@@ -161,8 +161,8 @@ class Users_Model extends Model{
 
 
     /* -- admin roles -- */
-    public function admin_roles($type='') {
-        return $this->db->select("SELECT role_id as id, role_name as name FROM users_roles ORDER BY role_name");
+    public function admin_roles() {
+        return $this->db->select("SELECT role_id as id, role_name as name, role_display as display FROM users_roles ORDER BY role_name");
     }
 
 }
