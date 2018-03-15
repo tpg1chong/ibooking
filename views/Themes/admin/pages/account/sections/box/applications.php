@@ -10,14 +10,14 @@
 			<div class="content"><div class="spacer"></div><div class="massages">
 				<div class="fullname">Google+ Connect</div>
 				<a class="fsm"></a> 
-				<a href="#" class="fss btn">Connect to Google+</a>
+				<a href="#" class="fss btn btn-border btn-blue">Connect to Google+</a>
 			</div></div>
 		</div>
 		<div class="anchor clearfix facebook">
 			<div class="avatar lfloat mrm"></div>
 			<div class="content"><div class="spacer"></div><div class="massages">
 				<div class="fullname">Facebook Connect</div>
-				<a href="#" class="fss btn">Connect to Facebook</a>
+				<a href="#" class="fss btn btn-border btn-blue">Connect to Facebook</a>
 			</div></div>
 		</div>
 

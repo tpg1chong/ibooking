@@ -334,6 +334,15 @@ textarea, .inputtext {
     background: 0;
     box-shadow: none;
 }
+
+.btn.btn-border{
+    background:none;
+    border-width: 1px;
+    line-height: 28px;
+    text-shadow: none;
+}
+
+.btn.btn-border:before,
 .btn.btn-link.btn:before {
     display: none;
 }
@@ -9752,5 +9761,8 @@ body.touch #mainContainer [role=content]{
     overflow: hidden;
 }
 body.touch #mainContainer [role=main]{
-    height: auto !important;
+    /*height: auto !important;*/
+}
+body.touch #account-settings{
+    text-align: left;
 }
