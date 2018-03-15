@@ -86,7 +86,6 @@ class Admin_Controller extends Controller
         header('location:' . $url);
     }
 
-
     /* -- site -- */
     public function site($section='')
     {
@@ -130,7 +129,8 @@ class Admin_Controller extends Controller
 
     }
 
-		public function location($section='available'){
+    /* -- location -- */
+	public function location($section='place'){
 			$this->view->setPage('on', 'location');
 			$this->view->setData('section', $section);
 
