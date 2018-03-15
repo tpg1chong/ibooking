@@ -7,10 +7,18 @@ $menu = array();
 
 
 $sub = array();
-$sub[] = array('key'=>'place', 'text'=>'Place', 'url' => $this->pageURL.'place');
+$sub[] = array('key'=>'place', 'text'=>'Places', 'url' => $this->pageURL.'place');
 $this->count_nav+=count($sub);
-$menu[] = array('text' => '', 'url' => '', 'sub' => $sub);
+$menu[] = array('text' => 'Places', 'url' => '', 'sub' => $sub);
 
+$sub = array();
+$sub[] = array('key'=>'category', 'text'=>'Category', 'url' => $this->pageURL.'region');
+$sub[] = array('key'=>'facilities', 'text'=>'Facilities', 'url' => $this->pageURL.'facilities');
+$sub[] = array('key'=>'payment_options', 'text'=>'Payment Options', 'url' => $this->pageURL.'payment_options'); // การชำระเงิน
+$sub[] = array('key'=>'transportation', 'text'=>'Transportation', 'url' => $this->pageURL.'transportation'); // ใกล้ ขนส่ง
+
+$this->count_nav+=count($sub);
+$menu[] = array('text' => 'Place Management', 'url' => '', 'sub' => $sub);
 
 /*location*/
 $sub = array();
@@ -21,6 +29,5 @@ $sub[] = array('key'=>'city', 'text'=>'City', 'url' => $this->pageURL.'city');
 
 
 
-
 $this->count_nav+=count($sub);
-$menu[] = array('text' => 'Locations', 'url' => '', 'sub' => $sub);
+$menu[] = array('text' => 'Location Management', 'url' => '', 'sub' => $sub);

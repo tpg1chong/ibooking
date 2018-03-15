@@ -44,7 +44,7 @@ $form  	->submit()
 
 
 	<div class="box user-box">
-		<div class="title-box">
+		<div class="box-title">
 			<div class="title">SEO Status</div>
 			<p>To get traffic from search engines to your site, this feature must be on.</p>
 		</div>

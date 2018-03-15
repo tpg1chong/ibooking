@@ -9,13 +9,13 @@
 
 
 		$form   ->field("user_name")
-		        ->label( 'First Name' )
+		        ->label( 'Name' )
 		        ->autocomplete('off')
 		        ->addClass('inputtext')
 		        ->placeholder('')
 		        ->value( '' );
 
-		$form   ->field("Last Name")
+		$form   ->field("email")
 		        ->label('Email Address')
 		        ->autocomplete('off')
 		        ->addClass('inputtext');

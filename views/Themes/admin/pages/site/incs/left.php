@@ -1,7 +1,7 @@
 <?php
 
 
-echo '<div class="settings-left menu" role="left" data-width="260">';
+echo '<div class="settings-left menu" role="left" data-width="180">';
 
 	// <!-- menu -->
 	echo '<div class="settings-nav">';

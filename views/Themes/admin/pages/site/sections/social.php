@@ -4,7 +4,7 @@ $this->formUrl = URL.'manage/business/';
 $form = new Form();
 $form = $form->create()
 		->url($this->formUrl."?run=1")
-		->addClass('js-submit-form')
+		->addClass('js-submit-form box-content')
 		->method('post');
 
 $form  	->field("google_id")
