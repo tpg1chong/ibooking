@@ -2742,7 +2742,9 @@ body.hidden-tobar #tobar {
 .settings-content .control-group .inputtext, .settings-content .control-group select {
     width: 40%}
 .settings-table {
-    width: 100%}
+    width: 100%;
+    max-width: 960px;
+}
 .settings-table th {
     color: #888;
     font-size: 13px;
@@ -9610,6 +9612,9 @@ table.table-plan td {
 
 
 /* -- .admin-settings -- */
+.admin-settings{
+    max-width: 960px;
+}
 .admin-settings .settings-header {
     margin-bottom: 24px;
 }
@@ -9623,39 +9628,39 @@ table.table-plan td {
 }
 .admin-settings .box {
     border-radius: 8px;
-    padding: 18px;
-    max-width: 900px
+    max-width: 900px;
+
+
 }
 .admin-settings .box + .box{
     margin-top: 24px;
 }
 .admin-settings .box-content {
-    padding-top: 24px;
+    padding: 12px 24px;
 }
-.admin-settings .title-box {
-    border-bottom: 1px dashed #ccc;
-    padding-bottom: 8px;
+.admin-settings .box-title {
+    border-bottom: 1px dashed #eee;
+    padding: 12px 24px;
     
 }
-.admin-settings .title-box p{
+.admin-settings .box-title p{
     font-size: 13px;
     color: #444
 }
-.admin-settings .title-box .title {
+.admin-settings .box-title .title {
     font-size: 20px;
-    color: #000
+    color: rgba(0,0,0,0.65);
 }
 .admin-settings .form-horizontal .control-label{
     font-weight: normal;
-    width: 180px;
     text-align: left;
+    font-size: 14px;
 }
-.admin-settings .form-horizontal .controls{
-    margin-left: 200px;
-}
+
 .admin-settings .form-insert .form-actions{
     text-align: right;
-    margin-top: 24px;
+    margin-top: 12px;
+    margin-bottom: 0
 }
 .admin-settings .form-insert .form-actions .btn-submit{
     font-size: 13px;
@@ -9664,9 +9669,6 @@ table.table-plan td {
 
 
 /* -- social-connections -- */
-.social-connections{
-    margin-top: 24px;
-}
 .social-connections .anchor {
     margin-top: 12px;
     margin-bottom: 12px;
@@ -9691,6 +9693,18 @@ table.table-plan td {
 }
 .social-box .social-connections .facebook .avatar {
     background-image: url(../images/facebook.png?1520325760);
+}
+
+#account-settings{
+    max-width: inherit;
+    text-align: center;
+}
+#account-settings .box{
+    width: 450px;
+    display: inline-block;
+    vertical-align: top;
+    margin: 12px;
+    text-align: left;
 }
 
 /* -- business-settings --*/

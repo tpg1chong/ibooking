@@ -1,11 +1,11 @@
 <div class="box user-box">
-	<div class="title-box"><div class="title">Update Name or Profile Image</div></div>
+	<div class="box-title"><div class="title">Profile</div></div>
 	<?php
 		$form = new Form();
 		$form = $form->create()
 			->style('horizontal')
 			->attr('data-plugins', 'changeForm')
-			->addClass('form-insert box-content');
+			->addClass('box-content');
 
 
 		$form   ->field("user_name")

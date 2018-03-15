@@ -2,7 +2,7 @@
 
 $url = '';
 
-?><div id="account-authorization" class="container admin-settings">
+?><div id="account-authorization" class="admin-settings">
 
 	<div class="settings-header clearfix">
 	  <div class="settings-title">Roles & Permissions</div>

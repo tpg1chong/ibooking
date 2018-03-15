@@ -1,5 +1,5 @@
 <div class="box user-box">
-	<div class="title-box">
+	<div class="box-title">
 		<div class="title">Basic Info</div>
 		<p>Let people know how they can contact your business.</p>
 	</div>
