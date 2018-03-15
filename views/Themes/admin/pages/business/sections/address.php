@@ -1,5 +1,5 @@
 <div class="box user-box">
-	<div class="title-box">
+	<div class="box-title">
 		<div class="title">Business Address</div>
 		<p>If your business has a physical address, fill in the following:</p>
 	</div>

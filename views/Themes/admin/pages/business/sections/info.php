@@ -1,5 +1,5 @@
 <div class="box user-box">
-	<div class="title-box">
+	<div class="box-title">
 		<div class="title">Site Info</div>
 		<p>Let us know a little more about yourself.</p>
 	</div>

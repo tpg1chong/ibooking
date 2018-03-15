@@ -1,15 +1,15 @@
 <div class="box user-box">
-	<div class="title-box"><div class="title">Update Your User Name or Email</div></div>
+	<div class="box-title"><div class="title">Account</div></div>
 	<?php
 		$form = new Form();
 		$form = $form->create()
 			->style('horizontal')
 			->attr('data-plugins', 'changeForm')
-			->addClass('form-insert box-content');
+			->addClass('box-content');
 
 
 		$form   ->field("user_name")
-		        ->label( 'User Name' )
+		        ->label( 'Username' )
 		        ->autocomplete('off')
 		        ->addClass('inputtext')
 		        ->placeholder('')
@@ -17,7 +17,7 @@
 		        // ->note( "*Changing your username will also change your site's free web address (i.e. username.wixsite.com/sitename). If you connected your domain, there will be no change." );
 
 		$form   ->field("user_login")
-		        ->label('Email Address')
+		        ->label('Email')
 		        ->autocomplete('off')
 		        ->addClass('inputtext');
 
@@ -29,6 +29,7 @@
 		            , array('id'=>'en','name'=>'English') //อังกฤษ
 		        ), 'id', 'name', '' )
 		        ->value( !empty($this->me['lang']) ? $this->me['lang']:'en' );
+
 
 		$a = array();
 		$a[] = array('id'=>'light', 'name'=>'Light');

@@ -1,27 +1,29 @@
 <div class="box user-box">
-	<div class="title-box"><div class="title">Update Your Password</div></div>
+	<div class="box-title">
+		<div class="title">Password</div>
+		<p>Change your password or recover your current one.</p>
+	</div>
 	<?php
 		$form = new Form();
 		$form = $form->create()
 			->style('horizontal')
 			->attr('data-plugins', 'changeForm')
-			->addClass('form-insert box-content');
+			->addClass('box-content');
 
 
-		$form   ->field("user_name")
+		$form   ->field("current_password")
 		        ->label( 'Current Password' )
 		        ->autocomplete('off')
 		        ->addClass('inputtext')
-		        ->placeholder('')
-		        ->value( '' );
+		        ->placeholder('');
 
-		$form   ->field("Last Name")
+		$form   ->field("user_password")
 		        ->label('New Password')
 		        ->autocomplete('off')
 		        ->addClass('inputtext');
 
-		$form   ->field("Profile Image")
-		        ->label('Retype New Password')
+		$form   ->field("user_password_confirmation")
+		        ->label('Verify password')
 		        ->autocomplete('off')
 		        ->addClass('inputtext');
 

@@ -3,9 +3,9 @@
 
 echo '<div id="mainContainer" data-plugins="main">';
 
-	echo '<div role="content"><div role="main"><div class="pal mal">';
+	echo '<div role="content"><div role="main"><div class="pal mhl">';
 		
-		echo '<div id="business-settings" class="container admin-settings">';
+		echo '<div id="business-settings" class="admin-settings">';
 
 			echo '<div class="settings-header clearfix">';
 			  echo '<div class="settings-title">Business Info</div>';
