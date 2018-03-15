@@ -8,7 +8,9 @@ class Blog_Controller extends Controller {
 
     public function index() {
 
-        $this->error();
+
+        
+        $this->view->render("blog/display"); 
     }
 
 
