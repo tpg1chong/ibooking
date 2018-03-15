@@ -1,7 +1,7 @@
 <?php
 
 # title
-$title = 'Country';
+$title = 'City';
 
 if( !empty($this->item) ){
     $arr['title']= $title;
@@ -18,21 +18,15 @@ $form = $form->create()
 	->elem('div')
 	->addClass('form-insert');
 
-// $form 	->field("country_code")
-//       	->label( 'country_code*' )
-//           ->autocomplete('off')
-//           ->addClass('inputtext')
-//           ->placeholder('')
-//           ->value( !empty($this->item['code'])? $this->item['code']:'' );
-//
-// $form 	->field("country_region_id")
-//         ->label( 'country_region_id*' )
-//           ->autocomplete('off')
-//           ->addClass('inputtext')
-//           ->placeholder('')
-//           ->value( !empty($this->item['code'])? $this->item['code']:'' );
+$form 	->field("city_code")
+      	->label( 'Code*' )
+          ->autocomplete('off')
+          ->addClass('inputtext')
+          ->placeholder('')
+          ->value( !empty($this->item['code'])? $this->item['code']:'' );
 
-$form 	->field("country_name")
+
+$form 	->field("city_name")
     	->label( 'Name*' )
         ->autocomplete('off')
         ->addClass('inputtext')
@@ -41,7 +35,7 @@ $form 	->field("country_name")
         ->value( !empty($this->item['name'])? $this->item['name']:'' );
 
 # set form
-$arr['form'] = '<form class="js-submit-form" method="post" action="'.URL. 'location/save/country/"></form>';
+$arr['form'] = '<form class="js-submit-form" method="post" action="'.URL. 'location/save/city/"></form>';
 
 # body
 $arr['body'] = $form->html();

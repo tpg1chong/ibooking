@@ -143,8 +143,44 @@ class Location_Controller extends Controller {
                 $arr['error'] = $this->_getError($e->getMessage());
             }
         }
+        /* Save: 	city  */
+        else if( $action=='city' ) {
+            $id = isset($_POST['id']) ? $_POST['id']: null;
+            if( !empty($id) ){
+                $item = $this->model->city->get($id);
+                if( empty($item) ) $this->error();
+            }
 
-        /* Save: Location  */
+            try {
+                $form = new Form();
+                $form->post('city_name')->val('is_empty');
+
+                $form->submit();
+                $postData = $form->fetch();
+
+                if( empty($arr['error']) ){
+
+                    if( !empty($item) ){
+                        $this->model->city->update( $id, $postData );
+                    }
+                    else{
+                        $this->model->city->insert( $postData );
+                        $id = $postData['id'];
+                    }
+
+                    $arr['message'] = 'Saved!';
+                    $arr['url'] = !empty($_REQUEST['next']) ? $_REQUEST['next'] : 'refresh';
+                }
+
+            } catch (Exception $e) {
+                $arr['error'] = $this->_getError($e->getMessage());
+            }
+        }
+
+
+
+
+        /*Save: Location  */
         else if( $action=='location' ){
 
         }

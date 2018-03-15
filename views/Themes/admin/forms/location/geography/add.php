@@ -18,9 +18,7 @@ $form = $form->create()
 	->elem('div')
 	->addClass('form-insert');
 
-
-
-$form 	->field("country_name")
+$form 	->field("geo_name")
     	->label( 'Name*' )
         ->autocomplete('off')
         ->addClass('inputtext')
