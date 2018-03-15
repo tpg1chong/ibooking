@@ -1,15 +1,15 @@
 <?php
 
-class Country extends Model
+class City extends Model
 {
 	public function __construct() {
 		parent::__construct();
     }
 
 
-    private $_table = 'location_country';
+    private $_table = 'location_city';
     private $_field = '*';
-    private $_prefixField = 'location_';
+    private $_prefixField = 'city_';
 
 
     public function get($id)
@@ -80,6 +80,7 @@ class Country extends Model
 
 	public function insert(&$data)
 	{
+
 		$this->db->insert($this->_table, $data);
         $data['id'] = $this->db->lastInsertId();
 	}

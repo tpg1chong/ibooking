@@ -117,14 +117,7 @@ class Admin_Controller extends Controller
 
             $results = $this->model->query('property')->{$q}->find();
             $this->view->setData('dataList', $results['items'] );
-        }
-				if( in_array($section, array('region', 'country', 'geography'))){
-
-					$results = $this->model->query('location')->{$section}->find();
-					$this->view->setData('dataList', $results['items'] );
-				}
-
-
+					}
         $this->view->render("property/display");
 
     }
@@ -134,7 +127,7 @@ class Admin_Controller extends Controller
 			$this->view->setPage('on', 'location');
 			$this->view->setData('section', $section);
 
-			if( in_array($section, array('region', 'country', 'geography'))){
+			if( in_array($section, array('region', 'country', 'geography', 'city'))){
 
 				$results = $this->model->query('location')->{$section}->find();
 				$this->view->setData('dataList', $results['items'] );
