@@ -26,7 +26,9 @@ class Admin_Controller extends Controller
     }
 
     public function index($value='') {
-        $this->error();
+
+        header('location: '.URL.'admin/property');
+        // $this->error();
         // $this->view->render('index');
     }
     public function business() {

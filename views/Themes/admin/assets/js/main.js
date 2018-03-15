@@ -20,6 +20,10 @@ $(document).ready(function() {
 			$.get( app.getUri("admin/navTrigger"), {status:$("body").hasClass("is-pushed-left")?1:0} );
 		});
 
+		if( isMobile.any() ){
+			$("body").addClass('touch').removeClass('is-pushed-left');
+		}		
+
 	}), $(window).resize(function() {
 	}), $(window).scroll(function() {
 	}), $(window).on(function() {
