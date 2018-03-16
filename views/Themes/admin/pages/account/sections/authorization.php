@@ -19,7 +19,11 @@ $url = '';
 				<th style="width: 30px;"></th>
 			</tr>
 
-			<?php foreach ($this->data as $key => $item) { ?>
+			<?php foreach ($this->data as $key => $item) { 
+
+
+				if( !empty($item['is_owner']) ) continue;
+			?>
 			<tr data-id="<?=$item['id']?>">
 				<td class="name"><?php
 

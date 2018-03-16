@@ -16,12 +16,15 @@ class Demo_Controller extends Controller {
 
     public function search()
     {
+        $this->view->elem('body')->addClass('has-top-banner');
     	$this->view->render('design/hotel-list');
     }
 
 
     public function hotel($active='')
     {
+        $this->view->elem('body')->addClass('has-top-banner');
+        
     	if($active='profile'){
     		$this->view->render('design/hotel-profile');
     	}

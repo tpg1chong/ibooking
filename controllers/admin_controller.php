@@ -14,6 +14,9 @@ class Admin_Controller extends Controller
             ),
             'loggedOn' => true,
             'render' => !empty($a[1]) ?$a[1]:'',
+
+            'favicon' => IMAGES.'favicon.ico'
+
         ) );
     }
 

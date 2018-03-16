@@ -28,7 +28,7 @@ $has_home = $this->getPage('has_home');
 	<div id="site-search-content" class="page-header-middle">
 		<div class="container clearfix">
 			
-			<form>
+			<form _date-plugins="pageSearch">
 				<?php if( !empty($has_home) ){ ?>
 				<ul class="page-search-tab">
 					<li class="active"><a><i class="icon-bed"></i><span class="mls">ห้องพัก</span></a></li>
@@ -40,22 +40,44 @@ $has_home = $this->getPage('has_home');
 
 					<div class="page-search clearfix">
 						<div class="filter-search">
-							<i class="icon-search"></i>
-							<input class="input" type="" name="" placeholder="Where do you want to go?" maxlength="128" autocomplete="off">
+							<div class="filter-search-icon"><i class="icon-search"></i></div>
+							<input class="input" type="" name="where" placeholder="Where do you want to go?" maxlength="128" autocomplete="off">
 						</div>
-						<div class="filter-dates">
-							<div class="input"></div>
+						<div class="filter-dates checkin">
+							<div class="input">
+								
+								<div class="filter-search-icon"><i class=" icon-calendar-o"></i></div>
+								<div class="filter-dates-text">
+									<strong class="date">2 เม.ษ. 2018</strong>
+									<span class="day">วันจันทร์</span>
+								</div>
+								<input type="hidden" name="checkin" autocomplete="off">
+							</div>
 						</div>
-						<div class="filter-guest"><select class="input" type="" name="">
+						<div class="filter-dates checkout">
+							<div class="dates-los">
+								<span class="dates-los-nights mrs">2</span><i class="icon-moon"></i>
+							</div>
+							<div class="input">
+								
+								<div class="filter-search-icon"><i class=" icon-calendar-o"></i></div>
+								<div class="filter-dates-text">
+									<strong class="date">2 เม.ษ. 2018</strong>
+									<span class="day">วันจันทร์</span>
+								</div>
+								<input type="hidden" name="checkout" autocomplete="off">
+							</div>
+						</div>
+						<div class="filter-guest"><select class="input" name="guest">
 							<option>Test 1</option>
 							<option>Test 2</option>
 						</select></div>
+
 						<div class="filter-action"><button class="input btn btn-yellow btn-submit">Search</button></div>
-						
 					</div>
 				</div>
 				
-				<?php if( !empty($has_home) ){ ?>
+				<?php if( !empty($has_home) || 1==1 ){ ?>
 				<div class="page-search-refine">
 					
 				</div>
