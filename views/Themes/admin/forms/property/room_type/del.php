@@ -6,7 +6,7 @@ $next = isset($_REQUEST['next']) ? '?next='.$_REQUEST['next']:'';
 
 if( !empty($this->item['permit']['del']) ){
 
-	$arr['form'] = '<form class="js-submit-form" action="'.URL.'property/del/payment'.$next.'"></form>';
+	$arr['form'] = '<form class="js-submit-form" action="'.URL.'property/del/room_type'.$next.'"></form>';
 	$arr['hiddenInput'][] = array('name'=>'id','value'=>$this->item['id']);
 	$arr['body'] = "{$this->lang->translate('You want to delete')}<span class=\"fwb\">\"{$this->item['name']}\"</span> {$this->lang->translate('or not')}?";
 

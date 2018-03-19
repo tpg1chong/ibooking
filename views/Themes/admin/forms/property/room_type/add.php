@@ -1,7 +1,7 @@
 <?php
 
 # title
-$title = 'Payment Options';
+$title = 'Room Type';
 
 if( !empty($this->item) ){
     $arr['title']= $title;
@@ -19,7 +19,7 @@ $form = $form->create()
 	->addClass('form-insert');
 
 
-$form 	->field("payment_name")
+$form 	->field("type_name")
     	->label( 'Name*' )
         ->autocomplete('off')
         ->addClass('inputtext')
@@ -28,7 +28,7 @@ $form 	->field("payment_name")
         ->value( !empty($this->item['name'])? $this->item['name']:'' );
 
 # set form
-$arr['form'] = '<form class="js-submit-form" method="post" action="'.URL. 'property/save/payment/"></form>';
+$arr['form'] = '<form class="js-submit-form" method="post" action="'.URL. 'property/save/room_type/"></form>';
 
 # body
 $arr['body'] = $form->html();

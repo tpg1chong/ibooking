@@ -1,22 +1,24 @@
 <?php
 
+
 $this->direction = URL.'property/';
+$this->modelName = 'category';
 
 ?><div class="setting-header cleafix">
 
 	<div class="rfloat">
 
-		<a class="btn btn-blue" data-plugins="lightbox" href="<?=$this->direction?>add/payment/"><i class="icon-plus mrs"></i><span><?=Translate::Val('Add New')?></span></a>
+		<a class="btn btn-blue" data-plugins="lightbox" href="<?=$this->direction?>add/<?=$this->modelName?>/"><i class="icon-plus mrs"></i><span><?=Translate::Val('Add New')?></span></a>
 
 	</div>
 
-	<div class="setting-title"><i class="icon-credit-card mrs"></i>Payment options</div>
+	<div class="setting-title"><i class="icon-code-fork mrs"></i>Place Category</div>
 </div>
 
 <section class="setting-section">
 	<table class="settings-table admin"><tbody>
 		<tr>
-			<th class="name">Payment options</th>
+			<th class="name">Category name</th>
 			<th class="status">เปิดใช้งาน</th>
 			<th class="actions"></th>
 
@@ -26,7 +28,7 @@ $this->direction = URL.'property/';
 		<tr data-id="<?=$item['id']?>">
 			<td class="name fwb"><?php
 
-				echo '<a href="'.$this->direction.'edit/payment/'.$item['id'].'" data-plugins="lightbox">'.$item['name'].'</a>';
+				echo '<a href="'.$this->direction."edit/{$this->modelName}/{$item['id']}".'" data-plugins="lightbox">'.$item['name'].'</a>';
 			?></td>
 
 
@@ -41,14 +43,14 @@ $this->direction = URL.'property/';
 
 				$dropdown[] = array(
 	                'text' => Translate::Val('Edit'),
-	                'href' => $this->direction.'edit/payment/'.$item['id'],
+	                'href' => $this->direction."edit/{$this->modelName}/{$item['id']}",
 	                'attr' => array('data-plugins'=>'lightbox'),
 	                // 'icon' => 'pencil'
 	            );
 
 				$dropdown[] = array(
 	                'text' => Translate::Val('Delete'),
-	                'href' => $this->direction.'del/payment/'.$item['id'],
+	                'href' => $this->direction."del/{$this->modelName}/{$item['id']}",
 	                'attr' => array('data-plugins'=>'lightbox'),
 	                // 'icon' => 'remove'
 	            );

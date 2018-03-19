@@ -16,7 +16,6 @@ class Admin_Controller extends Controller
             'render' => !empty($a[1]) ?$a[1]:'',
 
             'favicon' => IMAGES.'favicon.ico'
-
         ) );
     }
 
@@ -31,10 +30,9 @@ class Admin_Controller extends Controller
     public function index($value='') {
 
         header('location: '.URL.'admin/property');
-        // $this->error();
-        // $this->view->render('index');
     }
-    public function business() {
+    public function business() 
+    {
         $this->view->setPage('on', 'business');
 
         $this->view->render("business/display");
@@ -111,35 +109,34 @@ class Admin_Controller extends Controller
         $this->view->setPage('on', 'property_manager');
         $this->view->setData('section', $section);
 
-        if( in_array($section, array('type', 'zone', 'facilities', 'amenities', 'offers', 'payment_options', 'transportation')) ){
-            $q = $section;
-
-            if( $q == 'payment_options'){
-                $q = 'payment';
-            }
-
-            $results = $this->model->query('property')->{$q}->find();
+        if( in_array($section, array('room_type', 'amenities', 'offers')) )
+        {
+            $results = $this->model->query('property')->{$section}->find();
             $this->view->setData('dataList', $results['items'] );
-					}
+		}
         $this->view->render("property/display");
-
     }
 
     /* -- location -- */
-	public function location($section='place'){
-			$this->view->setPage('on', 'location');
-			$this->view->setData('section', $section);
+	public function location($section='place')
+    {
+		$this->view->setPage('on', 'location');
+		$this->view->setData('section', $section);
 
-			if( in_array($section, array('region', 'country', 'geography', 'city'))){
+		if( in_array($section, array('region', 'country', 'geography', 'city'))){
 
-				$results = $this->model->query('location')->{$section}->find();
-				$this->view->setData('dataList', $results['items'] );
-			}
-
-
-			$this->view->render("location/display");
-
+			$results = $this->model->query('location')->{$section}->find();
+			$this->view->setData('dataList', $results['items'] );
 		}
+
+        if( in_array($section, array('category', 'type', 'facilities', 'payment_options', 'transportation'))){
+
+            $results = $this->model->query('property')->{$section}->find();
+            $this->view->setData('dataList', $results['items'] );
+        }
+
+		$this->view->render("location/display");
+	}
 
 
     public function promotions()

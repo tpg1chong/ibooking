@@ -1,15 +1,15 @@
 <?php
 
-class Country extends Model
+class Category extends Model
 {
 	public function __construct() {
 		parent::__construct();
     }
 
 
-    private $_table = 'location_country';
+    private $_table = 'property_category';
     private $_field = '*';
-    private $_prefixField = 'country_';
+    private $_prefixField = 'category_';
 
 
     public function get($id)
@@ -80,6 +80,8 @@ class Country extends Model
 
 	public function insert(&$data)
 	{
+		if( !isset($data[$this->_prefixField.'enabled']) ) $data[$this->_prefixField.'enabled'] = 1;
+
 		$this->db->insert($this->_table, $data);
         $data['id'] = $this->db->lastInsertId();
 	}

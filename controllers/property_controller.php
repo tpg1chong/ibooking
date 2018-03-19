@@ -11,7 +11,6 @@ class Property_Controller extends Controller {
         $this->error();
     }
 
-
     /* -- Property Action -- */
     public function add( $action='' ) {
 
@@ -115,6 +114,39 @@ class Property_Controller extends Controller {
                 $arr['error'] = $this->_getError($e->getMessage());
             }
         }
+        /* Save: zone  */
+        else if( $action=='category' ) {
+            $id = isset($_POST['id']) ? $_POST['id']: null;
+            if( !empty($id) ){
+                $item = $this->model->{$action}->get($id);
+                if( empty($item) ) $this->error();
+            }
+
+            try {
+                $form = new Form();
+                $form   ->post('category_name')->val('is_empty');
+
+                $form->submit();
+                $postData = $form->fetch();
+
+                if( empty($arr['error']) ){
+
+                    if( !empty($item) ){
+                        $this->model->{$action}->update( $id, $postData );
+                    }
+                    else{
+                        $this->model->{$action}->insert( $postData );
+                        $id = $postData['id'];
+                    }
+
+                    $arr['message'] = 'Saved!';
+                    $arr['url'] = !empty($_REQUEST['next']) ? $_REQUEST['next'] : 'refresh';
+                }
+
+            } catch (Exception $e) {
+                $arr['error'] = $this->_getError($e->getMessage());
+            }
+        }
         /* Save: 	facilities  */
         else if( $action=='facilities' ) {
             $id = isset($_POST['id']) ? $_POST['id']: null;
@@ -149,6 +181,40 @@ class Property_Controller extends Controller {
             }
         }
 
+        /* -- room -- */
+        /* Save:    room type  */
+        else if( $action=='room_type' ) {
+            $id = isset($_POST['id']) ? $_POST['id']: null;
+            if( !empty($id) ){
+                $item = $this->model->{$action}->get($id);
+                if( empty($item) ) $this->error();
+            }
+
+            try {
+                $form = new Form();
+                $form->post('type_name')->val('is_empty');
+
+                $form->submit();
+                $postData = $form->fetch();
+
+                if( empty($arr['error']) ){
+
+                    if( !empty($item) ){
+                        $this->model->{$action}->update( $id, $postData );
+                    }
+                    else{
+                        $this->model->{$action}->insert( $postData );
+                        $id = $postData['id'];
+                    }
+
+                    $arr['message'] = 'Saved!';
+                    $arr['url'] = !empty($_REQUEST['next']) ? $_REQUEST['next'] : 'refresh';
+                }
+
+            } catch (Exception $e) {
+                $arr['error'] = $this->_getError($e->getMessage());
+            }
+        }
         /* Save: 	amenities  */
         else if( $action=='amenities' ) {
             $id = isset($_POST['id']) ? $_POST['id']: null;
@@ -216,10 +282,10 @@ class Property_Controller extends Controller {
             }
         }
         /* Save: 	payment  */
-        else if( $action=='payment' ) {
+        else if( $action=='payment_options' ) {
             $id = isset($_POST['id']) ? $_POST['id']: null;
             if( !empty($id) ){
-                $item = $this->model->payment->get($id);
+                $item = $this->model->{$action}->get($id);
                 if( empty($item) ) $this->error();
             }
 
@@ -233,10 +299,10 @@ class Property_Controller extends Controller {
                 if( empty($arr['error']) ){
 
                     if( !empty($item) ){
-                        $this->model->payment->update( $id, $postData );
+                        $this->model->{$action}->update( $id, $postData );
                     }
                     else{
-                        $this->model->payment->insert( $postData );
+                        $this->model->{$action}->insert( $postData );
                         $id = $postData['id'];
                     }
 
@@ -282,7 +348,8 @@ class Property_Controller extends Controller {
             }
         }
 
-// Location
+
+        // Location
         /* Save: 	region  */
         else if( $action=='region' ) {
             $id = isset($_POST['id']) ? $_POST['id']: null;
