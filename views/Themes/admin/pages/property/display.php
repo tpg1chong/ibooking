@@ -9,7 +9,11 @@ echo '<div id="mainContainer" data-plugins="main">';
 		
 		echo '<div id="site-settings" class="admin-settings">';
 			if( !empty($this->section) ){
-				require_once "sections/{$this->section}.php";
+				$path = __DIR__. "/sections/{$this->section}.php";
+				if( file_exists($path) ){
+					require_once "sections/{$this->section}.php";
+				}
+				
 			}
 		echo '</div>';
 

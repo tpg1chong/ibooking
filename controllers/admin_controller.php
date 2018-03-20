@@ -159,4 +159,25 @@ class Admin_Controller extends Controller
 
         $this->view->render("blog/display");
     }
+
+
+    /* -- member -- */
+    public function member()
+    {
+        $this->view->setPage('on', 'member');
+        $this->error();
+    }
+
+    /* -- inbox -- */
+    public function inbox()
+    {
+        $this->view->setPage('on', 'inbox');
+        $this->error();
+    }
+
+    public function overview()
+    {
+        $this->view->setPage('on', 'overview');
+        $this->error();
+    }
 }
