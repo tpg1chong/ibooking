@@ -44,7 +44,14 @@ class Location_Controller extends Controller {
 
         // Location
 
-        /* Save: 	region  */
+        
+        if( $action=='places' ) {
+            
+            $arr['post'] = $_POST;
+            // $arr['message'] = '+55555';
+        }
+
+        /* Save: region  */
         else if( $action=='region' ) {
             $id = isset($_POST['id']) ? $_POST['id']: null;
             if( !empty($id) ){
@@ -77,7 +84,7 @@ class Location_Controller extends Controller {
                 $arr['error'] = $this->_getError($e->getMessage());
             }
         }
-        /* Save: 	country  */
+        /* Save: country  */
         else if( $action=='country' ) {
             $id = isset($_POST['id']) ? $_POST['id']: null;
             if( !empty($id) ){
@@ -110,7 +117,7 @@ class Location_Controller extends Controller {
                 $arr['error'] = $this->_getError($e->getMessage());
             }
         }
-        /* Save: 	geography  */
+        /* Save: geography  */
         else if( $action=='geography' ) {
             $id = isset($_POST['id']) ? $_POST['id']: null;
             if( !empty($id) ){
@@ -143,7 +150,7 @@ class Location_Controller extends Controller {
                 $arr['error'] = $this->_getError($e->getMessage());
             }
         }
-        /* Save: 	city  */
+        /* Save: city  */
         else if( $action=='city' ) {
             $id = isset($_POST['id']) ? $_POST['id']: null;
             if( !empty($id) ){
@@ -176,9 +183,6 @@ class Location_Controller extends Controller {
                 $arr['error'] = $this->_getError($e->getMessage());
             }
         }
-
-
-
 
         /*Save: Location  */
         else if( $action=='location' ){
@@ -231,6 +235,14 @@ class Location_Controller extends Controller {
             $this->view->setPage('path', $path );
             $this->view->render('del');
         }
+    }
+
+
+    public function placesList() {
+        $this->view->setData('results', $this->model->places->find());
+        
+        $this->view->setPage('path', 'Themes/admin/layouts/places/items/');
+        $this->view->render('json');
     }
 
 

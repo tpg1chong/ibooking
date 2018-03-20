@@ -8,6 +8,7 @@ $menu = array();
 
 $sub = array();
 $sub[] = array('key'=>'place', 'text'=>'Places', 'url' => $this->pageURL.'place');
+$sub[] = array('key'=>'create', 'text'=>'+ Create', 'url' => $this->pageURL.'create');
 $this->count_nav+=count($sub);
 $menu[] = array('text' => 'Places', 'url' => '', 'sub' => $sub);
 

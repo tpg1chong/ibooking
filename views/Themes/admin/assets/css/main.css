@@ -9766,3 +9766,20 @@ body.touch #mainContainer [role=main]{
 body.touch #account-settings{
     text-align: left;
 }
+
+/* form-places-section */
+.form-places-section{
+    display: none;
+
+    height: 450px;
+    overflow-y: scroll;
+}
+
+.active.form-places-section{
+    display: block;
+}
+
+.active.form-places-section,
+.form-places-create-header{
+    padding: 8px 12px;
+}

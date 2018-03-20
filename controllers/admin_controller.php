@@ -135,6 +135,31 @@ class Admin_Controller extends Controller
             $this->view->setData('dataList', $results['items'] );
         }
 
+
+        if($section=='create'){
+
+            $type = $this->model->query('property')->type->find();
+            $this->view->setData('typeList', $type['items'] );
+
+
+            $facilities = $this->model->query('property')->facilities->find();
+            $this->view->setData('facilitiesList', $facilities['items'] );
+
+
+            $payment = $this->model->query('property')->payment_options->find();
+            $this->view->setData('paymentList', $payment['items'] );
+
+
+            $transportation = $this->model->query('property')->transportation->find();
+            $this->view->setData('transportationList', $transportation['items'] );
+
+
+            $roomType = $this->model->query('property')->room_type->find();
+            $this->view->setData('roomTypeList', $roomType['items'] );
+
+            $this->view->js( VIEW.'Themes/admin/assets/js/formPlacesCreate.js', 1 );
+        }
+
 		$this->view->render("location/display");
 	}
 

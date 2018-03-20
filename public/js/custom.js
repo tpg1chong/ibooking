@@ -1013,7 +1013,7 @@ $(document).ready(function() {
 
 
 	/* -- inlineSubmit -- */
-	$('body').delegate('form.js-submit-form', 'submit', function(e) {
+	$('body').delegate('form.js-submit-form, form[data-action=submit]', 'submit', function(e) {
 		e.preventDefault();
 
 		var $form = $(this);

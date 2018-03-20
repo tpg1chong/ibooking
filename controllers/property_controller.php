@@ -450,9 +450,6 @@ class Property_Controller extends Controller {
             }
         }
 
-
-
-
         /* Save: Property  */
         else if( $action=='property' ){
 
@@ -505,12 +502,5 @@ class Property_Controller extends Controller {
             $this->view->render('del');
         }
     }
-
-
-    public function placesList() {
-        
-        
-    }
-
 
 }

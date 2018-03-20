@@ -21,8 +21,6 @@ class Property_Model extends Model{
     public function __construct() {
         parent::__construct();
 
-        
-
         # Places
         $this->category = new category();
         $this->type = new type();

@@ -2,7 +2,7 @@
 
 $url = URL.'property/';
 
-?><div data-load="<?=URL?>property/placesList?has_item=1" class="SettingCol offline">
+?><div data-load="<?=URL?>location/placesList?has_item=1" class="SettingCol offline">
 
 <div class="SettingCol-header"><div class="SettingCol-contentInner">
 	<div class="clearfix">
@@ -55,7 +55,7 @@ $url = URL.'property/';
 		</div>
 
 		<div class="empty-text">
-			<div class="empty-icon"><i class="icon-users"></i></div>
+			<div class="empty-icon"><i class="icon-map-marker"></i></div>
 			<div class="empty-title">No Results Found.</div>
 		</div>
 	</div>

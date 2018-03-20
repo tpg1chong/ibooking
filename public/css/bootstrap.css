@@ -275,6 +275,7 @@ a.btn-icon:hover{text-decoration:none}
 .form-vertical .control-label{font-weight:normal;margin-bottom:3px;display:inline-block;width:100%;font-size:13px;color:#999}
 .form-horizontal .control-label{float:left;width:120px;padding-top:5px;text-align:right;font-weight:bold;color:#666}
 .form-horizontal .controls{margin-left:140px}
+.form-horizontal .controls>.checkbox{min-width: 200px;margin: 4px}
 .form-vertical .controls p,.form-horizontal .controls p{margin:4px 0 0}
 .form-horizontal .form-actions{padding-left:140px;margin:20px 0 8px}
 .controls.purge{position:relative}
