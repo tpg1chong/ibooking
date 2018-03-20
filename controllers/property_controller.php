@@ -507,4 +507,10 @@ class Property_Controller extends Controller {
     }
 
 
+    public function placesList() {
+        
+        
+    }
+
+
 }
