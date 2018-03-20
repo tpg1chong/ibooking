@@ -29,7 +29,7 @@ class Admin_Controller extends Controller
 
     public function index($value='') {
 
-        header('location: '.URL.'admin/property');
+        header('location: '.URL.'admin/location');
     }
     public function business() 
     {
