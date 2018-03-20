@@ -43,8 +43,6 @@ class Location_Controller extends Controller {
 
 
         // Location
-
-        
         if( $action=='places' ) {
             
             $arr['post'] = $_POST;

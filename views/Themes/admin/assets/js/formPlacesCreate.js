@@ -43,7 +43,7 @@ if ( typeof Object.create !== 'function' ) {
 				});
 			});
 
-
+			self.limit = self.$form.find('[data-section]').length;
 			self.action.$prev.click(function () {
 				self.prev();
 			});
@@ -81,8 +81,13 @@ if ( typeof Object.create !== 'function' ) {
 			var self = this;
 
 			self.index = self.$step.find('.uiStepSelected').index();
-
 			self.action.$prev.toggleClass('hidden_elem', self.index==0);
+
+			var type = self.$form.find('.active[data-section]').data('section');
+			console.log( type );
+
+			self.action.$submit.toggleClass('has-next', (self.index+1)!=self.limit );
+			
 		}
 	}
 	$.fn.formPlacesCreate = function( options ) {

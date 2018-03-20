@@ -9779,7 +9779,22 @@ body.touch #account-settings{
     display: block;
 }
 
+.form-places-create-title {
+    display: block;
+    font-size: 24px;
+    line-height: 36px;
+    display: inline-block;
+    margin-right: 10px;
+}
 .active.form-places-section,
+.form-places-create-footer,
 .form-places-create-header{
     padding: 8px 12px;
+}
+.form-places-create-footer .has-next>.text-submit-save,
+.form-places-create-footer .text-submit-next{
+    display: none;
+}
+.form-places-create-footer .has-next>.text-submit-next{
+    display: block;
 }
