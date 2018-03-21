@@ -51,10 +51,6 @@ if ( typeof Object.create !== 'function' ) {
 					self._resize();
 				});
 
-				$('.navigation-trigger').click(function () {
-					self._resize();
-				});
-
 				// set elem 
 				self.$tableHeader = self.$load.find('.SettingCol-tableHeader');
 				self.$tableBody = self.$load.find('.SettingCol-tableBody');
@@ -62,8 +58,6 @@ if ( typeof Object.create !== 'function' ) {
 				// event
 				
 				self.refresh();
-
-
 				self._Events();
 			}
 		},
@@ -240,7 +234,13 @@ if ( typeof Object.create !== 'function' ) {
 			var self = this;
 
 			$('.navigation-trigger').click(function () {
-				self.resize();
+
+				setTimeout(function () {
+					
+					self.resize();
+					self._resize();
+				}, 1);
+
 			});
 		},
 

@@ -10,26 +10,26 @@ $url = URL.'property/';
 		<ul class="clearfix lfloat SettingCol-headerActions">
 
 			<li><h2><i class="icon-newspaper-o mrs"></i><span><?= Translate::Val('Published Posts') ?></span></h2></li>
-			<li><a class="btn js-refresh"><i class="icon-refresh"></i></a></li>
-			<li class="divider"></li>
 
-			<li><a class="btn btn-blue" data-plugins="dialog" href="<?=$url?>add/places/"><i class="icon-plus mrs"></i><span><?=$this->lang->translate('Add New')?></span></a></li>
 		</ul>
 		<ul class="rfloat SettingCol-headerActions clearfix">
-			<li id="more-link"></li>
+			<li><a class="btn btn-blue" data-plugins="dialog" href="<?=$url?>add/places/"><i class="icon-plus mrs"></i><span><?=$this->lang->translate('Add New')?></span></a></li>
+			
 		</ul>
 		
 	</div>
 
-	<div class="mtm clearfix">
-		<ul class="lfloat SettingCol-headerActions clearfix"></ul>
-		<ul class="rfloat SettingCol-headerActions clearfix">
+	<div class="mtm clearfix form-actions">
+		<ul class="lfloat SettingCol-headerActions clearfix">
 			<li>
-				<label for="search-query"><?= Translate::Val('Search') ?>:</label>
 				<form class="form-search" action="#">
 				<input class="search-input inputtext" type="text" id="search-query" placeholder="<?= Translate::Val('Search') ?>" name="q" autocomplete="off"><span class="search-icon"><button type="submit" class="icon-search nav-search" tabindex="-1"></button></span>
 			</form></li>
+		</ul>
+		<ul class="rfloat SettingCol-headerActions clearfix">
 			
+			
+			<li id="more-link"></li>
 		</ul>
 	</div>
 	<!-- <div class="setting-description mtm uiBoxYellow pam">Manage your personal employee settings.</div> -->

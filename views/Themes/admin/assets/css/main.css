@@ -87,7 +87,7 @@ input[type=radio]:after {
     bottom: 4px;
 }
 input[type=checkbox]:before, input[type=radio]:before {
-    border: 2px solid #b2b2b2;
+    border: 1px solid #b2b2b2;
     background-color: #fff;
 }
 input[type=checkbox]:hover:before, input[type=radio]:hover:before {
@@ -9638,8 +9638,6 @@ table.table-plan td {
 .admin-settings .box {
     border-radius: 8px;
     max-width: 900px;
-
-
 }
 .admin-settings .box + .box{
     margin-top: 24px;
@@ -9675,7 +9673,11 @@ table.table-plan td {
     font-size: 13px;
     font-weight: normal;
 }
-
+.admin-settings .form-actions .inputtext{
+    border-radius: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
 
 /* -- social-connections -- */
 .social-connections .anchor {
