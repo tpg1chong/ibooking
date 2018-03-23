@@ -69,6 +69,11 @@ class View {
             $theme->init( $this->getPage('theme'), $name );
         }
     }
+    public function renderJson($array)
+    {
+        header('Content-type: application/json');
+        echo json_encode($array);
+    }
 
     
     /**/
