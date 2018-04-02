@@ -10,7 +10,8 @@
 	$step[] = array('text'=>'Location', 'name'=>'location');
 	$step[] = array('text'=>'Basic Info', 'name'=>'basic');
 	$step[] = array('text'=>'Details', 'name'=>'detail');
-	$step[] = array('text'=>'Rooms', 'name'=>'room');
+	$step[] = array('text'=>'Picture', 'name'=>'picture');
+	// $step[] = array('text'=>'Rooms', 'name'=>'room');
 
 	echo '<div class="form-places-create-step clearfix" data-ref="step">';
 		echo $this->fn->stepList($step, $fristStep);

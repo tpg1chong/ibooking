@@ -243,5 +243,19 @@ class Location_Controller extends Controller {
         $this->view->render('json');
     }
 
-
+    public function provinceList()
+    {
+        $results = $this->model->query('location')->province->find();
+        echo json_encode( $results['items'] );
+    }
+    public function zoneList()
+    {
+        $results = $this->model->query('location')->zone->find();
+        echo json_encode( $results['items'] );
+    }
+    public function districtList()
+    {
+        $results = $this->model->query('location')->district->find();
+        echo json_encode( $results['items'] );
+    }
 }

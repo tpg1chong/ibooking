@@ -102,6 +102,20 @@ class Admin_Controller extends Controller
     }
 
 
+    /* -- Place -- */
+    public function place()
+    {
+        if( $this->format == 'json' ){
+
+            $this->view->setData( 'results', $this->model->query('place')->find() );
+            $this->view->render("place/lists/json");
+        }
+        else{
+
+            $this->view->setPage('on', 'place' );
+            $this->view->render("place/lists/display");
+        }
+    }
     /* -- property -- */
     public function property($section='available')
     {
@@ -153,9 +167,12 @@ class Admin_Controller extends Controller
             $transportation = $this->model->query('property')->transportation->find();
             $this->view->setData('transportationList', $transportation['items'] );
 
-
             $roomType = $this->model->query('property')->room_type->find();
             $this->view->setData('roomTypeList', $roomType['items'] );
+
+
+            $country = $this->model->query('location')->country->find();
+            $this->view->setData('countryList', $country['items'] );
 
             $this->view->js( VIEW.'Themes/admin/assets/js/formPlacesCreate.js', 1 );
         }
@@ -204,5 +221,28 @@ class Admin_Controller extends Controller
     {
         $this->view->setPage('on', 'overview');
         $this->error();
+    }
+
+
+    public function partner()
+    {
+
+        if( $this->format == 'json' ){
+
+            $this->view->setData( 'results', $this->model->query('partner')->find() );
+            $this->view->render("partner/lists/json");
+        }
+        else{
+
+            $this->view->setPage('on', 'partner' );
+            $this->view->render("partner/lists/display");
+        }
+    }
+
+
+    public function calendar() {
+
+        $this->view->setPage('on', 'calendar' );
+        $this->view->render("calendar/display");
     }
 }

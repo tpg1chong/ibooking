@@ -27,6 +27,7 @@ class System_Model extends Model{
 
             // set settings
             $arr['overview'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
+            $arr['calendar'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
 
             # setting
             $arr['seo'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
@@ -58,7 +59,10 @@ class System_Model extends Model{
             $arr['property_building'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
 
 
-
+            $arr['partner'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
+            $arr['place'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
+            $arr['booking'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
+            
             #Data Management
             $arr['import'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);
             $arr['export'] = array('view'=>1,'edit'=>1, 'del'=>1, 'add'=>1);

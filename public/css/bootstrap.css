@@ -458,17 +458,6 @@ a.btn-icon:hover{text-decoration:none}
 .upload-wrapper .group-actions li + li{border-left:1px solid #ddd;padding-left:10px}
 .upload-wrapper .group-actions li button{display:block}
 .upload-wrapper-header{border-bottom:1px solid #d9e1e8}
-.upload-wrapper .meta .message {
-/*padding:10px;*/
-    /*color:#7a92a5;*/
-    /*font-size:14px;*/
-    /*white-space:nowrap;
-    overflow:hidden;
-    -o-text-overflow:ellipsis;
-    text-overflow:ellipsis;
-    line-height:50px;
-    padding-left:25px;
-    float:left;*/}
 .upload-wrapper .sidebar{position:absolute;top:0;left:0;bottom:0;width:200px;border-right:1px solid #d9e1e8;overflow-y:auto;overflow-x:hidden;background-color:#fff;display:none}
 .upload-wrapper .sidebar a{display:block;line-height:30px;padding-left:20px;padding-right:20px}
 .upload-wrapper .sidebar a:hover{background-color:#f2f2f2;text-decoration:none}

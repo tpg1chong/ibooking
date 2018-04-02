@@ -7,10 +7,11 @@ $form = $form->create()
 
 $form   ->field("options_facilities")
         ->type( 'checkbox' )
+        ->name( 'options[facilities][]' )
         ->items( $this->facilitiesList )
         ->label( 'Facilities' );
 
-$form   ->field("options_payment_options")
+/*$form   ->field("options_payment_options")
         ->type( 'checkbox' )
         ->items( $this->paymentList )
         ->label( 'Payment Options' );
@@ -19,5 +20,5 @@ $form   ->field("options_transportation")
         ->type( 'checkbox' )
         ->items( $this->transportationList )
         ->label( 'Transportation' );
-
+*/
 echo $form->html();

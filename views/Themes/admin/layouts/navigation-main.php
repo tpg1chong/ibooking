@@ -8,24 +8,41 @@ $nav = array(
 	0=> array(
 
 		// Overview
-		  array('key'=>'overview', 'text'=> 'Overview', 'link'=>$this->pageURL.'overview', 'icon'=>'area-chart')
-		, array('key'=>'blog_manager', 'text'=> Translate::Val('Blog'), 'link'=>$this->pageURL.'blog', 'icon'=>'newspaper-o')
+		  array('key'=>'dashboard', 'text'=> 'Dashboard', 'link'=>$this->pageURL.'overview', 'icon'=>'area-chart')
+		, array('key'=>'calendar', 'text'=> Translate::Val('Calendar'), 'link'=>$this->pageURL.'calendar', 'icon'=>'calendar-o')
+		// , array('key'=>'blog_manager', 'text'=> Translate::Val('Blog'), 'link'=>$this->pageURL.'blog', 'icon'=>'newspaper-o')
 	)
 	, array(
 
 		// Site
-		  array('key'=>'location', 'text'=> Translate::Val('Place'), 'link'=>$this->pageURL.'location', 'icon'=>'map-marker')
+		  array('key'=>'place', 'text'=> Translate::Val('Place'), 'link'=>$this->pageURL.'place', 'icon'=>'map-marker')
+		  // array('key'=>'location', 'text'=> Translate::Val('Place'), 'link'=>$this->pageURL.'location', 'icon'=>'map-marker')
 		, array('key'=>'property_manager', 'text'=> Translate::Val('Property'), 'link'=>$this->pageURL.'property', 'icon'=>'home')
 		, array('key'=>'promotions', 'text'=> Translate::Val('Promotions'), 'link'=>$this->pageURL.'promotions', 'icon'=>'tags')
 
 	)
-	, array(
+	/*, array(
 
 		// Site
 		  array('key'=>'member_manager', 'text'=> Translate::Menu('Member'), 'link'=>$this->pageURL.'member', 'icon'=>'users')
 		, array('key'=>'inbox', 'text'=> Translate::Menu('Inbox'), 'link'=>$this->pageURL.'inbox', 'icon'=>'envelope-o')
 
+	)*/
+
+	, array(
+
+		// Site
+		  array('key'=>'partner', 'text'=> Translate::Menu('Partner'), 'link'=>$this->pageURL.'partner', 'icon'=>'users')
+		// , array('key'=>'inbox', 'text'=> Translate::Menu('Inbox'), 'link'=>$this->pageURL.'inbox', 'icon'=>'envelope-o')
+
+	), array(
+
+		// Site
+		  array('key'=>'booking', 'text'=> Translate::Menu('Booking'), 'link'=>$this->pageURL.'booking', 'icon'=>'check-square-o')
+		// , array('key'=>'inbox', 'text'=> Translate::Menu('Inbox'), 'link'=>$this->pageURL.'inbox', 'icon'=>'envelope-o')
+
 	)
+
 	, array(
 		  array('key'=>'site_manager', 'text'=> 'Site Manager','link'=>$this->pageURL.'site','icon'=>'object-ungroup')
 		, array('key'=>'business', 'text'=> 'Business Info','link'=>$this->pageURL.'business','icon'=>'cog')

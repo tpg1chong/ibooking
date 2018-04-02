@@ -1,15 +1,15 @@
 <?php
 
-class City extends Model
+class Location_District extends Model
 {
 	public function __construct() {
 		parent::__construct();
     }
 
 
-    private $_table = 'location_city';
+    private $_table = 'location_district';
     private $_field = '*';
-    private $_prefixField = 'city_';
+    private $_prefixField = 'district_';
 
 
     public function get($id)
@@ -25,6 +25,10 @@ class City extends Model
 	}
     public function find($options=array())
     {
+        if( !empty($_GET['zone']) ){
+            $options['zone'] = $_GET['zone'];
+        }
+
     	$options = array_merge(array(
             'more' => true,
 
@@ -43,6 +47,10 @@ class City extends Model
         	$params[':enabled'] = $options['enabled'];
         }
 
+        if( isset($options['zone']) ){
+            $condition = "district_zone_id=:zone";
+            $params[':zone'] = $options['zone'];
+        }
 
         $arr['total'] = $this->db->count($this->_table, $condition, $params);
 

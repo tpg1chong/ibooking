@@ -139,6 +139,7 @@ abbr[title] {
     /*max-width: 940px*/
 }
 /* -- model -- */
+
 .model-dialog .model-container {
     border-radius: 6px;
 }
@@ -160,6 +161,8 @@ abbr[title] {
 .red.model-dialog .model-title {
     background-color: #ee5951;
 }
+
+
 .fsl {
     font-size: 120%}
 textarea, .inputtext {
@@ -397,6 +400,8 @@ textarea, .inputtext {
 }
 .gbtn .btn, .gbtn .btn:before {
     border-radius: 15px;
+    width: 30px;
+    padding: 0;
 }
 .gbtn .btn-large, .gbtn .btn-large:before {
     border-radius: 18px;
@@ -429,6 +434,9 @@ textarea, .inputtext {
     height: 90px;
     line-height: 90px;
     font-size: 25px;
+}
+.gbtn + .gbtn{
+    margin-left: 5px;
 }
 a.btn-edit:hover {
     text-decoration: none;
@@ -4289,6 +4297,7 @@ to {
     display: inline-block;
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
+    vertical-align: top;
 }
 .listpage2-actions #more-link .prev, .listpage2-actions #more-link .next {
     min-width: 20px;
@@ -9771,7 +9780,7 @@ body.touch #account-settings{
 
 /* form-places-section */
 .form-places-section{
-    display: none;
+    /*display: none;*/
 
     height: 450px;
     overflow-y: scroll;
@@ -9800,3 +9809,23 @@ body.touch #account-settings{
 .form-places-create-footer .has-next>.text-submit-next{
     display: block;
 }
+
+.table-insert-picture{
+    width: 100%;
+}
+.table-insert-picture th, .table-insert-picture td{
+    padding: 4px 12px;
+    border: 1px solid #ccc;
+}
+.table-insert-picture th{
+    background-color: #eee;
+    font-size: 80%
+}
+.table-insert-picture tr th:first-child, .table-insert-picture tr td:first-child{
+    border-left-width: 0
+}
+.table-insert-picture tr th:last-child, .table-insert-picture tr td:last-child{
+    border-right-width: 0
+}
+
+.table-insert-picture .

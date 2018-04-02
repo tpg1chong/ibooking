@@ -7,11 +7,10 @@ $form = $form->create()
 
 $form   ->field("building_type")
         ->name( 'building[type]' )
-        ->label( 'ประเภท' )
+        ->label( 'Place Type' )
         ->autocomplete('off')
         ->addClass('inputtext')
-        ->select(  $this->typeList )
-        ->value( isset($_GET['name']) ? $_GET['name']: '' );
+        ->select(  $this->typeList );
 
 
 $form   ->field("building_name")
@@ -19,6 +18,13 @@ $form   ->field("building_name")
         ->label('Place Name')
         ->autocomplete('off')
         ->addClass('inputtext');
+
+$form   ->field("building_description")
+        ->name( 'building[description]' )
+        ->label('Place Description')
+        ->autocomplete('off')
+        ->addClass('inputtext')
+        ->type( 'textarea' );
 
 
 echo $form->html();

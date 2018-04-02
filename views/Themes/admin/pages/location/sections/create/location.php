@@ -3,6 +3,7 @@
 $form = new Form();
 $form = $form->create()
 	->elem('div')->style('horizontal')
+        ->attr( 'data-plugins', 'formLocation' )
 	->addClass('pal');
 
 $form   ->field("location_country")
@@ -10,28 +11,38 @@ $form   ->field("location_country")
         ->label( 'ประเทศ' )
         ->autocomplete('off')
         ->addClass('inputtext')
-        ->placeholder('')
-        ->value( isset($_GET['name']) ? $_GET['name']: '' );
-
-$form   ->field("location_city")
-        ->name( 'location[city]' )
-        ->label('จังหวัด')
-        ->autocomplete('off')
-        ->addClass('inputtext');
-
-$form   ->field("location_district")
-        ->name( 'location[district]' )
-        ->label('อำเภอ/เขต')
-        ->autocomplete('off')
-        ->addClass('inputtext');
+        ->select( $this->countryList, 'id', 'name', false );
 
 $form   ->field("location_province")
         ->name( 'location[province]' )
+        ->label('จังหวัด')
+        ->autocomplete('off')
+        ->addClass('inputtext')
+        ->select( array() );
+
+$form   ->field("location_zone")
+        ->name( 'location[zone]' )
+        ->label('อำเภอ/เขต')
+        ->autocomplete('off')
+        ->addClass('inputtext')
+        ->select( array() );
+
+$form   ->field("location_district")
+        ->name( 'location[district]' )
         ->label('ตำบล/แขวง')
         ->autocomplete('off')
-        ->addClass('inputtext');
+        ->addClass('inputtext')
+        ->select( array() );
 
-$form   ->field("location_road")
+$form   ->field("location_address")
+        ->name( 'location[address]' )
+        ->label('ที่อยู่')
+        ->autocomplete('off')
+        ->addClass('inputtext')
+        ->type('textarea');
+
+
+/*$form   ->field("location_road")
         ->name( 'location[road]' )
         ->label('ถนน')
         ->autocomplete('off')
@@ -53,6 +64,6 @@ $form   ->field("location_address")
         ->name( 'location[address]' )
         ->label('บ้านเลขที่')
         ->autocomplete('off')
-        ->addClass('inputtext');
+        ->addClass('inputtext');*/
 
 echo $form->html();
