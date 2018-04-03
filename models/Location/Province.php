@@ -25,6 +25,12 @@ class Province extends Model
 	}
     public function find($options=array())
     {
+        foreach (array('enabled') as $key) {
+            if( isset($_REQUEST[$key]) ){
+                $options[$key] = $_REQUEST[$key];
+            }
+        }
+
     	$options = array_merge(array(
             'more' => true,
 
@@ -39,7 +45,7 @@ class Province extends Model
         $params = array();
 
         if( isset($options['enabled']) ){
-        	$condition = "type_enabled=:enabled";
+        	$condition = "enabled=:enabled";
         	$params[':enabled'] = $options['enabled'];
         }
 

@@ -17,12 +17,13 @@ $title = array(
 
 	  array('key'=>'check-box', 'text'=> '<label class="checkbox"><input id="checkboxes" type="checkbox"></label>' )
 	  
-	, array('key'=>'name', 'text'=>Translate::val('Place Name'), 'sort'=>'name')
-	, array('key'=>'qty tar', 'text'=>Translate::val('Partner'), 'sort'=>'partner'  )
+	, array('key'=>'name', 'text'=>Translate::val('Place Name'))
+	// , array('key'=>'qty tar', 'text'=>Translate::val('Partner')  )
 	// , array('key'=>'qty tar', 'text'=>Translate::val('Company'), 'sort'=>'Company' )
-	, array('key'=>'status', 'text'=> Translate::val( 'Room' ) )
-	, array('key'=>'status', 'text'=> Translate::val( 'Venue' ) )
+	, array('key'=>'status', 'text'=> Translate::val( 'Total Rooms' ) )
+	, array('key'=>'status', 'text'=> Translate::val( 'Total Venues' ) )
 	, array('key'=>'status', 'text'=> Translate::val( 'Enabled' ) )
+	, array('key'=>'date', 'text'=> Translate::val( 'Last Update' ), 'sort'=>'update_date' )
 
 	, array('key'=>'actions', 'text'=>'' )
 	

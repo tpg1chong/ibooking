@@ -1,30 +1,41 @@
 <?php
 
+require_once 'Place/Photo.php';
+
+
 class Place_Model extends Model{
 
     public function __construct() {
         parent::__construct();
+
+        $this->photo = new Photo();
     }
 
     private $__objType = "property_building";
-    private $__table = "property_building";
+    private $__table = "
+
+        property_building AS building 
+            LEFT JOIN property_type AS type ON building.building_type=type.type_id
+
+            LEFT JOIN location_country AS country ON building.location_country=country.country_id
+            LEFT JOIN location_province AS province ON building.location_province=province.province_id
+            LEFT JOIN location_zone AS zone ON building.location_zone=zone.zone_id
+            LEFT JOIN location_district AS district ON building.location_district=district.district_id
+
+    ";
     private $__field = "*";
     private $__prefixField = "building_";
 
     /* -- actions -- */
     public function insert(&$data) {
 
-        $data["{$this->__prefixField}created"] = date('c');
-        $data["{$this->__prefixField}updated"] = date('c');
-
-        if( isset($data["{$this->__prefixField}pass"]) ){
-            $data["{$this->__prefixField}pass"] = Hash::create('sha256', $data["{$this->__prefixField}pass"], HASH_PASSWORD_KEY);
-        }
+        $data["{$this->__prefixField}create_date"] = date('c');
+        $data["{$this->__prefixField}update_date"] = date('c');
 
         $this->db->insert($this->__objType, $data);
         $data['id'] = $this->db->lastInsertId();
 
-        $data = $this->cut($this->__prefixField, $data);
+        $data = $this->__cutPrefixField($this->__prefixField, $data);
     }
     public function update($id, $data) {
         $data["{$this->__prefixField}updated"] = date('c');
@@ -43,12 +54,20 @@ class Place_Model extends Model{
     }
     public function find( $options=array() ) {
 
+        foreach (array('enabled', 'type', 'q') as $key) {
+            if( isset($_REQUEST[$key]) ){
+                $options[$key] = $_REQUEST[$key];
+            }
+        }
+
+        
+
         $options = array_merge(array(
             'pager' => isset($_REQUEST['pager'])? $_REQUEST['pager']:1,
             'limit' => isset($_REQUEST['limit'])? $_REQUEST['limit']:50,
             'more' => true,
 
-            'sort' => isset($_REQUEST['sort'])? $_REQUEST['sort']: 'lastvisit',
+            'sort' => isset($_REQUEST['sort'])? $_REQUEST['sort']: 'update_date',
             'dir' => isset($_REQUEST['dir'])? $_REQUEST['dir']: 'DESC',
 
             'time'=> isset($_REQUEST['time'])? $_REQUEST['time']:time(),
@@ -60,10 +79,26 @@ class Place_Model extends Model{
         $condition = "";
         $params = array();
 
+        if( !empty($options['type']) ){
+            $condition .= "building_type=:type";
+            $params[':type'] = $options['type'];
+        }
 
-        if( !empty($options['role']) ){
-            $condition .= "role=:role";
-            $params[':role'] = $options['role'];
+        if( !empty($options['q']) ){
+
+            $arrQ = explode(' ', $options['q']);
+            $wq = '';
+            foreach ($arrQ as $key => $value) {
+                $wq .= !empty( $wq ) ? " OR ":'';
+                $wq .= "building_name LIKE :q{$key} OR building_name=:f{$key}";
+                $params[":q{$key}"] = "%{$value}%";
+                $params[":f{$key}"] = $value;
+            }
+
+            if( !empty($wq) ){
+                $condition .= !empty( $condition ) ? " AND ":'';
+                $condition .= "($wq)";
+            }
         }
 
         $arr['total'] = $this->db->count($this->__table, $condition, $params);
@@ -95,6 +130,10 @@ class Place_Model extends Model{
     public function convert($data){
 
         $data = $this->__cutPrefixField($this->__prefixField, $data);
+
+        $data['images'] = $this->photo->findByAlbumId( $data['id'] );
+        $data['permit']['del'] = 1;
+
         return $data;
     }
 

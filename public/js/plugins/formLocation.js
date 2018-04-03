@@ -26,6 +26,7 @@ if ( typeof Object.create !== 'function' ) {
 
 		    self.$province.change(function() {
 		    	self.getZone();
+		    	self.$district.empty();
 		    });
 
 		    self.$zone.change(function() {
@@ -38,7 +39,7 @@ if ( typeof Object.create !== 'function' ) {
 
 			setTimeout(function () {
 				
-				$.get( app.getUri('location/provinceList/'), {country: self.$elem.find(':input#location_country').val()}, function (res) {
+				$.get( app.getUri('location/provinceList/'), {country: self.$elem.find(':input#location_country').val(), enabled: 1}, function (res) {
 					
 					
 					self.$province.empty();
@@ -46,9 +47,6 @@ if ( typeof Object.create !== 'function' ) {
 					$.each(res, function(index, el) {
 						self.$province.append( $('<option>', {value: el.id, text: el.name}) );
 					});
-
-					/*self.getZone();
-					self.getDistrict();*/
 
 				}, 'json');
 			}, 1);
@@ -64,7 +62,7 @@ if ( typeof Object.create !== 'function' ) {
 					self.$zone.empty();
 					self.$zone.append( $('<option>', {value: '', text: '-- Choose zone --'}) );
 					$.each(res, function(index, el) {
-						self.$zone.append( $('<option>', {value: el.id, text: el.name}) );
+						self.$zone.append( $('<option>', {value: el.id, text: el.name + ' - ' + el.postcode}) );
 					});
 
 					// self.getDistrict();

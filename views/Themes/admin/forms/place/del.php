@@ -6,7 +6,7 @@ $next = isset($_REQUEST['next']) ? '?next='.$_REQUEST['next']:'';
 
 if( !empty($this->item['permit']['del']) ){
 	
-	$arr['form'] = '<form class="js-submit-form" action="'.URL.'partner/del'.$next.'"></form>';
+	$arr['form'] = '<form class="js-submit-form" action="'.URL.'place/del'.$next.'"></form>';
 	$arr['hiddenInput'][] = array('name'=>'id','value'=>$this->item['id']);
 	$arr['body'] = "คุณต้องการจะลบ <span class=\"fwb\">\"{$this->item['name']}\"</span> หรือไม่?";
 	
@@ -20,6 +20,7 @@ else{
 }
 
 $arr['bg'] = 'red';
+
 
 
 echo json_encode($arr);

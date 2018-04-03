@@ -41,11 +41,86 @@ class Location_Controller extends Controller {
         if( empty($this->me) || $this->format!='json' || empty($_POST) ) $this->error();
 
 
-
         // Location
         if( $action=='places' ) {
             
-            $arr['post'] = $_POST;
+            $arr = array();
+            $options = $_POST['options'];
+            $dataPost = array();
+
+            if( $options['type']=='location' || !empty($options['save']) ){
+                $location = $_POST['location'];
+                foreach (array( 'country', 'province', 'zone', 'district', 'address' ) as $key) {
+
+                    $dataPost[ 'location_'.$key ] = trim($location[$key]);
+                    
+                    if( empty( $location[$key] ) ){
+                        $arr['error']['location_'.$key] = 'Please input data.';
+                    }
+                }
+            }
+
+            if( $options['type']=='basic' || !empty($options['save']) ){
+
+                $building = $_POST['building'];
+                foreach (array( 'type', 'name', 'description' ) as $key) {
+
+                    $dataPost[ 'building_'.$key ] = trim($building[$key]);
+                    
+                    if( empty( $building[$key] ) ){
+                        $arr['error']['building_'.$key] = 'Please input data.';
+                    }
+                }
+            }
+
+            if( $options['type']=='detail' || !empty($options['save'])){
+                
+                
+                if( !empty($_POST['facilities']) ){
+                    $dataPost['building_facilities'] = json_encode($_POST['facilities']);
+                }
+            }
+
+
+            if( $options['type']=='picture' ){
+                $files = isset($_FILES['photo']) ? $_FILES['photo']: array();
+                $photos = array();
+
+                if( !empty($files) ){
+                    for ($i=0; $i < count($files['name']); $i++) { 
+                        
+                        $photos[] = array(
+                            'name' => $files['name'][$i],
+                            'type' => $files['type'][$i],
+                            'error' => $files['error'][$i],
+                            'size' => $files['size'][$i],
+                            'tmp_name' => $files['tmp_name'][$i],
+                            'caption' => isset($_POST['caption'][$i]) ? $_POST['caption'][$i]: '',
+                            'id' => isset($_POST['photo_id'][$i]) ? $_POST['photo_id'][$i]: '',  
+                        );
+
+                    }
+                }
+            }
+
+
+            if( !empty($options['save']) && empty($arr['error']) ){
+
+                $dataPost['building_create_date'] = date('c');
+                $dataPost['building_create_by'] = $this->me['id'];
+                $dataPost['building_update_date'] = date('c');
+
+                $this->model->query('place')->insert( $dataPost );
+
+                if( !empty($photos) ){
+                    foreach ($photos as $key => $value) {
+                        // $this->model->query('place')->photo->insert($value);
+                    }
+                }
+
+                $arr['url'] = URL.'admin/place';
+            }
+
             // $arr['message'] = '+55555';
         }
 

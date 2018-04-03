@@ -25,8 +25,10 @@ class Location_District extends Model
 	}
     public function find($options=array())
     {
-        if( !empty($_GET['zone']) ){
-            $options['zone'] = $_GET['zone'];
+        foreach (array('enabled', 'zone') as $key) {
+            if( isset($_REQUEST[$key]) ){
+                $options[$key] = $_REQUEST[$key];
+            }
         }
 
     	$options = array_merge(array(
@@ -43,7 +45,7 @@ class Location_District extends Model
         $params = array();
 
         if( isset($options['enabled']) ){
-        	$condition = "type_enabled=:enabled";
+        	$condition = "enabled=:enabled";
         	$params[':enabled'] = $options['enabled'];
         }
 

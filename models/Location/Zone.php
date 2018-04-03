@@ -25,8 +25,10 @@ class Location_Zone extends Model
 	}
     public function find($options=array())
     {
-        if( !empty($_GET['province']) ){
-            $options['province'] = $_GET['province'];
+        foreach (array('enabled', 'province') as $key) {
+            if( isset($_REQUEST[$key]) ){
+                $options[$key] = $_REQUEST[$key];
+            }
         }
 
     	$options = array_merge(array(
@@ -44,7 +46,7 @@ class Location_Zone extends Model
 
 
         if( isset($options['enabled']) ){
-        	$condition = "type_enabled=:enabled";
+        	$condition = "enabled=:enabled";
         	$params[':enabled'] = $options['enabled'];
         }
 

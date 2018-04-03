@@ -17,7 +17,7 @@ $nav = array(
 		// Site
 		  array('key'=>'place', 'text'=> Translate::Val('Place'), 'link'=>$this->pageURL.'place', 'icon'=>'map-marker')
 		  // array('key'=>'location', 'text'=> Translate::Val('Place'), 'link'=>$this->pageURL.'location', 'icon'=>'map-marker')
-		, array('key'=>'property_manager', 'text'=> Translate::Val('Property'), 'link'=>$this->pageURL.'property', 'icon'=>'home')
+		// , array('key'=>'property_manager', 'text'=> Translate::Val('Property'), 'link'=>$this->pageURL.'property', 'icon'=>'home')
 		, array('key'=>'promotions', 'text'=> Translate::Val('Promotions'), 'link'=>$this->pageURL.'promotions', 'icon'=>'tags')
 
 	)

@@ -21,4 +21,4 @@ $form   ->field("options_transportation")
         ->items( $this->transportationList )
         ->label( 'Transportation' );
 */
-echo $form->html();
+$body .= $form->html();

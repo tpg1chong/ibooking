@@ -98,12 +98,12 @@ $selection.= '<a class="btn btn-blue" ajaxify="'.URL.'organizations/dels"><i cla
 				 <!-- data-plugins="tooltip"  -->
 				<li><label class="label">&nbsp;</label><a style="vertical-align:top" class="btn js-refresh" title="refresh"><i class="icon-refresh"></i></a></li>	
 				
-				<?php if( !empty($this->forum) ) { ?>
-				<li><label for="forum" class="label">หมวดหมู</label>
-				<select ref="selector" name="forum" class="inputtext"><?php
+				<?php if( !empty($this->typeList) ) { ?>
+				<li><label for="type" class="label">Type</label>
+				<select ref="selector" name="type" class="inputtext"><?php
 					$option = '';
 					$countValTotal = 0;
-					foreach ($this->forum as $key => $value) {
+					foreach ($this->typeList as $key => $value) {
 						// if( empty($value['count'])  ) continue;
 
 						$selected = '';
@@ -123,12 +123,12 @@ $selection.= '<a class="btn btn-blue" ajaxify="'.URL.'organizations/dels"><i cla
 				?></select></li>
 				<?php } ?>
 				
-				<?php if( !empty($this->category) ) { ?>
-				<li><label for="cry" class="label">ประเภท</label>
-				<select ref="selector" id="cry" name="cry" class="inputtext"><?php
+				<?php if( !empty($this->countryList) ) { ?>
+				<li><label for="country" class="label">ประเทศ</label>
+				<select ref="selector" id="country" name="country" class="inputtext" onchange=" changeProvince(this) "><?php
 					$option = '';
 					$countValTotal = 0;
-					foreach ($this->category as $key => $value) {
+					foreach ($this->countryList as $key => $value) {
 						// if( empty($value['count'])  ) continue;
 
 						$selected = '';
@@ -143,10 +143,13 @@ $selection.= '<a class="btn btn-blue" ajaxify="'.URL.'organizations/dels"><i cla
 						$option .= '<option'.$selected.' value="'.$value['id'].'">'.$value['name'].$countVal.'</option>';
 					}
 					
-					echo '<option value="">ทั้งหมด'. ( $countValTotal>0 ? " ({$countValTotal})":'' ) .'</option>'. $option;
+					echo $option;
 
 				?></select></li>
 				<?php } ?>
+
+				<li><label for="province" class="label">จังหวัด</label>
+				<select ref="selector" id="province" name="province" class="inputtext"></select></li>
 			</ul>
 
 			<ul class="rfloat">
@@ -162,3 +165,24 @@ $selection.= '<a class="btn btn-blue" ajaxify="'.URL.'organizations/dels"><i cla
 	</div>
 
 </div>
+
+<script type="text/javascript">
+
+	changeProvince();
+	function changeProvince() {
+		$('select#country').val();
+		var $province = $('select#province');
+
+
+		$province.empty();
+		$.get( app.getUri( 'location/provinceList' ), {enabled: 1}, function (res) {
+			
+
+			$province.append( $('<option>', {value: '', text: '-- All --'}) );
+			$.each(res, function(i, obj) {
+				$province.append( $('<option>', {value: obj.id, text: obj.name}) );
+			});
+			
+		}, 'json');
+	}
+</script>

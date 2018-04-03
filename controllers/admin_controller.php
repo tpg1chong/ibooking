@@ -103,17 +103,45 @@ class Admin_Controller extends Controller
 
 
     /* -- Place -- */
-    public function place()
+    public function place($id=null)
     {
-        if( $this->format == 'json' ){
 
-            $this->view->setData( 'results', $this->model->query('place')->find() );
-            $this->view->render("place/lists/json");
-        }
-        else{
+        // print_r($this->model->query('place')->find()); die;
+        if( !empty($id) ){
+            $item = $this->model->query('place')->findById( $id );
+            if( empty($item) ) $this->error();
+
+            $this->view->setData('item', $item );
+
+            $type = $this->model->query('property')->type->find();
+            $this->view->setData('typeList', $type['items'] );
+
+            $country = $this->model->query('location')->country->find();
+            $this->view->setData('countryList', $country['items'] );
+
+            $facilities = $this->model->query('property')->facilities->find();
+            $this->view->setData('facilitiesList', $facilities['items'] );
 
             $this->view->setPage('on', 'place' );
-            $this->view->render("place/lists/display");
+            $this->view->render("place/profile/display");
+        }
+        else{
+            if( $this->format == 'json' ){
+
+                $this->view->setData( 'results', $this->model->query('place')->find() );
+                $this->view->render("place/lists/json");
+            }
+            else{
+
+                $type = $this->model->query('property')->type->find();
+                $this->view->setData('typeList', $type['items'] );
+
+                $country = $this->model->query('location')->country->find();
+                $this->view->setData('countryList', $country['items'] );
+
+                $this->view->setPage('on', 'place' );
+                $this->view->render("place/lists/display");
+            }
         }
     }
     /* -- property -- */
@@ -155,21 +183,17 @@ class Admin_Controller extends Controller
             $type = $this->model->query('property')->type->find();
             $this->view->setData('typeList', $type['items'] );
 
-
             $facilities = $this->model->query('property')->facilities->find();
             $this->view->setData('facilitiesList', $facilities['items'] );
-
 
             $payment = $this->model->query('property')->payment_options->find();
             $this->view->setData('paymentList', $payment['items'] );
 
-
             $transportation = $this->model->query('property')->transportation->find();
             $this->view->setData('transportationList', $transportation['items'] );
 
-            $roomType = $this->model->query('property')->room_type->find();
-            $this->view->setData('roomTypeList', $roomType['items'] );
-
+            /*$roomType = $this->model->query('property')->room_type->find();
+            $this->view->setData('roomTypeList', $roomType['items'] );*/
 
             $country = $this->model->query('location')->country->find();
             $this->view->setData('countryList', $country['items'] );

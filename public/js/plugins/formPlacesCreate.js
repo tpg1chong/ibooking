@@ -37,8 +37,6 @@ if ( typeof Object.create !== 'function' ) {
 						return false;
 					}
 
-					console.log( result );
-
 					self.next();
 				});
 			});
@@ -104,7 +102,8 @@ if ( typeof Object.create !== 'function' ) {
 				self.$form.find('#options_type').val( type );
 
 				var lastActive = (self.index+1)==self.limit;
-				self.action.$submit.toggleClass('has-next', !lastActive );
+				self.action.$submit.find('.text-submit-next').toggleClass('hidden_elem', lastActive );
+				self.action.$submit.find('.text-submit-save').toggleClass('hidden_elem', !lastActive );
 				self.$form.find('#options_save').val( lastActive ? 1:0 );
 			}, 1);
 			

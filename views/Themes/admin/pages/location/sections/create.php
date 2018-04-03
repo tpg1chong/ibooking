@@ -4,14 +4,14 @@
 		<div class="form-places-create-title"><i class="icon-plus mrs"></i>Create Places</div>
 	</div>
 	<?php
-	$fristStep = 'room';
+	$fristStep = 'location';
 
 	$step = array();
 	$step[] = array('text'=>'Location', 'name'=>'location');
 	$step[] = array('text'=>'Basic Info', 'name'=>'basic');
 	$step[] = array('text'=>'Details', 'name'=>'detail');
 	$step[] = array('text'=>'Picture', 'name'=>'picture');
-	// $step[] = array('text'=>'Rooms', 'name'=>'room');
+	
 
 	echo '<div class="form-places-create-step clearfix" data-ref="step">';
 		echo $this->fn->stepList($step, $fristStep);
@@ -20,6 +20,7 @@
 	?>	
 
 	<input id="options_type" type="hidden" name="options[type]" value="<?=$fristStep?>">
+	<input id="options_save" type="hidden" name="options[save]" value="">
 	<div class="form-places">
 		<?php
 
@@ -33,8 +34,6 @@
 				require_once "create/{$value['name']}.php";
 				echo '</div>';
 			}
-
-			
 		}
 
 		?>

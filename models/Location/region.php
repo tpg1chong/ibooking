@@ -25,6 +25,12 @@ class Region extends Model
 	}
     public function find($options=array())
     {
+        foreach (array('enabled') as $key) {
+            if( isset($_REQUEST[$key]) ){
+                $options[$key] = $_REQUEST[$key];
+            }
+        }
+
     	$options = array_merge(array(
             'more' => true,
 
@@ -38,11 +44,10 @@ class Region extends Model
         $condition = "";
         $params = array();
 
-        if( isset($options['enabled']) ){
+        /*if( isset($options['enabled']) ){
         	$condition = "type_enabled=:enabled";
         	$params[':enabled'] = $options['enabled'];
-        }
-
+        }*/
 
         $arr['total'] = $this->db->count($this->_table, $condition, $params);
 
