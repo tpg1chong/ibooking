@@ -34,19 +34,18 @@ if( !empty($this->results['lists']) ){
             '<td class="email">'. (!empty( $item['email'] ) ? $item['email']: '-') .'</td>'.
             '<td class="phone">'. (!empty( $item['phone'] ) ? $item['phone']: '-') .'</td>'.
 
-            '<td class="status"><label class="checkbox"><input type="checkbox"></label></td>'.
+            '<td class="status"><label class="checkbox"><input data-action="checked" name="partner_enabled" type="checkbox"'.(!empty($item['enabled'] ) ? ' checked':'' ).'></label></td>'.
+            
+            '<td class="status">'. (!empty($item['lastvisit']) ? date('j/m/Y H:s', strtotime($item['lastvisit'])): '-').'</td>'.
 
             '<td class="actions"><div class="whitespace">'.
 
                 '<span class="gbtn"><a class="btn" title="Change password" data-plugins="lightbox" href="'.$this->pageURL.'change_password/'.$item['id'].'"><i class="icon-lock"></i></a></span>'.
                 '<span class="gbtn"><a class="btn" title="Edit" data-plugins="lightbox" href="'.$this->pageURL.'edit/'.$item['id'].'"><i class="icon-pencil"></i></a></span>'.
                 '<span class="gbtn"><a class="btn" title="Remove" data-plugins="lightbox" href="'.$this->pageURL.'del/'.$item['id'].'"><i class="icon-trash"></i></a></span>'.
-
-
             '</div></td>'.
 
         '</tr>';
-        
     }
 }
 

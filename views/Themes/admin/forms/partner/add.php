@@ -18,7 +18,6 @@ $form   ->field("partner_username")
         ->autocomplete('off')
         ->addClass('inputtext');
 
-
 $form   ->field('auto_password')
         ->text('<div class="fsm"><label class="checkbox" for="auto_password"><input type="checkbox" id="auto_password" name="auto_password" checked><span>กำหนดรหัสผ่านอัตโนมัติ</span></label></div>');
 
@@ -29,8 +28,21 @@ $form   ->field("password")
         ->autocomplete('off')
         ->addClass('inputtext');
 
+$form   ->field("partner_email")
+        ->label( 'Email' )
+        ->autocomplete('off')
+        ->addClass('inputtext')
+        ->value( !empty($this->item['email'])? $this->item['email']:'' );
+
+$form   ->field("partner_phone")
+        ->label($this->lang->translate('Phone'))
+        ->autocomplete('off')
+        ->addClass('inputtext')
+        ->value( !empty($this->item['phone'])? $this->item['phone']:'' );
+
+
 # set form
-$arr['form'] = '<form class="js-submit-form form-emp-add" method="post" action="'.URL. 'partner/save"></form>';
+$arr['form'] = '<form class="form-emp-add" method="post" action="'.URL. 'partner/save"></form>';
 
 # body
 $arr['body'] = $form->html();

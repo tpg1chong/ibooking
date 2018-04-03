@@ -6,7 +6,11 @@
 			<div class="forum-toolbar-title lfloat">
 				<h2 class="title" data-profile="name"><?=$this->item['name']?></h2>
 				<div class="fsm mvs" style="margin-top: 2px">
-					<div><span data-profile="business_name"><?=$this->item['type_name']?></span></div>
+					<div>
+						<span><i class="icon-building mrs"></i><?=$this->item['type_name']?></span>
+						<span class="mhs">·</span> 
+ 						<span><i class="icon-map-marker mrs"></i><?=$this->item['location_str']?></span>
+					</div>
 				</div>
 			</div>
 			<div class="rfloat">

@@ -4,15 +4,15 @@ class Photo extends Model
 {
 	public function __construct() {
 		parent::__construct();
+
+		$this->__source = WWW_UPLOADS.'property/';
+		$this->__path = UPLOADS.'property/';
     }
 
     private $__objType = "property_building_images";
     private $__table = "property_building_images";
     private $__field = "*";
     private $__prefixField = "photo_";
-    private $__source = WWW_UPLOADS.'property/';
-    private $__path = UPLOADS.'property/';
-
 
     public function set(&$options)
     {
@@ -33,6 +33,8 @@ class Photo extends Model
             // media
             $this->insert( $media );
         }
+
+        // 75/23 ซอยสุขุมวิท ถนนสุขุมวิท, คลองตัน, สุขุมวิท, กรุงเทพ, ประเทศไทย
 
         if( !empty($media['id']) ){
 

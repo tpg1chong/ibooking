@@ -17,14 +17,14 @@ class Partner_Model extends Model{
         $data["{$this->__prefixField}created"] = date('c');
         $data["{$this->__prefixField}updated"] = date('c');
 
-        if( isset($data["{$this->__prefixField}pass"]) ){
-            $data["{$this->__prefixField}pass"] = Hash::create('sha256', $data["{$this->__prefixField}pass"], HASH_PASSWORD_KEY);
+        if( isset($data["{$this->__prefixField}password"]) ){
+            $data["{$this->__prefixField}password"] = Hash::create('sha256', $data["{$this->__prefixField}password"], HASH_PASSWORD_KEY);
         }
 
         $this->db->insert($this->__objType, $data);
         $data['id'] = $this->db->lastInsertId();
 
-        $data = $this->cut($this->__prefixField, $data);
+        $data = $this->__cutPrefixField($this->__prefixField, $data);
     }
     public function update($id, $data) {
         $data["{$this->__prefixField}updated"] = date('c');
@@ -43,6 +43,7 @@ class Partner_Model extends Model{
     }
     public function find( $options=array() ) {
 
+        
         $options = array_merge(array(
             'pager' => isset($_REQUEST['pager'])? $_REQUEST['pager']:1,
             'limit' => isset($_REQUEST['limit'])? $_REQUEST['limit']:50,
@@ -59,7 +60,6 @@ class Partner_Model extends Model{
 
         $condition = "";
         $params = array();
-
 
         if( !empty($options['role']) ){
             $condition .= "role=:role";
@@ -82,20 +82,51 @@ class Partner_Model extends Model{
     }
 
 
+    public function is_user($text){
+        return $this->db->count($this->__objType, "({$this->__prefixField}login=:txt AND {$this->__prefixField}login!='') OR ({$this->__prefixField}email=:txt AND {$this->__prefixField}email!='')", array(':txt'=>$text));
+    }
+
     /* -- convert data -- */
     public function buildFrag($results, $options=array()) {
         $data = array();
         foreach ($results as $key => $value) {
             if( empty($value) ) continue;
-            $data[] = $this->convert( $value );
+            $data[] = $this->convert( $value, $options );
         }
 
         return $data;
     }
-    public function convert($data){
+    public function convert($data, $options=array()){
 
         $data = $this->__cutPrefixField($this->__prefixField, $data);
-        return $data;
+        $data['permit']['del'] = 1;
+        
+
+        $view_stype = !empty($options['view_stype']) ? $options['view_stype']:'convert';
+        if( !in_array($view_stype, array('bucketed', 'convert' )) ) $view_stype = 'convert';
+
+        return $view_stype=='convert'
+            ? $data
+            : $this->{$view_stype}( $data );
+    }
+    public function bucketed($data , $options=array()) {
+
+        $fdata = array(
+            'id'=> $data['id'],
+            // 'created' => $data['created'],
+            'text'=> $data['name'],
+            // "category"=> 'category',
+            // "subtext"=> '', //!empty($data['phone_number']) ? $data['phone_number']:"",
+            // "image_url"=>!empty($data['image_url']) ? $data['image_url']:"",
+            // "type"=> !empty($data['job_type']) ? $data['job_type'] : "massager",
+
+            // "image_url"=>!empty($data['image_url']) ? $data['image_url']:"",
+            // 'icon_text' => $data['code'],
+            // 'code' => $data['code'],
+            // 'skill' => $data['skill'],
+        );
+
+        return $fdata;
     }
 
 }

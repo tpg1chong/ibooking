@@ -27,14 +27,13 @@ class Admin_Controller extends Controller
         }
     }
 
-    public function index($value='') {
+    public function index() {
 
-        header('location: '.URL.'admin/location');
+        header('location: '.URL.'admin/place');
     }
     public function business() 
     {
         $this->view->setPage('on', 'business');
-
         $this->view->render("business/display");
     }
 
@@ -268,5 +267,10 @@ class Admin_Controller extends Controller
 
         $this->view->setPage('on', 'calendar' );
         $this->view->render("calendar/display");
+    }
+
+    public function booking()
+    {
+        $this->error();
     }
 }

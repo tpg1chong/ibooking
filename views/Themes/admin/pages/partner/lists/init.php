@@ -23,6 +23,7 @@ $title = array(
 	, array('key'=>'email', 'text'=> Translate::val( 'Email' ), 'sort'=>'Email' )
 	, array('key'=>'phone', 'text'=> Translate::val( 'Phone' ), 'sort'=>'Phone' )
 	, array('key'=>'status', 'text'=> Translate::val( 'Enabled' ) )
+	, array('key'=>'date', 'text'=> Translate::val( 'Last signed in' ), 'sort'=>'lastvisit' )
 
 	, array('key'=>'actions', 'text'=>'' )
 	

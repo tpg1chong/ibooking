@@ -33,7 +33,7 @@ if ( typeof Object.create !== 'function' ) {
 				self.options.tab = self.$elem.find('[data-action-tab]').eq( 0 ).attr('data-action-tab');
 			}
 
-			
+
 			self.$elem.find('[data-action-tab]').click(function() {
 
 				if( $(this).hasClass('active') ) return false;
@@ -75,7 +75,7 @@ if ( typeof Object.create !== 'function' ) {
 	};
 	$.fn.mainforum.options = {
 		index: 0,
-		tab: '',
+		tab: 'rooms',
 	};
 	
 })( jQuery, window, document );

@@ -10,7 +10,7 @@
 					<h3 class="fwn">Property Rooms</h3>
 					<div class="fsm" style="margin-top: 2px">1 results</div>
 				</td>
-				<td><a data-action-contact="add" data-href="http://localhost/tpg.office/companies/contactAdd/" class="btn btn-blue"><i class="icon-plus mrs"></i><span>New room</span></a></td>
+				<td><a data-plugins="lightbox" href="<?=URL?>place/add_room/" class="btn btn-blue"><i class="icon-plus mrs"></i><span>New Room</span></a></td>
 			</tr>
 		</tbody></table>
 	</form>

@@ -30,9 +30,10 @@ $arr['hiddenInput'][] = array('name'=>'id', 'value'=> $this->item['id']);
 $arr['body'] = $form->html();
 $arr['title'] = 'รีเซ็ตรหัสผ่าน';	
 
-$arr['form'] = '<form class="form-reset-password" action="'.URL.'accounts/change_password"></form>';
-$arr['bottom_msg'] = '<a href="#" class="btn btn-cancel" role="dialog-close"><span class="btn-text">'.$this->lang->translate('Cancel').'</span></a>';
-$arr['button'] = '<button type="submit" class="btn btn-blue btn-submit"><span class="btn-text">'.$this->lang->translate('Save').'</span></button>';
+$arr['form'] = '<form class="form-reset-password" action="'.URL.'partner/change_password"></form>';
+$arr['button'] = '<button type="submit" class="btn btn-primary btn-submit"><span class="btn-text">'.Translate::val('Save').'</span></button>';
+$arr['bottom_msg'] = '<a class="btn" data-action="close"><span class="btn-text">'.Translate::val('Cancel').'</span></a>';
+
 
 // $arr['width'] = 330;
 echo json_encode($arr);

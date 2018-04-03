@@ -30,7 +30,24 @@ if ( typeof Object.create !== 'function' ) {
 				self.$elem.append( '<div class="tac mtm"><a class="btn" data-action="add"><i class="icon-plus"></i><span class="mls">Add Picture</span></a></div>' );
 			}
 
-			self.add( {} );
+
+			if( self.options.data ){
+
+				if( self.options.data.length==0 ){
+					self.add( {} );
+				}
+				else{
+					$.each(self.options.data, function(index, el) {
+						self.add( el );
+					});
+				}
+			}
+			else{
+				self.add( {} );
+			}
+
+
+			// Event
 			self.$listsbox.delegate('[data-action=upload]', 'change', function() {
 				self.loadFile( $(this).closest('.media-dropzone'), this.files[0] );
 			});
@@ -83,13 +100,25 @@ if ( typeof Object.create !== 'function' ) {
 				, '<span class="gbtn"><a class="btn" data-action="remove"><i class="icon-remove"></i></a></span>'
 			);
 
+			$actions.append( $('<input>', {type: 'hidden', 'data-input': self.options.name[2], value: data.id || ''}) );			
+
 			var $tr = $('<tr>', {class: 'row-content'}).append(
 				  $('<td>', {class: 'td-picture'}).html( $picture )
-				, $('<td>', {class: 'td-caption'}).html( '<textarea class="inputtext" data-input="'+self.options.name[1]+'"></textarea>' )
+				, $('<td>', {class: 'td-caption'}).html( $('<textarea>', {
+					class: 'inputtext',
+					'data-input': self.options.name[1],
+					value: data.caption || ''
+				}) )
 				, $actions
 			);
 			
 			self.$listsbox.append( $tr );
+
+
+			if( data.src ){
+				self.loadImageUrl( $picture, data.src);
+			}
+
 			self.verify();
 		},
 
@@ -167,7 +196,7 @@ if ( typeof Object.create !== 'function' ) {
 	$.fn.tableInsertPicture.options = {
 		multiple: 1,
 		// size: null,
-		name: ['photo', 'caption']
+		name: ['photo', 'caption', 'photo_id']
 	};
 	
 })( jQuery, window, document );

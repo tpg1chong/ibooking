@@ -134,6 +134,27 @@ class Place_Model extends Model{
         $data['images'] = $this->photo->findByAlbumId( $data['id'] );
         $data['permit']['del'] = 1;
 
+
+        
+        $data['location_str'] = '';
+        if( !empty($data['location_number']) ){
+            $data['location_str'] .= !empty($data['location_str']) ? ' ':'';
+            $data['location_str'] .= $data['location_number'];
+        }
+
+        if( !empty($data['location_soi']) ){
+            $data['location_str'] .= !empty($data['location_str']) ? ' ':'';
+            $data['location_str'] .= 'ซอย'.$data['location_soi'];
+        }
+
+        if( !empty($data['location_road']) ){
+            $data['location_str'] .= !empty($data['location_str']) ? ' ':'';
+            $data['location_str'] .= 'ถนน'.$data['location_road'];
+        }
+
+        $data['location_str'] .= !empty($data['location_str']) ? ', ':'';
+        $data['location_str'] .= trim($data['district_name']) .', '. trim($data['zone_name']) .', '. trim($data['province_name']) .', '. trim($data['country_name']);
+
         return $data;
     }
 

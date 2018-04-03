@@ -119,6 +119,9 @@ label.checkbox input[type="checkbox"]:checked::after, label.radio input[type=rad
 label.checkbox {
     display: inline-block;
 }
+.radio, .checkbox{
+    margin: 5px
+}
 label.radio {
     line-height: 20px;
 }
@@ -9489,13 +9492,28 @@ table.table-plan td {
     width: 100%}
 .form-settings-company .map-input .inputtext {
     width: 100%}
+
 .link-hover-opacity {
     opacity: .5;
 }
 .link-hover-opacity:hover {
     opacity: 1;
 }
-
+.t-hover .t-hover-icon{
+    opacity: 0;
+    margin-left: 4px
+}
+.t-hover:hover .t-hover-icon{
+    opacity: 1;
+    color: #2196f3
+}
+.t-hover:hover{
+    text-decoration: none;
+}
+.t-hover:hover .t-hover-text{
+    text-decoration: underline;
+    color: #2196f3
+}
 
 .shop-tool-banner-upload-wrap{
     height: 410px;
@@ -10166,4 +10184,243 @@ body.touch #account-settings{
 }
 .forum-profile-section.active{
     display: block;
+}
+
+
+/* td-plan-invite */
+table.table-plan {
+    width: 100%
+}
+
+table.table-plan td {
+    vertical-align: top
+}
+.td-plan-detail {
+    width: 400px
+}
+
+.td-plan-detail .form-insert {
+    margin-right: 20px
+}
+
+.td-plan-invite {
+    width: 550px;
+    background-color: #fefefe;
+    border-left: 1px solid #e5e5e5
+}
+
+.ui-invite-content {
+    width: 330px
+}
+
+.ui-invite-selected {
+    background-color: #f6f7f8;
+    border-left: 1px solid #e4e4e4;
+    color: #898f9c;
+    font-size: 11px;
+    width: 180px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0
+}
+
+.ui-invite-selected .ui-list-token .ui-item {
+    display: block
+}
+
+.ui-invite .ui-invite-selected .ui-list-token {
+    max-height: inherit
+}
+
+.ui-invite-listsbox-header,
+.ui-invite-selected-header {
+    font-size: 11px;
+    font-weight: bold;
+    padding: 0 12px;
+    text-transform: uppercase;
+    height: 25px;
+    line-height: 25px
+}
+
+.ui-invite-listsbox-header {
+    padding: 0
+}
+
+.ui-invite-selected-listsbox {
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: absolute;
+    top: 25px;
+    left: 0;
+    right: 0;
+    bottom: 0
+}
+
+.ui-invite-selected .ui-list-token .ui-item {
+    margin: 1px 0 0
+}
+
+.ui-invite-selected .ui-list-token .ui-item .anchor {
+    background-color: transparent;
+    color: #000 !important;
+    border-left: 4px solid transparent;
+    border-radius: 0
+}
+
+.ui-invite-selected .ui-list-token .ui-item[data-type=employees] .anchor {
+    border-color: #4080ff
+}
+
+.ui-invite-selected .ui-list-token .ui-item[data-type=customers] .anchor {
+    border-color: #4caf50
+}
+
+.ui-invite-selected .ui-list-token .ui-bucketed .text {
+    max-width: 98px
+}
+
+.ui-invite-selected .ui-list-token .ui-bucketed .category {
+    font-size: 80%
+}
+
+.ui-invite-selected .ui-list-token .ui-item .anchor .avatar {
+    border-radius: 50%
+}
+
+.ui-invite-selected .ui-list-token .ui-item:hover .anchor {
+    background-color: #ddd
+}
+
+.ui-invite-selected .ui-list-token .ui-action {
+    border-radius: 50%;
+    background-color: transparent;
+    font-size: 12px;
+    display: none
+}
+
+.ui-invite-selected .ui-list-token .ui-item:hover .ui-action {
+    display: block
+}
+
+.ui-invite-selected .ui-list-token .ui-action:before {
+    border: 1px solid #000;
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    z-index: 10
+}
+
+.ui-invite-actions>.inputtext {
+    line-height: 22px;
+    background-color: transparent;
+    border-width: 0;
+    box-shadow: none;
+    height: 22px;
+    padding: 0;
+    font-size: 14px;
+    font-weight: bold
+}
+
+.ui-invite-actions>.inputtext:focus {
+    box-shadow: none
+}
+
+.model-body .table-plan-wrap,
+.model-body .ui-invite-wrap {
+    margin: -20px
+}
+
+.model-body .ui-invite-wrap .ui-invite-content {
+    width: 370px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0
+}
+
+.model-body .ui-invite-wrap .ui-invite-listsbox {
+    margin-left: 0;
+    margin-right: 0
+}
+
+.ui-invite-header {
+    padding: 8px 20px
+}
+
+.ui-invite .ui-list-token {
+    max-height: 100px
+}
+
+.table-plan-wrap>.table-plan {
+    position: relative;
+    min-height: 450px;
+    overflow: hidden
+}
+
+.table-plan-wrap .td-plan-detail {
+    overflow-y: auto
+}
+
+.table-plan-wrap>.table-plan>div {
+    position: absolute;
+    top: 0;
+    bottom: 0
+}
+
+.table-plan-wrap>.table-plan>.td-plan-invite {
+    right: 0
+}
+
+.model-body .table-plan .form-insert {
+    padding: 20px;
+    margin-right: 0
+}
+
+.ui-invite-listsbox,
+.ui-invite .ui-list-token {
+    overflow-y: auto;
+    margin-left: -20px;
+    margin-right: -20px;
+    padding-left: 20px;
+    padding-right: 20px
+}
+
+.table-search,
+.table-search .td-input .inputtext {
+    width: 100%
+}
+
+.table-search .btn-search {
+    position: absolute;
+    right: 6px;
+    top: 6px
+}
+
+.ui-invite-wrap {
+    position: relative;
+    min-height: 450px;
+    overflow: hidden
+}
+
+.ui-invite .ui-alert {
+    margin-top: 20px
+}
+
+.ui-invite.on .ui-alert {
+    margin-top: 5px
+}
+
+.ui-invite-header {
+    border-bottom: 1px solid #ccc
+}
+
+.ui-invite-header .form-search .btn-search {
+    position: absolute;
+    top: 4px;
+    right: 8px
 }
