@@ -10163,15 +10163,16 @@ body.touch #account-settings{
 }
 
 
-.section-table-item{background-color:#fff;border:1px solid #e6e6e6;border-radius:6px;position:relative}
+.section-table-item{background-color:#fff;border:1px solid #ccc;border-radius:6px;position:relative}
 .section-table-item>.sequence-float{position:absolute;top:4px;left:4px;z-index:1;color:#777;font-size:10px}
 .section-table-item-bookmark{position:relative;margin-top:20px;margin-bottom:10px}
 .section-table-item-bookmark:first-child{margin-top:0}
 .section-table-item-bookmark:before{content:'';height:2px;background-color:#d5d5d5;top:50%;margin-top:-1px;left:0;right:0;position:absolute}
 .section-table-item-bookmark>span{display:inline-block;padding:2px 6px;background-color:#d5d5d5;border-radius:3px;font-weight:bold;position:relative;z-index:1;left:50%;-ms-transform:translateX(-50%);-webkit-transform:translateX(-50%);transform:translateX(-50%)}
 .section-table-item + .section-table-item{margin-top:10px}
-.section-table-item-header{padding:10px 20px;background-color:#efefef;border-radius:6px 6px 0 0;position:relative}
-.section-table-item .actions{position:absolute;top:50%;right:20px;margin-top:-15px}
+.section-table-item-header{padding:10px 20px;background-color:#ccc;border-radius:4px 4px 0 0;position:relative}
+.section-table-item .actions{position:absolute;top:50%;right:8px;margin-top:-15px}
+.section-table-item .actions .btn-icon{font-size: 13px;}
 .section-table-item-desc table{width:100%}
 .section-table-item-desc table td{padding:5px 20px;border-top:1px solid #e6e6e6;border-left:1px solid #e6e6e6;vertical-align:top}
 .section-table-item-desc table tr td:first-child{border-left-width:0}
@@ -10423,4 +10424,12 @@ table.table-plan td {
     position: absolute;
     top: 4px;
     right: 8px
+}
+
+
+.form-location .control-group.has-error .notification{
+    margin-top: 0;
+    top: 2px;
+    color: #e74c3c;
+    font-weight: bold;
 }

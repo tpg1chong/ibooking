@@ -6,7 +6,7 @@ $fristStep = 'location';
 $step = array();
 $step[] = array('text'=>'Location', 'name'=>'location');
 $step[] = array('text'=>'Basic Info', 'name'=>'basic');
-$step[] = array('text'=>'Details', 'name'=>'detail');
+$step[] = array('text'=>'Facilities', 'name'=>'detail');
 $step[] = array('text'=>'Picture', 'name'=>'picture');
 
 $body = '<div class="form-places-create-step clearfix" data-ref="step">';
@@ -48,7 +48,7 @@ $arr['title']= 'Create place';
 
 # fotter: button
 $arr['button'] = '<button data-action="submit" type="submit" class="btn btn-primary btn-submit"><span class="text-submit-next">Next</span><span class="text-submit-save">Save</span></button>';
-$arr['bottom_msg'] = '<button type="button" class="btn" data-action="prev"><span class="btn-text">'.Translate::val('Cancel').'</span></a>';
+$arr['bottom_msg'] = '<button type="button" class="btn" data-action="prev"><span class="btn-text">'.Translate::val('Back').'</span></a>';
 
 $arr['width'] = 960;
 
