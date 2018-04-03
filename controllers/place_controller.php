@@ -170,9 +170,33 @@ class Place_Controller extends Controller {
         $this->view->render("add");
     }
 
-    public function invite_partner()
+    public function invite_partner($id=null)
     {
-        $this->view->setPage('path','Themes/admin/forms/place');
-        $this->view->render("invite_partner");
+
+        $id = isset($_REQUEST['id']) ? $_REQUEST['id'] : $id;
+        if( empty($this->me) || empty($id) ) $this->error();
+
+        $item = $this->model->findById($id);
+        if( empty($item) ) $this->error();
+
+        if( !empty($_POST) ){
+
+            $partner = !empty($_POST['invite']['id'][0]) ? $_POST['invite']['id'][0]: '';
+
+
+            $this->model->update( $id, array('building_partner_id'=>$partner) );
+
+            $arr['url'] = 'refresh';
+            $arr['message'] = 'Saved.';
+
+            echo json_encode($arr);
+        }
+        else{
+
+            $this->view->item = $item;
+            $this->view->setPage('path','Themes/admin/forms/place');
+            $this->view->render("invite_partner");
+        }
+        
     }
 }

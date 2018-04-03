@@ -21,6 +21,8 @@ class Place_Model extends Model{
             LEFT JOIN location_province AS province ON building.location_province=province.province_id
             LEFT JOIN location_zone AS zone ON building.location_zone=zone.zone_id
             LEFT JOIN location_district AS district ON building.location_district=district.district_id
+            
+            LEFT JOIN partner ON building.building_partner_id=partner.partner_id
 
     ";
     private $__field = "*";
@@ -38,7 +40,7 @@ class Place_Model extends Model{
         $data = $this->__cutPrefixField($this->__prefixField, $data);
     }
     public function update($id, $data) {
-        $data["{$this->__prefixField}updated"] = date('c');
+        $data["{$this->__prefixField}update_date"] = date('c');
         $this->db->update($this->__objType, $data, "{$this->__prefixField}id={$id}");
     }
     public function delete($id) {

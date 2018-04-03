@@ -33,7 +33,7 @@ if( !empty($this->results['lists']) ){
                     '<div class="fwb"><a target="_blank" href="'.URL.'admin/place/'.$item['id'].'">'.$item['name'].'</a></div>'.
                     '<div class="fcg fsm mts"><i class="icon-map-marker mrs"></i>'. $item['location_str'] .'</div>'.
                     // '<div class="fcg fsm mts">'. $this->fn->q('text')->more( $item['description'] ).'</div>'.
-                    '<div class="fcg fsm mts"><a class="t-hover fcb" data-plugins="lightbox" href="'.URL.'place/invite_partner"><i class="icon-user-circle-o mrs"></i>Partner: <span class="t-hover-text">'. (!empty($item['partner_name']) ? $item['partner_name']: '-').'</span><i class="icon-pencil t-hover-icon"></i></a></div>'.
+                    '<div class="fcg fsm mts"><a class="t-hover fcb" data-plugins="lightbox" href="'.URL.'place/invite_partner?id='.$item['id'].'"><i class="icon-user-circle-o mrs"></i>Partner: <span class="t-hover-text">'. (!empty($item['partner_name']) ? $item['partner_name']: '-').'</span><i class="icon-pencil t-hover-icon"></i></a></div>'.
                 '</div>'.
 
             '</td>'.

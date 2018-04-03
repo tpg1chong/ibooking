@@ -74,11 +74,10 @@ $optionsInvite = array(
 	'url' => URL.'partner/invite',
 );
 
-/*if( isset( $_GET['id'] ) ){
-	$invite['employees'][] = array('type'=>'employees', 'id'=> $_GET['id']);
+if( !empty($this->item['partner_id']) ){
+	$invite['partner'][] = array('type'=>'partner', 'id'=> $this->item['partner_id']);
 	$optionsInvite['invite'] = $invite;
-}*/
-
+}
 
 # body
 $arr['body'] = '<div class="ui-invite-wrap" data-plugins="invite" data-options="'.$this->fn->stringify($optionsInvite).'">'.
@@ -88,12 +87,12 @@ $arr['body'] = '<div class="ui-invite-wrap" data-plugins="invite" data-options="
 $arr['width'] = 550;
 
 # set form
-$arr['form'] = '<form></form>';
+$arr['form'] = '<form class="js-submit-form" method="post" action="'.URL. 'place/invite_partner"></form>';
+$arr['hiddenInput'][] = array('name'=>'id','value'=>$this->item['id']);
 
 $arr['title']= "Partner";
 
 
-$arr['button'] = '<button type="submit" role="submit" class="btn btn-primary btn-submit"><span class="btn-text">บันทึก</span></button>';
-$arr['bottom_msg'] = '<a class="btn" role="dialog-close"><span class="btn-text">ยกเลิก</span></a>';
-
+$arr['button'] = '<button type="submit" class="btn btn-primary btn-submit"><span class="btn-text">'.Translate::val('Save').'</span></button>';
+$arr['bottom_msg'] = '<a class="btn" data-action="close"><span class="btn-text">'.Translate::val('Cancel').'</span></a>';
 echo json_encode($arr);
