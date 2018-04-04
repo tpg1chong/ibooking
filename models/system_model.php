@@ -19,7 +19,7 @@ class System_Model extends Model{
             'my' => array('view'=>1,'edit'=>1),
         );
 
-        // is admin
+        // Supper Admin
         if( in_array(1, $access) ){
 
             // set menu
@@ -78,6 +78,28 @@ class System_Model extends Model{
             
             #location
             $arr['location'] = array('view'=>1,'edit'=>1,'del'=>1, 'add'=>1);
+
+            # Settings
+            $arr['settings'] = array('view'=>1,'edit'=>1,'del'=>1, 'add'=>1);
+            $arr['settings_email'] = array('view'=>1,'edit'=>1,'del'=>1, 'add'=>1);
+
+            $arr['settings_property_type'] = array('view'=>1,'edit'=>1,'del'=>1, 'add'=>1);
+            $arr['settings_property_facility'] = array('view'=>1,'edit'=>1,'del'=>1, 'add'=>1);
+            $arr['settings_property_facility_type'] = array('view'=>1,'edit'=>1,'del'=>1, 'add'=>1);
+
+            $arr['settings_room_category'] = array('view'=>1,'edit'=>1,'del'=>1, 'add'=>1);
+            $arr['settings_room_offers'] = array('view'=>1,'edit'=>1,'del'=>1, 'add'=>1);
+            $arr['settings_room_offers_type'] = array('view'=>1,'edit'=>1,'del'=>1, 'add'=>1);
+
+            $arr['settings_location_region'] = array('view'=>1,'edit'=>1,'del'=>1, 'add'=>1);
+            $arr['settings_location_country'] = array('view'=>1,'edit'=>1,'del'=>1, 'add'=>1);
+            $arr['settings_location_geography'] = array('view'=>1,'edit'=>1,'del'=>1, 'add'=>1);
+            $arr['settings_location_province'] = array('view'=>1,'edit'=>1,'del'=>1, 'add'=>1);
+            $arr['settings_location_zone'] = array('view'=>1,'edit'=>1,'del'=>1, 'add'=>1);
+            $arr['settings_location_district'] = array('view'=>1,'edit'=>1,'del'=>1, 'add'=>1);
+
+            $arr['settings_import'] = array('view'=>1,'edit'=>1,'del'=>1, 'add'=>1);
+            $arr['settings_export'] = array('view'=>1,'edit'=>1,'del'=>1, 'add'=>1);   
         }
 
         /* Manage */

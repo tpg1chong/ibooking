@@ -1,15 +1,15 @@
 <?php
 
-class Country extends Model
+class Room_Offers extends Model
 {
 	public function __construct() {
 		parent::__construct();
     }
 
 
-    private $_table = 'location_country';
+    private $_table = 'property_room_offers';
     private $_field = '*';
-    private $_prefixField = 'country_';
+    private $_prefixField = 'offer_';
 
 
     public function get($id)
@@ -39,11 +39,13 @@ class Country extends Model
         $params = array();
 
         if( isset($options['enabled']) ){
-        	$condition = "enabled=:enabled";
+        	$condition = "type_enabled=:enabled";
         	$params[':enabled'] = $options['enabled'];
         }
 
+
         $arr['total'] = $this->db->count($this->_table, $condition, $params);
+
 
         $limit = !empty($options['limit']) && !empty($options['pager']) ? $this->limited( $options['limit'], $options['pager'] ):'';
         $orderby = $this->orderby( $this->_prefixField.$options['sort'], $options['dir'] );
@@ -51,6 +53,7 @@ class Country extends Model
         $sql = "SELECT {$this->_field} FROM {$this->_table} {$where} {$orderby} {$limit}";
 
         $arr['items'] = $this->buildFrag( $this->db->select($sql, $params), $options );
+
 
         if( !empty($options['limit']) ){
         	if( ($options['pager']*$options['limit']) >= $arr['total'] ) $options['more'] = false;
@@ -77,6 +80,8 @@ class Country extends Model
 
 	public function insert(&$data)
 	{
+		if( !isset($data[$this->_prefixField.'enabled']) ) $data[$this->_prefixField.'enabled'] = 1;
+
 		$this->db->insert($this->_table, $data);
         $data['id'] = $this->db->lastInsertId();
 	}

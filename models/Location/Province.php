@@ -25,7 +25,7 @@ class Province extends Model
 	}
     public function find($options=array())
     {
-        foreach (array('enabled') as $key) {
+        foreach (array('enabled', 'country') as $key) {
             if( isset($_REQUEST[$key]) ){
                 $options[$key] = $_REQUEST[$key];
             }
@@ -45,13 +45,19 @@ class Province extends Model
         $params = array();
 
         if( isset($options['enabled']) ){
-        	$condition = "enabled=:enabled";
-        	$params[':enabled'] = $options['enabled'];
+            $condition .= !empty($condition) ? ' AND ':'';
+            $condition .= "enabled=:enabled";
+            $params[':enabled'] = $options['enabled'];
+        }
+
+        if( isset($options['country']) ){
+            $condition .= !empty($condition) ? ' AND ':'';
+            $condition .= "enabled=:country";
+            $params[':country'] = $options['country'];
         }
 
 
         $arr['total'] = $this->db->count($this->_table, $condition, $params);
-
 
         $limit = !empty($options['limit']) && !empty($options['pager']) ? $this->limited( $options['limit'], $options['pager'] ):'';
         $orderby = $this->orderby( $this->_prefixField.$options['sort'], $options['dir'] );

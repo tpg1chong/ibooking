@@ -2881,6 +2881,10 @@ body.hidden-tobar #tobar {
     padding-right: 0;
     width: 50px;
 }
+.settings-table .check{
+    width: 20px;
+    text-align: center;
+}
 .settings-table .name {
     text-align: left;
 }
@@ -2902,6 +2906,7 @@ body.hidden-tobar #tobar {
 .settings-table .actions {
     width: 80px;
     text-align: right;
+    white-space: nowrap;
 }
 .settings-table .actions .gbtn+.gbtn {
     margin-left: 5px;
@@ -2986,10 +2991,10 @@ body.hidden-tobar #tobar {
 }
 .SettingCol-headerActions #more-link {
     line-height: 30px;
-    background-color: #ddd;
-    padding-left: 6px;
-    padding-right: 6px;
-    border-radius: 15px;
+    /*background-color: #ddd;*/
+    /*padding-left: 6px;*/
+    /*padding-right: 6px;*/
+    /*border-radius: 15px;*/
 }
 .SettingCol-headerActions>li.divider {
     width: 1px;
@@ -3003,7 +3008,7 @@ body.hidden-tobar #tobar {
 .SettingCol-headerActions>li:last-child {
     margin-right: 0;
 }
-.SettingCol-headerActions label {
+.SettingCol-headerActions .label {
     display: block;
     font-size: 12px;
     font-weight: bold;

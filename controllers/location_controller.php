@@ -30,6 +30,16 @@ class Location_Controller extends Controller {
             $this->add( 'location' );
         }
         else{
+
+            if( $action=='zone' ){
+
+                $results = $this->model->country->find();
+                $this->view->setData('countryList', $results['items'] );
+
+                $results = $this->model->province->find();
+                $this->view->setData('provinceList', $results['items'] );
+            }
+
             $item = $this->model->{$action}->get($id);
             if( empty($item) ) $this->error();
             $this->view->setData('item', $item);
@@ -257,6 +267,40 @@ class Location_Controller extends Controller {
             }
         }
 
+        /* Save: zone  */
+        else if( $action=='zone' ) {
+            $id = isset($_POST['id']) ? $_POST['id']: null;
+            if( !empty($id) ){
+                $item = $this->model->{$action}->get($id);
+                if( empty($item) ) $this->error();
+            }
+
+            try {
+                $form = new Form();
+                $form->post('zone_name')->val('is_empty');
+
+                $form->submit();
+                $postData = $form->fetch();
+
+                if( empty($arr['error']) ){
+
+                    if( !empty($item) ){
+                        $this->model->{$action}->update( $id, $postData );
+                    }
+                    else{
+                        $this->model->{$action}->insert( $postData );
+                        $id = $postData['id'];
+                    }
+
+                    $arr['message'] = 'Saved!';
+                    $arr['url'] = !empty($_REQUEST['next']) ? $_REQUEST['next'] : 'refresh';
+                }
+
+            } catch (Exception $e) {
+                $arr['error'] = $this->_getError($e->getMessage());
+            }
+        }
+
         /*Save: Location  */
         else if( $action=='location' ){
 
@@ -309,11 +353,37 @@ class Location_Controller extends Controller {
             $this->view->render('del');
         }
     }
+    public function update( $action='', $id=null )
+    {
+        $id = isset($_REQUEST['id']) ? $_REQUEST['id']: $id;
+        
+
+        if( empty($this->me) || $this->format!='json' || empty($id) ) $this->error();
 
 
+        $name = isset($_REQUEST['name']) ? $_REQUEST['name']: '';
+        $value = isset($_REQUEST['value']) ? $_REQUEST['value']: '';
+
+        $dataPost = array();
+        $dataPost[ $name ] = trim($value);
+
+
+        if( is_numeric($action) && $id==null ){
+
+        }else{
+            $item = $this->model->{$action}->findById($id);
+            if( empty($item) ) $this->error();
+
+            $this->model->{$action}->update($id, $dataPost);
+        }
+
+        echo json_encode(array('message'=>'Saved.'));
+        
+    }
+
+    /* -- Fide Data -- */
     public function placesList() {
         $this->view->setData('results', $this->model->places->find());
-        
         $this->view->setPage('path', 'Themes/admin/layouts/places/items/');
         $this->view->render('json');
     }
@@ -321,16 +391,41 @@ class Location_Controller extends Controller {
     public function provinceList()
     {
         $results = $this->model->query('location')->province->find();
-        echo json_encode( $results['items'] );
+
+        if( isset($_REQUEST['has_item']) ){
+            $this->view->setData('results', $results );
+            $this->view->setPage('path', 'Themes/admin/layouts/location/province/items/');
+            $this->view->render('json');
+        }
+        else{
+            echo json_encode( $results['items'] );
+        }
     }
     public function zoneList()
     {
         $results = $this->model->query('location')->zone->find();
-        echo json_encode( $results['items'] );
+
+        if( isset($_REQUEST['has_item']) ){
+            $this->view->setData('results', $results );
+            $this->view->setPage('path', 'Themes/admin/layouts/location/zone/items/');
+            $this->view->render('json');
+        }
+        else{
+            echo json_encode( $results['items'] );
+        }
+        
     }
     public function districtList()
     {
         $results = $this->model->query('location')->district->find();
-        echo json_encode( $results['items'] );
+
+        if( isset($_REQUEST['has_item']) ){
+            $this->view->setData('results', $results );
+            $this->view->setPage('path', 'Themes/admin/layouts/location/district/items/');
+            $this->view->render('json');
+        }
+        else{
+            echo json_encode( $results['items'] );
+        }
     }
 }

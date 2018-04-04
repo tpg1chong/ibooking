@@ -21,7 +21,7 @@ class Location_Zone extends Model
 
 	public function findById($id)
 	{
-		$this->get($id);
+		return $this->get($id);
 	}
     public function find($options=array())
     {
@@ -46,12 +46,14 @@ class Location_Zone extends Model
 
 
         if( isset($options['enabled']) ){
-        	$condition = "enabled=:enabled";
+            $condition .= !empty($condition) ? ' AND ':'';
+        	$condition .= "enabled=:enabled";
         	$params[':enabled'] = $options['enabled'];
         }
 
         if( isset($options['province']) ){
-            $condition = "zone_province_id=:province";
+            $condition .= !empty($condition) ? ' AND ':'';
+            $condition .= "zone_province_id=:province";
             $params[':province'] = $options['province'];
         }
 

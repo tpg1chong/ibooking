@@ -147,7 +147,6 @@ class Partner_Controller extends Controller {
             $this->view->render("del");
         } 
     }
-
     public function change_password($id='') {
         $id = isset($_REQUEST['id']) ? $_REQUEST['id']: $id;
         if( empty($this->me) || empty($id) || $this->format!='json' ) $this->error();
@@ -193,7 +192,6 @@ class Partner_Controller extends Controller {
             $this->view->render("change_password");
         }
     }
-
     public function update($id=null) {
         $id = isset($_REQUEST['id']) ? $_REQUEST['id']: $id;
         if( empty($this->me) || $this->format!='json' || empty($id) ) $this->error();

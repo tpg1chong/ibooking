@@ -273,4 +273,67 @@ class Admin_Controller extends Controller
     {
         $this->error();
     }
+
+
+    public function settings($section='property', $tap='', $sup_tap='')
+    {
+        $this->view->setPage('on', 'settings' );
+        $this->view->setData('section', $section);
+
+        if( !empty($sup_tap) ){
+            $tap .= "_{$sup_tap}";
+        }
+
+
+        if( !empty($tap) ){
+            $this->view->setData('tap', $tap);
+        }
+
+        if( $section=='property' ){
+
+            if( in_array($tap, array('type', 'facility', 'facility_types' )) ) {
+                $results = $this->model->query('property')->{$tap}->find();
+                $this->view->setData('dataList', $results['items'] );
+            }
+        }
+
+        if( $section=='room' ){
+
+            if( in_array($tap, array('category', 'offer_types', 'offers' )) ) {
+                $model = "{$section}_{$tap}";
+                $results = $this->model->query('property')->{$model}->find();
+                $this->view->setData('dataList', $results['items'] );
+            }
+        }
+
+        if( $section=='location' ){
+
+            if( in_array($tap, array('region', 'country' )) ) {
+                $results = $this->model->query('location')->{$tap}->find();
+                $this->view->setData('dataList', $results['items'] );
+            }
+            else if( in_array($tap, array('province', 'zone', 'district' )) ){
+
+                
+                $results = $this->model->query('location')->country->find( array('enabled'=>1) );
+                $this->view->setData('countryList', $results['items'] );
+
+                if( $tap=='zone' || $tap=='district' ){
+                    $results = $this->model->query('location')->province->find( array('enabled'=>1) );
+                    $this->view->setData('provinceList', $results['items'] );
+                }
+
+                if( $tap=='district' ){
+                    $results = $this->model->query('location')->zone->find( array('enabled'=>1) );
+                    $this->view->setData('zoneList', $results['items'] );
+                }
+            }
+        }
+        else{
+            // $this
+        }
+
+        
+        $this->view->render("settings/display");
+    }
 }

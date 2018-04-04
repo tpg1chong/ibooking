@@ -27,7 +27,6 @@ if ( typeof Object.create !== 'function' ) {
 
 			self.Events();
 
-
 			if( self.$elem.find('[data-load]').length==1 ){
 
 				self.$load = self.$elem.find('[data-load]');
@@ -39,8 +38,13 @@ if ( typeof Object.create !== 'function' ) {
 				self.data.url = self.$load.attr('data-load'); self.$load.removeAttr('data-load');
 
 				
-				$.each( self.$load.find('select[ref=selector]'), function() {
+				$.each( self.$load.find('select[ref=selector], select[data-action=selector]'), function() {
 					self.data.options[ $(this).attr('name') ] = $.trim( $(this).val() );
+					// console.log( $(this).attr('name') );
+				} );
+
+				$.each( self.$load.find(':input[type=checkbox][data-action=checkbox]'), function() {
+					self.data.options[ $(this).attr('name') ] = $(this).prop('checked') ? 1:0;
 					// console.log( $(this).attr('name') );
 				} );
 				
@@ -55,9 +59,11 @@ if ( typeof Object.create !== 'function' ) {
 				self.$tableHeader = self.$load.find('.SettingCol-tableHeader');
 				self.$tableBody = self.$load.find('.SettingCol-tableBody');
 
-				// event
+				// event				
+				if( typeof self.$load.attr('stop')==='undefined' ){
+					self.refresh();
+				}
 				
-				self.refresh();
 				self._Events();
 			}
 		},
@@ -320,7 +326,6 @@ if ( typeof Object.create !== 'function' ) {
 				}
 
 			}
-
 		},
 
 		refresh: function ( length ) {
@@ -339,7 +344,7 @@ if ( typeof Object.create !== 'function' ) {
 			self.$load.addClass('has-loading');
 
 			self.is_loading = setTimeout(function () {
-
+				
 				self.fetch().done(function( results ) {
 					
 					self.data = $.extend( {}, self.data, results.settings );
@@ -365,7 +370,7 @@ if ( typeof Object.create !== 'function' ) {
 			self.data.options = options;
 
 			var req = $.param( options );
-			if( req ){
+			if( req && self.options.pushState ){
 				var returnLocation = history.location || document.location,
 					href = self.data.url+"?"+req,
 					title = "";
@@ -373,12 +378,9 @@ if ( typeof Object.create !== 'function' ) {
 				history.pushState('', title, href);
 				document.title = title;
 			}
-			
-
 			if( self.is_search ){
 				self.$load.find('.search-input').attr('disabled', true);
 			}
-
 			return $.ajax({
 				url: self.data.url,
 				data: self.data.options,
@@ -397,7 +399,6 @@ if ( typeof Object.create !== 'function' ) {
 			}).fail(function() { 
 				self.$load.addClass('has-error');
 			});
-
 		},
 		display: function( item ) {
 			var self = this;
@@ -425,9 +426,15 @@ if ( typeof Object.create !== 'function' ) {
 			var self = this;
 
 			var options = self.data.options;
-			var total = self.data['total'],
-				pager = options['pager'],
-				limit = options['limit'];
+			var total = parseInt( self.data.total ),
+				pager = parseInt( options.pager ) || 0,
+				limit = parseInt( options.limit ) || 0;
+
+			if( !options.limit ){
+
+				self.$elem.find('#more-link').html( 'พบผลลัพธ์ทั้งหมด ' + total + ' รายการ' );
+				return false;
+			}
 
 			self.$elem.find('#more-link').empty();
 			if( total==0 ){
@@ -498,12 +505,27 @@ if ( typeof Object.create !== 'function' ) {
 				self.selection($(this).is(':checked'), 'all');
 			});*/
 
-			self.$load.find('select[ref=selector]').change(function () {
-
-				
+			self.$load.find('select[ref=selector], select[data-action=selector]').change(function () {
 				self.data.options.q = self.$load.find('.search-input').val();
 				self.data.options.pager = 1;
 				self.data.options[ $(this).attr('name') ] = $(this).val();
+
+				self.refresh( 1 );
+			});
+
+			self.$load.find('input[type=checkbox][data-action=checkbox]').change(function () {
+
+				var is = $(this).prop('checked');
+
+				self.data.options.q = self.$load.find('.search-input').val();
+				self.data.options.pager = 1;
+
+				if( is ){
+					self.data.options[ $(this).attr('name') ] = 1;
+				}
+				else if( self.data.options[ $(this).attr('name') ] ){
+					delete self.data.options[ $(this).attr('name') ];
+				}
 
 				self.refresh( 1 );
 			});
@@ -529,7 +551,6 @@ if ( typeof Object.create !== 'function' ) {
 					self._search( searchVal );
 				}				
 			});
-
 		},
 		_search: function (text) {
 			var self = this;
@@ -551,7 +572,9 @@ if ( typeof Object.create !== 'function' ) {
 
 	$.fn.main.options = {
 		url: '',
-		sort: 'date'
+		sort: 'date',
+
+		pushState: false
 	};
 	
 })( jQuery, window, document );

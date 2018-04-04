@@ -50,6 +50,10 @@ $nav = array(
 		, array('key'=>'authorization', 'text'=> 'Roles & Permissions', 'link'=>$this->pageURL.'account/authorization','icon'=>'users' )
 		, array('key'=>'my','text'=> 'Account Settings','link'=>$this->pageURL.'account/settings','icon'=>'user-circle')
 	)
+
+	, array(
+		  array('key'=>'settings', 'text'=> 'Settings','link'=>$this->pageURL.'settings','icon'=>'cog')
+	)
 );
 
 
