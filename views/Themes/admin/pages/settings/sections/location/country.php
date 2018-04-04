@@ -74,4 +74,6 @@ $this->direction = URL.'location/';
 			<?php } ?>
 		</tbody></table>
 	</section>
+
+	
 </div>

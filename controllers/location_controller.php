@@ -404,7 +404,7 @@ class Location_Controller extends Controller {
     public function zoneList()
     {
         $results = $this->model->query('location')->zone->find();
-
+        
         if( isset($_REQUEST['has_item']) ){
             $this->view->setData('results', $results );
             $this->view->setPage('path', 'Themes/admin/layouts/location/zone/items/');

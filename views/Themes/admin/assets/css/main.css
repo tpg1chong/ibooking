@@ -1474,7 +1474,7 @@ body.drak .navigation-main-header .anchor, body.blue .navigation-main-header .an
 body.drak .profile-actions-toolbar>a.active {
     background-color: #dc000b;
 }
-body.drak .SettingCol-header, body.drak .SettingCol-tableHeader, body.blue .SettingCol-header, body.blue .SettingCol-tableHeader, body.green .SettingCol-header, body.green .SettingCol-tableHeader {
+body.drak .SettingCol-header, body.drak .SettingCol-tableHeader, body.drak .SettingCol-footer, body.blue .SettingCol-header, body.blue .SettingCol-tableHeader, body.blue .SettingCol-footer, body.green .SettingCol-header, body.green .SettingCol-tableHeader, body.green .SettingCol-footer{
     background-color: rgba(247, 247, 247, .95);
 }
 body.green .listpage2-container, body.green .listpage2-header, body.green .listpage2-table [ref=tabletitle] {
@@ -3026,7 +3026,7 @@ body.hidden-tobar #tobar {
 .SettingCol-main {
     padding: 30px;
 }
-.SettingCol-header, .SettingCol-tableHeader {
+.SettingCol-header, .SettingCol-tableHeader, .SettingCol-footer {
     background-color: rgba(254, 254, 254, .95);
     padding-left: 30px;
     padding-right: 30px;
@@ -3060,6 +3060,7 @@ body.hidden-tobar #tobar {
 .SettingCol.has-loading .empty-loader .empty-loader-icon {
     display: inline-block;
 }
+
 .SettingCol-contentInner {
     max-width: 780px;
     position: relative;
@@ -3076,6 +3077,9 @@ body.hidden-tobar #tobar {
 .SettingCol .settings-content-section:first-child {
     margin-top: 0;
 }
+
+
+/* live form */
 .live-form .controls {
     position: relative;
 }

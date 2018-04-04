@@ -258,6 +258,7 @@ if ( typeof Object.create !== 'function' ) {
 			var top = 0, left = offset.left, right = 0, fullw = self.$load.outerWidth();
 			var $header = self.$load.find('.SettingCol-header');
 			var $main = self.$load.find('.SettingCol-main');
+			var $footer = self.$load.find('.SettingCol-footer');
 
 			right += self.$load.parent().outerWidth()-fullw;
 			
@@ -290,8 +291,35 @@ if ( typeof Object.create !== 'function' ) {
 				top += self.$tableHeader.outerHeight();
 			}
 
+			if( $footer.length==1 ){
+
+				var footerCss = {
+					position: 'fixed',
+					
+					left: left,
+					right: right,
+					zIndex: 50
+				}
+				if( $(window).height() < $main.outerHeight() ){
+					footerCss.bottom = 0;
+					footerCss.top = '';
+				}
+				else{
+					footerCss.bottom = '';
+					footerCss.top = top + $main.height();
+				}
+
+
+				$footer.css(footerCss);
+
+				$main.css({
+					paddingBottom: $footer.outerHeight()
+				});
+			}
+
 			$main.css({
-				paddingTop: top
+				paddingTop: top,
+
 			});
 			
 			if( self.$tableBody ){
