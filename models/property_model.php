@@ -18,10 +18,10 @@ require_once 'Property/amenities.php';
 require_once 'Property/offers.php';
 
 
+require_once 'Property/Room.php';
 require_once 'Property/Room_Category.php';
 require_once 'Property/Room_Offer_Types.php';
 require_once 'Property/Room_Offers.php';
-
 
 
 class Property_Model extends Model{
@@ -39,7 +39,7 @@ class Property_Model extends Model{
         
         $this->payment_options = new payment();
         $this->transportation = new transportation();
-
+        
 
         # Room
         $this->room_type = new RoomType();
@@ -47,11 +47,10 @@ class Property_Model extends Model{
         $this->offers = new offers();
 
 
+        $this->room = new Room();
         $this->room_category = new Room_Category();
         $this->room_offer_types = new Room_Offer_Types();
         $this->room_offers = new Room_Offers();
-
     }
-
 
 }

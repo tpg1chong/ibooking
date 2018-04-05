@@ -61,7 +61,6 @@ class Place_Controller extends Controller {
 
         if( $options['type']=='detail' || !empty($options['save'])){
             
-            
             if( !empty($_POST['facilities']) ){
                 $dataPost['building_facilities'] = json_encode($_POST['facilities']);
             }
@@ -157,17 +156,6 @@ class Place_Controller extends Controller {
             $this->view->setPage('path','Themes/admin/forms/place');
             $this->view->render("del");
         } 
-    }
-
-
-    public function add_room()
-    {
-        
-        $offers = $this->model->query('property')->offers->find();
-        $this->view->setData('offersList', $offers['items'] );
-
-        $this->view->setPage('path','Themes/admin/forms/room');
-        $this->view->render("add");
     }
 
     public function invite_partner($id=null)

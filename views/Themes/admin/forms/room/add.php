@@ -1,16 +1,20 @@
 <?php
 
+if( isset($_GET['building']) ){
+	$this->building = $_GET['building'];
+}
+
 $form = new Form();
-$form = $form->create()->elem('div')->addClass('form-insert');
+$form = $form->create()->elem('div')->addClass('form-insert form-room');
 /*->style('horizontal')*/
 
-$form   ->field("name")->label( 'Room Name' )->addClass('inputtext');
-$form   ->field("total")->label( 'จำนวนห้องพัก' )->addClass('inputtext');
-$form   ->field("guests")->label( 'จำนวนผู้เข้าพัก' )->addClass('inputtext');
-$form   ->field("price")->label( 'ราคาเริ่มต้น/คืน' )->addClass('inputtext');
-$form   ->field("group_price ")->label( 'ราคาเหมากลุ่ม (Min-Max = Price)/คืน' )->text(''.
+$form   ->field("property_name")->label( 'Room Name' )->addClass('inputtext');
+$form   ->field("property_room_total")->label( 'จำนวนห้องพักทั้งหมด' )->type('number')->addClass('inputtext');
+$form   ->field("property_guests")->label( 'จำนวนผู้เข้าพักที่รับได้' )->type('number')->addClass('inputtext');
+$form   ->field("property_price")->label( 'ราคาเริ่มต้น' )->type('number')->addClass('inputtext')->hind('/ ห้อง / คืน');
+$form   ->field("property_group_price ")->label( 'ราคาเหมากลุ่ม (Min-Max = ราคา)/ ห้อง / คืน' )->text(''.
 
-	'<table><tr>'.
+	'<table _data-plugins="propertyGroupPrice"><tr>'.
 		'<td style="width:60px"><input style="width:100%;padding-right:0;" class="inputtext" type="number" name="group_price[min][]"></td>'.
 		'<td>-</td>'.
 		'<td style="width:60px"><input style="width:100%;padding-right:0;" class="inputtext" type="number" name="group_price[max][]"></td>'.
@@ -24,14 +28,16 @@ $form   ->field("group_price ")->label( 'ราคาเหมากลุ่ม
 
 '');
 
-$form   ->field("offers")->label( 'สิ่งอำนวยความสะดวกในห้องพัก' )->type('checkbox')->items( $this->offersList );
-$form   ->field("size")->label( 'ขนาดห้องพัก' )->addClass('inputtext');
+$form   ->field("property_living_area_sqm")->label( 'ขนาดห้องพัก' )->type('number')->addClass('inputtext')->hind('m²');
+$form   ->field("property_living_area_foot")->label('&nbsp;')->type('number')->addClass('inputtext')->hind('ft²');
+$form   ->field("property_offers")->name('property_offers[]')->label( 'สิ่งอำนวยความสะดวกในห้องพัก' )->type('checkbox')->items( $this->offersList );
+
 
 $formRoom = $form->html();
 
 # title
 $arr['title'] = 'Create Room';
-
+$arr['hiddenInput'][] = array('name'=>'property_building_id','value'=> !empty($this->building) ? $this->building: '' );
 
 $arr['body'] = '<div style="height: 560px;margin: -20px;">'.
 
@@ -50,6 +56,9 @@ $arr['body'] = '<div style="height: 560px;margin: -20px;">'.
 	'</tr></table>'.
 
 '</div>';
+
+# set form
+$arr['form'] = '<form class="js-submit-form" method="post" action="'.URL. 'property/save/room/"></form>';
 
 # fotter: button
 $arr['button'] = '<button type="submit" class="btn btn-primary btn-submit"><span class="btn-text">'.Translate::val('Save').'</span></button>';

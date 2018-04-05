@@ -104,7 +104,6 @@ class Admin_Controller extends Controller
     /* -- Place -- */
     public function place($id=null)
     {
-
         // print_r($this->model->query('place')->find()); die;
         if( !empty($id) ){
             $item = $this->model->query('place')->findById( $id );
@@ -120,6 +119,16 @@ class Admin_Controller extends Controller
 
             $facilities = $this->model->query('property')->facilities->find();
             $this->view->setData('facilitiesList', $facilities['items'] );
+
+
+            # Room
+            $results = $this->model->query('property')->room->find( array('building'=>9) );
+            $this->view->setData('roomsList', $results['items'] );
+            // print_r($results); die;
+            
+            $offers = $this->model->query('property')->offers->find();
+            $this->view->setData('offersList', $offers['items'] );
+
 
             $this->view->setPage('on', 'place' );
             $this->view->render("place/profile/display");

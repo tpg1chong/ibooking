@@ -10,7 +10,7 @@
 					<h3 class="fwn">Property Rooms</h3>
 					<div class="fsm" style="margin-top: 2px">1 results</div>
 				</td>
-				<td><a data-plugins="lightbox" href="<?=URL?>place/add_room/" class="btn btn-blue"><i class="icon-plus mrs"></i><span>New Room</span></a></td>
+				<td><a data-plugins="lightbox" href="<?=URL?>property/add/room?building=<?=$this->item['id']?>" class="btn btn-blue"><i class="icon-plus mrs"></i><span>New Room</span></a></td>
 			</tr>
 		</tbody></table>
 	</form>
@@ -18,12 +18,8 @@
 <?php 
 
 
-$this->clientList[] = array('name'=>'ดีลักซ์ (Deluxe)', );
-$this->clientList[] = array('name'=>'ดีลักซ์ วิวสวนสาธารณะ (Deluxe Park View)', );
-$this->clientList[] = array('name'=>'King or Double Room with Lounge Access', );
-
 $i = 0;
-foreach ($this->clientList as $key => $val) {
+foreach ($this->roomsList as $key => $val) {
 	$i++;
 
 ?>
@@ -46,83 +42,107 @@ foreach ($this->clientList as $key => $val) {
 		</div>
 
 		<div class="actions">
-			<a class="btn-icon"><i class="icon-pencil"></i></a>
-			<a class="btn-icon"><i class="icon-trash-o"></i></a>
+			<a class="btn-icon" data-plugins="lightbox" href="<?=URL?>property/edit/room/<?=$val['id']?>"><i class="icon-pencil"></i></a>
+			<a class="btn-icon" data-plugins="lightbox" href="<?=URL?>property/del/room/<?=$val['id']?>"><i class="icon-trash-o"></i></a>
 		</div>
 	</header>
 
 
 	<div class="section-table-item-desc">
-		<table><tbody>
+		<table class="section-table-item-table"><tbody>
 			
 			<tr>
-				<td style="width: 40%">
-					<label>รูป:</label>
-					<p><?php
-					if( !empty($val['create_date']) ){
+				<td style="width:300px;padding: 10px;">
+					<div class="pic" style="display: block;height: 0;width: 100%;overflow: hidden;position: relative;padding-top: 56.25%;background-color: #f0f0f0;"></div>
+				</td>
 
-						echo '<span>'. date('F j, Y', strtotime($val['create_date'])).'</span>';
-						if( !empty($val['user_create_username']) ){
-							echo '<span class="fcg"> - By '.$val['user_create_username'].'</span>';
-						}
-					}
-					else{
-						echo '-';
-					}
+				<td>
+
+					<table class="table-data-info">
+						<tr>
+							<td class="td-label">Status:</td>
+							<td colspan="2">
+								<span class="ui-status">Available</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="td-label">ห้องพักทั้งหมด:</td>
+							<td class="td-data"><p><?= !empty($val['room_total']) ? $val['room_total']: '-' ?></p></td>
+							<td class="text-hind">ห้อง</td>
+						</tr>
+						<tr>
+							<td class="td-label">ผู้เข้าพักที่รับได้:</td>
+							<td class="td-data"><?= !empty($val['guests']) ? $val['guests']: '-' ?></td>
+							<td class="text-hind">ท่าน/ห้อง</td>
+						</tr>
+						<tr>
+							<td class="td-label">ขนาดห้องพัก:</td>
+							<td class="td-data" colspan="2">
+								
+								<span><?= $val['living_area_sqm']>0 ? round($val['living_area_sqm']): '-' ?></span> <span class="text-hind">m²</span> / <span><?= $val['living_area_foot']>0 ? round($val['living_area_foot']): '-' ?></span> <span class="text-hind">ft²</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="td-label">ราคา:</td>
+							<td class="td-data"><strong class="fwxl fcr"><?= !empty($val['price']) ? number_format($val['price']): '-' ?></strong></td>
+							<td class="text-hind">/ห้อง/คืน</td>
+						</tr>
+
+						<tr>
+							<td class="td-label" colspan="3">
+								<?php
+
+								if( !empty($val['group_price']) ){
+									echo '<label>ราคาเหมารวมกลุ่ม:</label>';
+									echo '<table class="table-groupprice"><tbody>';
+									foreach ($val['group_price'] as $key => $value) {
+										
+										echo '<tr>';
+											echo '<td class="td-min">'.$value['min'].'</td>';
+											echo '<td class="td-debar">-</td>';
+											echo '<td class="td-max">'.$value['max'].'</td>';
+											echo '<td class="td-debar">=</td>';
+											echo '<td class="td-price">'. number_format($value['price']).'</td>';
+											echo '<td class="td-actions">/ห้อง/คืน</td>';
+										echo '</tr>';
+									}
+									echo '</tbody></table>';
+								}
+
+							?>
+							</td>
+						</tr>
+					</table>
 					
-					?></p>
 				</td>
-
-				<td style="width: 20%">
-					<label>จำนวนห้องพัก:</label>
-					<p><?php
-					if( !empty($val['create_date']) ){
-
-						echo '<span>'. date('F j, Y', strtotime($val['create_date'])).'</span>';
-						if( !empty($val['user_create_username']) ){
-							echo '<span class="fcg"> - By '.$val['user_create_username'].'</span>';
-						}
-					}
-					else{
-						echo '-';
-					}
-					
-					?></p>
-				</td>
-
-				<td style="width: 20%;white-space: nowrap;">
-					<label>จำนวนผู้เข้าพัก:</label>
-					<p><?= !empty($val['budget']) ? number_format($val['budget']).' ฿': '-' ?></p>
-				</td>
-
-				<td style="width: 20%">
-					<label>Status:</label>
-					<p><?= !empty($val['status_name']) ? $val['status_name']: '-' ?></p>
-				</td>
+				<td width="width: 20%"></td>
 			</tr>
 
 			
 			<tr>
-				<td rowspan="2" colspan="3">
+				<td colspan="2">
 					<label>สิ่งอำนวยความสะดวกในห้องพัก:</label>
-					<p><?= !empty($val['note']) ? $val['note']: '-' ?></p>
-				</td>
-				<td>
-					<label>Price:</label>
-					<p><?= !empty($val['status_name']) ? $val['status_name']: '-' ?></p>
-				</td>
-				
-			</tr>
-			<tr>
-				<td>
 
+					<ul class="uiList list-checkbox"><?php
+
+					$val['offers'] = !empty($val['offers']) ? $val['offers']: array();
+					foreach ($this->offersList as $value) {
+							
+						$icon = in_array($value['id'], $val['offers']) ? 'check': 'remove';
+						echo '<li><i class="icon-'.$icon.'"></i><span>'.$value['name'].'</span></li>';
+					}
+					?>
+					</ul>
+				</td>
+				<td>
 					<label>อัพเดทข้อมูลล่าสุด:</label>
 
 					<div>
 						<?php
-						if( !empty($val['update_date']) ){
+						if( !empty($val['updated']) ){
 
-							echo '<p>'.$val['update_date'].'</p>';
+							echo '<p>'. $this->fn->q('time')->live($val['updated']).'</p>';
+
 							if( !empty($val['user_update_username']) ){
 								echo '<div style="font-size: 11px;">By '.$val['user_update_username'].'</div>';
 							}
@@ -134,6 +154,7 @@ foreach ($this->clientList as $key => $val) {
 						?>
 					</div>
 				</td>
+				
 			</tr>
 		</tbody></table>
 	</div>

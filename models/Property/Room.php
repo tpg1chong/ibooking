@@ -1,27 +1,31 @@
 <?php
 
-class Room_Category extends Model
+class Room extends Model
 {
 	public function __construct() {
 		parent::__construct();
     }
 
 
-    private $_table = 'property_room_category';
+    private $_table = 'property';
     private $_field = '*';
-    private $_prefixField = 'category_';
+    private $_prefixField = 'property_';
 
 
     public function get($id)
-	{
-		$sth = $this->db->prepare("SELECT {$this->_field} FROM {$this->_table} WHERE {$this->_prefixField}id=:id LIMIT 1");
+    {
+        $sth = $this->db->prepare("SELECT {$this->_field} FROM {$this->_table} WHERE {$this->_prefixField}id=:id LIMIT 1");
         $sth->execute( array( ':id' => $id  ) );
         return $sth->rowCount()==1 ? $this->convert( $sth->fetch( PDO::FETCH_ASSOC ) ): array();
-	}
-	public function findById($id)
-	{
-		return $this->get($id);
-	}
+    }
+    public function findById($id)
+    {
+        return $this->get($id);
+    }
+    public function findByBuildingId($id)
+    {
+        return $this->find( array('building'=>$id) ); 
+    }
     public function find($options=array())
     {
     	$options = array_merge(array(
@@ -42,8 +46,13 @@ class Room_Category extends Model
             $params[':enabled'] = $options['enabled'];
         }
 
-        $arr['total'] = $this->db->count($this->_table, $condition, $params);
+        if( isset($options['building']) ){
+            $condition = "{$this->_prefixField}building_id=:building";
+            $params[':building'] = $options['building'];
+        }
 
+
+        $arr['total'] = $this->db->count($this->_table, $condition, $params);
         $limit = !empty($options['limit']) && !empty($options['pager']) ? $this->limited( $options['limit'], $options['pager'] ):'';
         $orderby = $this->orderby( $this->_prefixField.$options['sort'], $options['dir'] );
         $where = !empty($condition) ? "WHERE {$condition}":'';
@@ -72,12 +81,16 @@ class Room_Category extends Model
 
         $data = $this->__cutPrefixField($this->_prefixField, $data);
         $data['permit']['del'] = 1;
+
+        $data['offers'] = json_decode($data['offers'], 1);
+        $data['group_price'] = json_decode($data['group_price'], 1);
         return $data;
     }
 
 	public function insert(&$data)
 	{
-		if( !isset($data[$this->_prefixField.'enabled']) ) $data[$this->_prefixField.'enabled'] = 1;
+        $data["{$this->_prefixField}created"] = date('c');
+		$data["{$this->_prefixField}updated"] = date('c');
 
 		$this->db->insert($this->_table, $data);
         $data['id'] = $this->db->lastInsertId();
@@ -85,6 +98,7 @@ class Room_Category extends Model
 
 	public function update($id, $data)
 	{
+        $data["{$this->_prefixField}updated"] = date('c');
 		$this->db->update($this->_table, $data, "{$this->_prefixField}id={$id}");
 	}
 

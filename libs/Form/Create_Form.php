@@ -118,6 +118,10 @@ class Create_Form
 		$this->_field[$this->_currentField]['note'] = $text;
 		return $this;
 	}
+	public function hind($text) {
+		$this->_field[$this->_currentField]['hind'] = $text;
+		return $this;
+	}
 
 	public function select($data=array(),$keyval='id', $keyname='name', $frist_option='-'){
 		$this->_field[$this->_currentField]['select'] = array(
@@ -321,14 +325,17 @@ class Create_Form
 						if( is_array($val) ){
 							$is_checked = false;
 							$v = !empty($val['id']) ? $val['id']: $i;
-
 							$value['attr']['id'] = $id.'_'. strtolower($v);
+
+							$values = !empty($value['attr']['value']) ? $value['attr']['value']: array();
 							$value['attr']['value'] = $v;
 
-							if( ($value['attr']['type']==="radio" && $checked == $v) || ($value['attr']['type']==="checkbox" && !empty($val['checked'])) ){
+							if( in_array($v, $values) ){
+								$is_checked = true;
+							}elseif( ($value['attr']['type']==="radio" && $checked == $v) || ($value['attr']['type']==="checkbox" && !empty($val['checked'])) ){
 								$is_checked = true;
 							}
-
+							
 							$txt .= '<label class="'.$value['attr']['type'].'" for="'.$value['attr']['id'].'"><input'.$this->getAttr( $value['attr'] ). ( $is_checked? ' checked':'' ). '><span>'.(!empty($val['name']) ? $val['name']: '').'</span></label>';
 						}
 						else{
@@ -342,7 +349,10 @@ class Create_Form
 								$value['attr']['id'] = $id.'_'. strtolower($val);
 								$value['attr']['value'] = $val;
 
-								if( $val==$checked ){
+								if( is_array($value['value']) ){
+
+								}
+								else if( $val==$checked ){
 									$is_checked = true;
 								}
 
@@ -362,9 +372,11 @@ class Create_Form
 				$string = '<input'.$this->getAttr( $value['attr'] ).'>';
 			}
 
+			$cls = 'control-group';
 			$error = '';
 			if( !empty($value['notify']) ){
-				$error = ' has-error';
+				$cls .= !empty($cls)? ' ':'';
+				$cls .= 'has-error';
 			}
 
 			$sidetip = '';
@@ -377,10 +389,23 @@ class Create_Form
 				$sidetip = '<div class="sidetip">'.$ps.'</div>';
 			}
 
-			$field_str.='<fieldset'.$fieldId.' class="control-group'.$error.'">'.
+			# hind
+			$hind = '';
+			if( !empty($value['hind']) ){
+
+				$cls .= !empty($cls)? ' ':'';
+				$cls .= 'has-hind';
+
+				$hind = '<div class="hind">'.$value['hind'].'</div>';
+			}
+
+			$cls = !empty($cls)? ' class="'.$cls.'"':'';
+			$field_str.='<fieldset'.$fieldId.$cls.'>'.
 				
 				$label.
 
+				$hind.
+				
 				'<div class="controls">'.
 					$string.
 					$sidetip.

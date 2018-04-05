@@ -225,6 +225,15 @@ abbr[title] {
 .u-table-fullname .input-nickname{width:100px}
 .u-table-fullname .input-prefix{min-width:70px}
 
+
+.control-group .hind{
+    border-radius: 0 4px 4px 0; 
+}
+.has-hind.control-group .inputtext{
+    border-radius: 4px 0 0 4px; 
+}
+
+
 .fsl {
     font-size: 120%}
 textarea, .inputtext {
@@ -2935,7 +2944,7 @@ body.hidden-tobar #tobar {
 .setting-hr {
     background-color: #ccc;
     height: 1px;
-    margin: 0 0 20px;
+    margin: 20px 0;
 }
 .setting-header {
     margin-bottom: 15px;
@@ -2979,6 +2988,22 @@ body.hidden-tobar #tobar {
     height: 1px;
     background-color: #2196f3;
 }
+
+.SettingsContent_overviewSection {
+    margin: 40px 0;
+}
+.SettingsContent_overviewTitle {
+    color: #0D94F6;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+.SettingsContent_description {
+    color: #888;
+    font-size: 12px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
 .SettingCol .SettingCol-header {
     max-width: inherit;
     padding-top: 20px;
@@ -2991,10 +3016,6 @@ body.hidden-tobar #tobar {
 }
 .SettingCol-headerActions #more-link {
     line-height: 30px;
-    /*background-color: #ddd;*/
-    /*padding-left: 6px;*/
-    /*padding-right: 6px;*/
-    /*border-radius: 15px;*/
 }
 .SettingCol-headerActions>li.divider {
     width: 1px;
@@ -10188,7 +10209,20 @@ body.touch #account-settings{
 .section-table-item-desc table td label{margin-bottom:1px;font-size:90%;color:#666}
 .section-table-item-desc table td p{margin:0}
 .section-table-item .avatar{background-color:#aaa;border-radius:50%;box-shadow:0 0 0 2px #aaa;border:2px solid #fefefe;width:52px;height:52px;margin-right:12px}
-
+.section-table-item-desc table table td{
+    border-width: 0;
+    padding: 3px 4px
+}
+.section-table-item-desc table table td.td-label{
+    color: #666
+}
+.section-table-item-desc table table td.td-data{
+    white-space: nowrap;
+    text-align: right;
+}
+.section-table-item-desc table table .text-hind{
+    color: #666
+}
 .forum-profile-section{
     display: none;
 }
@@ -10442,3 +10476,57 @@ table.table-plan td {
     color: #e74c3c;
     font-weight: bold;
 }
+
+.form-room #property_living_area_sqm_fieldset,
+.form-room #property_room_total_fieldset{
+    float: left;
+    margin-right: 10px;
+    width: 48%;
+}
+
+.list-checkbox>li {
+    display: inline-block;
+    padding: 5px;
+    min-width: 170px;
+}
+
+
+/* -- table-group-price -- */
+.table-group-price{
+    width: 100%;
+}
+.table-group-price .td-max, .table-group-price .td-min{
+    width: 50px;
+}
+.table-group-price .inputtext{
+    width: 100%;
+    padding-right: 0
+}
+.table-group-price .td-actions{
+    white-space: nowrap;
+}
+.table-group-price .td-actions .btn-action{
+    width:20px;height:20px;display: inline-block;font-size: 11px;
+    border-radius: 50%;
+    background-color: #fff;
+    margin-left: 2px;
+    color: #666;
+    border:1px solid rgba(0,0,0,.1);
+}
+.table-group-price .td-actions .btn-action.add:hover{
+    background-color: #04d229;
+    color: #fff;
+}
+.table-group-price .td-actions .btn-action.remove:hover{
+    background-color:#fe4742;
+    color: #fff;    
+}
+.section-table-item-desc table table table{
+    border: 1px solid #eee;
+    margin-top: 5px;
+}
+.section-table-item-desc table table table td{
+    text-align: center;
+    border-top: 1px solid #eee;
+}
+

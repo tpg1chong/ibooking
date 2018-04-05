@@ -36,18 +36,17 @@ if( !empty($sub) ){
 }
 
 /* Property */
-$sub = array();
-$sub[] = array('text' => Translate::Menu('Category'),'key' => 'settings_property_type', 'url' => $this->pageURL.'property/type', 'top_key'=>'property');
-$sub[] = array('text' => Translate::Menu('Facility Types'),'key' => 'settings_property_facility_type', 'url' => $this->pageURL.'property/facility/types', 'top_key'=>'property');
-$sub[] = array('text' => Translate::Menu('Facility'),'key' => 'settings_property_facility','url' => $this->pageURL.'property/facility', 'top_key'=>'property');
+$this->sub['property'] = array();
+$this->sub['property'][] = array('text'=>Translate::Menu('Category'),'key' => 'settings_property_type', 'url' => $this->pageURL.'property/type', 'top_key'=>'property', 'description'=> '');
+$this->sub['property'][] = array('text' => Translate::Menu('Facility Types'),'key' => 'settings_property_facility_type', 'url' => $this->pageURL.'property/facility/types', 'top_key'=>'property');
+$this->sub['property'][] = array('text' => Translate::Menu('Facility'),'key' => 'settings_property_facility','url' => $this->pageURL.'property/facility', 'top_key'=>'property');
 
-foreach ($sub as $key => $value) {
-
-	if( empty($this->permit[ $value['key'] ]['view'] ) ) unset( $sub[$key] );
+foreach ($this->sub['property'] as $key => $value) {
+	if( empty($this->permit[ $value['key'] ]['view'] ) ) unset( $this->sub['property'][$key] );
 }
-if( !empty($sub) ){
-	$this->count_nav+=count($sub);
-	$menu[] = array('text' => 'Customize Property', 'url' => $this->pageURL.'property', 'sub' => $sub);
+if( !empty($this->sub['property']) ){
+	$this->count_nav+=count($this->sub['property']);
+	$menu[] = array('text' => 'Customize Property', 'url' => $this->pageURL.'property', 'sub'=>$this->sub['property']);
 }
 
 

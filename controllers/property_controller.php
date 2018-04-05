@@ -18,6 +18,12 @@ class Property_Controller extends Controller {
         $path = 'Themes/admin/forms/property';
         $path .= !empty( $action ) ? "/{$action}":'';
 
+
+        if( $action=='room' ){
+            $offers = $this->model->query('property')->offers->find();
+            $this->view->setData('offersList', $offers['items'] );
+        }
+
         $this->view->setPage('path', $path);
         $this->view->render('add');
     }
@@ -29,6 +35,7 @@ class Property_Controller extends Controller {
             $this->add( 'property' );
         }
         else{
+
             $item = $this->model->{$action}->get($id);
             if( empty($item) ) $this->error();
             $this->view->setData('item', $item);
@@ -183,6 +190,67 @@ class Property_Controller extends Controller {
 
         /* -- room -- */
         /* Save:    room type  */
+        else if( $action=='room' ) {
+
+            $id = isset($_POST['id']) ? $_POST['id']: null;
+            if( !empty($id) ){
+                $item = $this->model->{$action}->get($id);
+                if( empty($item) ) $this->error();
+            }
+
+            try {
+                $form = new Form();
+                $form   ->post('property_building_id')->val('is_empty')
+                        ->post('property_name')->val('is_empty')
+                        ->post('property_room_total')
+                        ->post('property_guests')
+                        ->post('property_price')
+                        ->post('property_living_area_sqm')
+                        ->post('property_living_area_foot');
+
+                $form->submit();
+                $postData = $form->fetch();
+                
+                $postData['property_offers'] = !empty($_POST['property_offers'])? json_encode($_POST['property_offers']): '';
+
+                $group_price = array();
+                for ($i=0; $i < count($_POST['group_price']['min']); $i++) { 
+
+                    $min = $_POST['group_price']['min'][$i];
+                    $max = $_POST['group_price']['max'][$i];
+                    $price = $_POST['group_price']['price'][$i];
+                    
+                    if( empty($min) && empty($max) && empty($price) ) continue;
+
+                    $group_price[] = array(
+                        'min' => $min,
+                        'max' => $max,
+                        'price' => $price,
+                    );
+                }
+
+                $postData['property_group_price'] = !empty($group_price)? json_encode($group_price): '';
+
+                if( empty($arr['error']) ){
+
+                    if( !empty($item) ){
+                        $this->model->{$action}->update( $id, $postData );
+                    }
+                    else{
+                        $postData['property_porter'] = $this->me['id'];
+                        $this->model->{$action}->insert( $postData );
+                        $id = $postData['id'];
+                    }
+
+                    $arr['message'] = 'Saved!';
+                    $arr['url'] = !empty($_REQUEST['next']) ? $_REQUEST['next']: 'refresh';
+                }
+
+            } catch (Exception $e) {
+                $arr['error'] = $this->_getError($e->getMessage());
+            }
+
+        }
         else if( $action=='room_type' ) {
             $id = isset($_POST['id']) ? $_POST['id']: null;
             if( !empty($id) ){
@@ -502,5 +570,7 @@ class Property_Controller extends Controller {
             $this->view->render('del');
         }
     }
+
+
 
 }
