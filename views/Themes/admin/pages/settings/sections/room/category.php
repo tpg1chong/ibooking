@@ -8,7 +8,7 @@ $this->direction = URL.'property/';
 
 		<div class="rfloat">
 
-			<a class="btn btn-blue" data-plugins="lightbox" href="<?=$this->direction?>add/type"><i class="icon-plus mrs"></i><span><?=Translate::Val('Add New')?></span></a>
+			<a class="btn btn-blue" data-plugins="lightbox" href="<?=$this->direction?>add/room_category"><i class="icon-plus mrs"></i><span><?=Translate::Val('Add New')?></span></a>
 
 		</div>
 
@@ -27,7 +27,7 @@ $this->direction = URL.'property/';
 			<tr data-id="<?=$item['id']?>">
 				<td class="name fwb"><?php
 
-					echo '<a href="'.$this->direction.'edit/type/'.$item['id'].'" data-plugins="lightbox">'.$item['name'].'</a>';
+					echo '<a href="'.$this->direction.'edit/room_category/'.$item['id'].'" data-plugins="lightbox">'.$item['name'].'</a>';
 				?></td>
 
 
@@ -42,14 +42,14 @@ $this->direction = URL.'property/';
 
 					$dropdown[] = array(
 		                'text' => Translate::Val('Edit'),
-		                'href' => $this->direction.'edit/type/'.$item['id'],
+		                'href' => $this->direction.'edit/room_category/'.$item['id'],
 		                'attr' => array('data-plugins'=>'lightbox'),
 		                // 'icon' => 'pencil'
 		            );
 
 					$dropdown[] = array(
 		                'text' => Translate::Val('Delete'),
-		                'href' => $this->direction.'del/type/'.$item['id'],
+		                'href' => $this->direction.'del/room_category/'.$item['id'],
 		                'attr' => array('data-plugins'=>'lightbox'),
 		                // 'icon' => 'remove'
 		            );

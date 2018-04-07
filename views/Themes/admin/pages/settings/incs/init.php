@@ -37,9 +37,9 @@ if( !empty($sub) ){
 
 /* Property */
 $this->sub['property'] = array();
-$this->sub['property'][] = array('text'=>Translate::Menu('Category'),'key' => 'settings_property_type', 'url' => $this->pageURL.'property/type', 'top_key'=>'property', 'description'=> '');
-$this->sub['property'][] = array('text' => Translate::Menu('Facility Types'),'key' => 'settings_property_facility_type', 'url' => $this->pageURL.'property/facility/types', 'top_key'=>'property');
-$this->sub['property'][] = array('text' => Translate::Menu('Facility'),'key' => 'settings_property_facility','url' => $this->pageURL.'property/facility', 'top_key'=>'property');
+$this->sub['property'][] = array('text'=>Translate::Menu('Category'),'key' => 'settings_property_type', 'url' => $this->pageURL.'property/type', 'top_key'=>'property', 'description'=> 'หมวดหมู่: สถานที่ต่างๆ เช่นโรงแรม, บ้าน, รีสอรทส์, โรงเรียน ฯลฯ');
+$this->sub['property'][] = array('text' => Translate::Menu('Facility Types'),'key' => 'settings_property_facility_type', 'url' => $this->pageURL.'property/facility/types', 'top_key'=>'property', 'description'=> 'ประภท: จำแนจกลุ่มสิ่งอำนวยความสดวก ให้กับสถานที่นั้นๆ');
+$this->sub['property'][] = array('text' => Translate::Menu('Facility'),'key' => 'settings_property_facility','url' => $this->pageURL.'property/facility', 'top_key'=>'property','description'=>'สิ่งอำนวยความสดวก: บอกลักษณะของสถานที่นั้นๆ แบบเจาะจง');
 
 foreach ($this->sub['property'] as $key => $value) {
 	if( empty($this->permit[ $value['key'] ]['view'] ) ) unset( $this->sub['property'][$key] );
@@ -52,7 +52,7 @@ if( !empty($this->sub['property']) ){
 
 /* Room */
 $sub = array();
-$sub[] = array('text' => Translate::Menu('Category'),'key' => 'settings_room_category', 'url' => $this->pageURL.'room/category', 'top_key'=>'blog_');
+// $sub[] = array('text' => Translate::Menu('Category'),'key' => 'settings_room_category', 'url' => $this->pageURL.'room/category', 'top_key'=>'blog_');
 $sub[] = array('text' => Translate::Menu('Offer Types'),'key' => 'settings_room_offers', 'url' => $this->pageURL.'room/offer/types', 'top_key'=>'blog_');
 $sub[] = array('text' => Translate::Menu('Offer'),'key' => 'settings_room_offers_type', 'url' => $this->pageURL.'room/offers', 'top_key'=>'blog_');
 

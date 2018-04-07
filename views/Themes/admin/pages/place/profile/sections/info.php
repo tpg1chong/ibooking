@@ -23,6 +23,7 @@ $form   ->field("description")
         ->label( Translate::Val('Description') )
         ->addClass('inputtext')
         ->placeholder('Add description')
+        ->attr('data-plugins', 'autosize')
         ->value( !empty($this->item['description']) ? $this->item['description']: '' );
 
 $form   ->field("built")
@@ -126,12 +127,12 @@ $form   ->field("website")
         ->addClass('inputtext')
         ->placeholder('Add website');*/
 
-
+/*
 $form   ->hr('<div class="ui-hr-text"><span>Facilities</span></div>');
 $form   ->field("facilities")
         ->label( 'Facilities' )
         ->type( 'checkbox' )
-        ->items( $this->facilitiesList );
+        ->items( $this->facilitiesList );*/
 
 $formLeft = $form->html();
 

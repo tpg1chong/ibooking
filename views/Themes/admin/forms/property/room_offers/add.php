@@ -1,7 +1,7 @@
 <?php
 
 # title
-$title = 'Room Offers';
+$title = 'Room Offer';
 
 if( !empty($this->item) ){
     $arr['title']= $title;
@@ -19,6 +19,20 @@ $form = $form->create()
 	->addClass('form-insert');
 
 
+$form   ->field("offer_category_id")
+        ->label( 'Category*' )
+        ->autocomplete('off')
+        ->addClass('inputtext')
+        ->select( $this->categoryList, 'id', 'name', false )
+        ->value( !empty($this->item['category_id'])? $this->item['category_id']:'' );
+
+$form   ->field("offer_type_id")
+        ->label( 'Type*' )
+        ->autocomplete('off')
+        ->addClass('inputtext')
+        ->select( $this->typesList )
+        ->value( !empty($this->item['type_id'])? $this->item['type_id']:'' );
+
 $form 	->field("offer_name")
     	->label( 'Name*' )
         ->autocomplete('off')
@@ -28,7 +42,7 @@ $form 	->field("offer_name")
         ->value( !empty($this->item['name'])? $this->item['name']:'' );
 
 # set form
-$arr['form'] = '<form class="js-submit-form" method="post" action="'.URL. 'property/save/offers/"></form>';
+$arr['form'] = '<form class="js-submit-form" method="post" action="'.URL. 'property/save/room_offers/"></form>';
 
 # body
 $arr['body'] = $form->html();

@@ -3,6 +3,7 @@
 
 $this->tabs = array();
 $this->tabs[] = array('tab'=>'info', 'name'=>'Info', 'icon'=>'info-circle');
+$this->tabs[] = array('tab'=>'facilities', 'name'=>'Facilities', 'icon'=>'check-square-o');
 $this->tabs[] = array('tab'=>'picture', 'name'=>'Picture', 'icon'=>'image');
 
 

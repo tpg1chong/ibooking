@@ -7,9 +7,10 @@ class Facilities extends Model
     }
 
 
-    private $_table = 'property_facilities';
+    private $_obj = 'property_facilities';
+    private $_table = 'property_facilities LEFT JOIN property_facility_types ON property_facilities.facility_type_id=property_facility_types.type_id';
     private $_field = '*';
-    private $_prefixField = 'facilitie_';
+    private $_prefixField = 'facility_';
 
 
     public function get($id)
@@ -78,22 +79,24 @@ class Facilities extends Model
         return $data;
     }
 
+
+
 	public function insert(&$data)
 	{
 		if( !isset($data[$this->_prefixField.'enabled']) ) $data[$this->_prefixField.'enabled'] = 1;
 
-		$this->db->insert($this->_table, $data);
+		$this->db->insert($this->_obj, $data);
         $data['id'] = $this->db->lastInsertId();
 	}
 
 	public function update($id, $data)
 	{
-		$this->db->update($this->_table, $data, "{$this->_prefixField}id={$id}");
+		$this->db->update($this->_obj, $data, "{$this->_prefixField}id={$id}");
 	}
 
     public function delete($id)
     {
-        $this->db->delete( $this->_table, "{$this->_prefixField}id={$id}" );
+        $this->db->delete( $this->_obj, "{$this->_prefixField}id={$id}" );
     }
 
 

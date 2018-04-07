@@ -21,8 +21,8 @@ $this->direction = URL.'property/';
 		<table class="settings-table admin"><tbody>
 			<tr>
 				<th class="name">Facility Name</th>
-				<th class="status">Type</th>
-				<th class="status">เปิดใช้งาน</th>
+				<th class="check-box">Type</th>
+				<th class="status">Enabled</th>
 				<th class="actions"></th>
 
 			</tr>
@@ -34,9 +34,17 @@ $this->direction = URL.'property/';
 					echo '<a href="'.$this->direction.'edit/facilities/'.$item['id'].'" data-plugins="lightbox">'.$item['name'].'</a>';
 				?></td>
 
-				<td><select class="inputtext"></select></td>
-
 				<td class="status">
+					<select class="inputtext"><?php
+						foreach ($this->typesList as $i => $value) { 
+
+							$active = $item['type_id']==$value['id'] ? ' selected': '';
+							echo '<option'.$active.' value="'.$value['id'].'">'.$value['name'].'</option>';
+
+						} ?></select>
+				</td>
+
+				<td class="check-box">
 					<label class="checkbox"><input data-action="change" type="checkbox" name="forum_enabled"<?=( !empty($item['enabled'])? ' checked':'' )?>></label>
 				</td>
 

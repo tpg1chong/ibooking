@@ -19,10 +19,29 @@ class Property_Controller extends Controller {
         $path .= !empty( $action ) ? "/{$action}":'';
 
 
+        if( $action=='facilities' ){
+
+            $category = $this->model->query('property')->facility_types->find();
+            $this->view->setData('typesList', $category['items'] );
+        }
+
         if( $action=='room' ){
-            $offers = $this->model->query('property')->offers->find();
+            $offers = $this->model->query('property')->room_offers->find();
             $this->view->setData('offersList', $offers['items'] );
         }
+
+        if( $action=='room_offer_types' || $action=='room_offers' ){
+
+            $category = $this->model->query('property')->room_category->find();
+            $this->view->setData('categoryList', $category['items'] );
+        }
+
+        if( $action=='room_offers' ){
+            $types = $this->model->query('property')->room_offer_types->find();
+            $this->view->setData('typesList', $types['items'] );
+        }
+
+
 
         $this->view->setPage('path', $path);
         $this->view->render('add');
@@ -154,16 +173,16 @@ class Property_Controller extends Controller {
             }
         }
         /* Save: 	facilities  */
-        else if( $action=='facilities' ) {
+        elseif ( $action=='facility_types') {
             $id = isset($_POST['id']) ? $_POST['id']: null;
             if( !empty($id) ){
-                $item = $this->model->facilities->get($id);
+                $item = $this->model->{$action}->get($id);
                 if( empty($item) ) $this->error();
             }
 
             try {
                 $form = new Form();
-                $form->post('facilitie_name')->val('is_empty');
+                $form->post('type_name')->val('is_empty');
 
                 $form->submit();
                 $postData = $form->fetch();
@@ -171,10 +190,44 @@ class Property_Controller extends Controller {
                 if( empty($arr['error']) ){
 
                     if( !empty($item) ){
-                        $this->model->facilities->update( $id, $postData );
+                        $this->model->{$action}->update( $id, $postData );
                     }
                     else{
-                        $this->model->facilities->insert( $postData );
+                        $this->model->{$action}->insert( $postData );
+                        $id = $postData['id'];
+                    }
+
+                    $arr['message'] = 'Saved!';
+                    $arr['url'] = !empty($_REQUEST['next']) ? $_REQUEST['next'] : 'refresh';
+                }
+
+            } catch (Exception $e) {
+                $arr['error'] = $this->_getError($e->getMessage());
+            }
+
+        }
+        else if( $action=='facilities' ) {
+            $id = isset($_POST['id']) ? $_POST['id']: null;
+            if( !empty($id) ){
+                $item = $this->model->{$action}->get($id);
+                if( empty($item) ) $this->error();
+            }
+
+            try {
+                $form = new Form();
+                $form   ->post('facility_type_id')->val('is_empty')
+                        ->post('facility_name')->val('is_empty');
+
+                $form->submit();
+                $postData = $form->fetch();
+
+                if( empty($arr['error']) ){
+
+                    if( !empty($item) ){
+                        $this->model->{$action}->update( $id, $postData );
+                    }
+                    else{
+                        $this->model->{$action}->insert( $postData );
                         $id = $postData['id'];
                     }
 
@@ -198,38 +251,51 @@ class Property_Controller extends Controller {
             }
 
             try {
+
+                
                 $form = new Form();
                 $form   ->post('property_building_id')->val('is_empty')
                         ->post('property_category_id')->val('is_empty')
-                        ->post('property_name')->val('is_empty')
-                        ->post('property_room_total')
-                        ->post('property_guests')
-                        ->post('property_price')
-                        ->post('property_living_area_sqm')
-                        ->post('property_living_area_foot');
+                        ->post('property_name')->val('is_empty');
 
                 $form->submit();
                 $postData = $form->fetch();
                 
-                $postData['property_offers'] = !empty($_POST['property_offers'])? json_encode($_POST['property_offers']): '';
 
-                $group_price = array();
-                for ($i=0; $i < count($_POST['group_price']['min']); $i++) { 
+                if( $postData['property_category_id']==1 ){
+                    $postData['property_room_total'] = !empty($_POST['property_room_total'])? $_POST['property_room_total']: 0;
+                    $postData['property_guests'] = !empty($_POST['property_guests'])? $_POST['property_guests']: 0;
+                    $postData['property_price'] = !empty($_POST['property_price'])? $_POST['property_price']: 0;
+                    $postData['property_living_area_sqm'] = !empty($_POST['property_living_area_sqm'])? $_POST['property_living_area_sqm']: 0;
+                    $postData['property_living_area_foot'] = !empty($_POST['property_living_area_foot'])? $_POST['property_living_area_foot']: 0;
 
-                    $min = $_POST['group_price']['min'][$i];
-                    $max = $_POST['group_price']['max'][$i];
-                    $price = $_POST['group_price']['price'][$i];
-                    
-                    if( empty($min) && empty($max) && empty($price) ) continue;
 
-                    $group_price[] = array(
-                        'min' => $min,
-                        'max' => $max,
-                        'price' => $price,
-                    );
+                    $group_price = array();
+                    for ($i=0; $i < count($_POST['group_price']['min']); $i++) { 
+
+                        $min = $_POST['group_price']['min'][$i];
+                        $max = $_POST['group_price']['max'][$i];
+                        $price = $_POST['group_price']['price'][$i];
+                        
+                        if( empty($min) && empty($max) && empty($price) ) continue;
+
+                        $group_price[] = array(
+                            'min' => $min,
+                            'max' => $max,
+                            'price' => $price,
+                        );
+                    }
+                    $postData['property_group_price'] = !empty($group_price)? json_encode($group_price): '';
                 }
+                elseif( $postData['property_category_id']==2 ){
+                    $postData['property_capacity'] = !empty($_POST['property_capacity'])? json_encode($_POST['property_capacity']): 0;
+                    $postData['property_group_price'] = !empty($_POST['property_group_price'])? json_encode($_POST['property_group_price']): '';
+                    $postData['property_sunlight'] = !empty($_POST['property_sunlight'])? 1: 0;
+                }
+                
 
-                $postData['property_group_price'] = !empty($group_price)? json_encode($group_price): '';
+                $postData['property_size'] = !empty($_POST['property_size'])? json_encode($_POST['property_size']): '';
+                $postData['property_offers'] = !empty($_POST['property_offers'])? json_encode($_POST['property_offers']): '';
 
                 if( empty($arr['error']) ){
 
@@ -242,8 +308,95 @@ class Property_Controller extends Controller {
                         $id = $postData['id'];
                     }
 
+
+                    $files = isset($_FILES['photo']) ? $_FILES['photo']: array();
+                    if( !empty($files) ){
+                        for ($i=0; $i < count($files['name']); $i++) { 
+                            
+                            $photo = array(
+                                'album_id' => $id,
+                                'name' => $files['name'][$i],
+                                'type' => $files['type'][$i],
+                                'error' => $files['error'][$i],
+                                'size' => $files['size'][$i],
+                                'tmp_name' => $files['tmp_name'][$i],
+                                'caption' => isset($_POST['caption'][$i]) ? $_POST['caption'][$i]: '',
+                                'id' => isset($_POST['photo_id'][$i]) ? $_POST['photo_id'][$i]: '',
+                                'sequence' => $i,
+                            );
+
+                            $this->model->query('property')->photo->set($photo);
+                        }
+                    }
+
+
                     $arr['message'] = 'Saved!';
                     $arr['url'] = !empty($_REQUEST['next']) ? $_REQUEST['next']: 'refresh';
+                }
+
+            } catch (Exception $e) {
+                $arr['error'] = $this->_getError($e->getMessage());
+            }
+        }
+        else if( $action=='room_category' ) {
+            $id = isset($_POST['id']) ? $_POST['id']: null;
+            if( !empty($id) ){
+                $item = $this->model->{$action}->get($id);
+                if( empty($item) ) $this->error();
+            }
+
+            try {
+                $form = new Form();
+                $form->post('category_name')->val('is_empty');
+
+                $form->submit();
+                $postData = $form->fetch();
+
+                if( empty($arr['error']) ){
+
+                    if( !empty($item) ){
+                        $this->model->{$action}->update( $id, $postData );
+                    }
+                    else{
+                        $this->model->{$action}->insert( $postData );
+                        $id = $postData['id'];
+                    }
+
+                    $arr['message'] = 'Saved!';
+                    $arr['url'] = !empty($_REQUEST['next']) ? $_REQUEST['next'] : 'refresh';
+                }
+
+            } catch (Exception $e) {
+                $arr['error'] = $this->_getError($e->getMessage());
+            }
+        }
+        else if( $action=='room_offer_types' ){
+            $id = isset($_POST['id']) ? $_POST['id']: null;
+            if( !empty($id) ){
+                $item = $this->model->{$action}->get($id);
+                if( empty($item) ) $this->error();
+            }
+
+            try {
+                $form = new Form();
+                $form   ->post('type_category_id')->val('is_empty')
+                        ->post('type_name')->val('is_empty');
+
+                $form->submit();
+                $postData = $form->fetch();
+
+                if( empty($arr['error']) ){
+
+                    if( !empty($item) ){
+                        $this->model->{$action}->update( $id, $postData );
+                    }
+                    else{
+                        $this->model->{$action}->insert( $postData );
+                        $id = $postData['id'];
+                    }
+
+                    $arr['message'] = 'Saved!';
+                    $arr['url'] = !empty($_REQUEST['next']) ? $_REQUEST['next'] : 'refresh';
                 }
 
             } catch (Exception $e) {
@@ -316,16 +469,18 @@ class Property_Controller extends Controller {
             }
         }
         /* Save: 	offers  */
-        else if( $action=='offers' ) {
+        else if( $action=='room_offers' ) {
             $id = isset($_POST['id']) ? $_POST['id']: null;
             if( !empty($id) ){
-                $item = $this->model->offers->get($id);
+                $item = $this->model->{$action}->get($id);
                 if( empty($item) ) $this->error();
             }
 
             try {
                 $form = new Form();
-                $form->post('offer_name')->val('is_empty');
+                $form   ->post('offer_category_id')->val('is_empty')
+                        ->post('offer_type_id')->val('is_empty')
+                        ->post('offer_name')->val('is_empty');
 
                 $form->submit();
                 $postData = $form->fetch();
@@ -333,10 +488,10 @@ class Property_Controller extends Controller {
                 if( empty($arr['error']) ){
 
                     if( !empty($item) ){
-                        $this->model->offers->update( $id, $postData );
+                        $this->model->{$action}->update( $id, $postData );
                     }
                     else{
-                        $this->model->offers->insert( $postData );
+                        $this->model->{$action}->insert( $postData );
                         $id = $postData['id'];
                     }
 

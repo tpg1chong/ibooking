@@ -13,15 +13,16 @@ require_once 'Property/facilities.php';
 require_once 'Property/Facility_Types.php';
 
 # Room
-require_once 'Property/RoomType.php';
 require_once 'Property/amenities.php';
-require_once 'Property/offers.php';
-
 
 require_once 'Property/Room.php';
 require_once 'Property/Room_Category.php';
+require_once 'Property/Room_Types.php';
 require_once 'Property/Room_Offer_Types.php';
 require_once 'Property/Room_Offers.php';
+
+# Photo
+require_once 'Property/Room_Photo.php';
 
 
 class Property_Model extends Model{
@@ -42,15 +43,17 @@ class Property_Model extends Model{
         
 
         # Room
-        $this->room_type = new RoomType();
         $this->amenities = new amenities();
-        $this->offers = new offers();
 
 
         $this->room = new Room();
         $this->room_category = new Room_Category();
+        $this->room_type = new Room_Types();
         $this->room_offer_types = new Room_Offer_Types();
         $this->room_offers = new Room_Offers();
+
+        # Photo
+        $this->photo = new Room_Photo();
     }
 
 }

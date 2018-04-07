@@ -1,6 +1,6 @@
 <?php
 
-class RoomType extends Model
+class Room_Types extends Model
 {
 	public function __construct() {
 		parent::__construct();

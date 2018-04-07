@@ -7,7 +7,8 @@ class Room_Offers extends Model
     }
 
 
-    private $_table = 'property_room_offers';
+    private $_obj = 'property_room_offers';
+    private $_table = 'property_room_offers LEFT JOIN property_room_offer_types ON property_room_offers.offer_type_id=property_room_offer_types.type_id';
     private $_field = '*';
     private $_prefixField = 'offer_';
 
@@ -25,24 +26,35 @@ class Room_Offers extends Model
 	}
     public function find($options=array())
     {
-    	$options = array_merge(array(
+    	foreach (array('enabled', 'category') as $key) {
+            if( isset($_REQUEST[$key]) ){
+                $options[$key] = $_REQUEST[$key];
+            }
+        }
+
+        $options = array_merge(array(
             'more' => true,
 
             'sort' => isset($_REQUEST['sort'])? $_REQUEST['sort']: 'name',
             'dir' => isset($_REQUEST['dir'])? $_REQUEST['dir']: 'ASC',
 
             'time'=> isset($_REQUEST['time'])? $_REQUEST['time']:time(),
-
         ), $options);
 
         $condition = "";
         $params = array();
 
         if( isset($options['enabled']) ){
-        	$condition = "type_enabled=:enabled";
-        	$params[':enabled'] = $options['enabled'];
+            $condition .= !empty($condition) ? ' AND ':'';
+            $condition .= "enabled=:enabled";
+            $params[':enabled'] = $options['enabled'];
         }
 
+        if( isset($options['category']) ){
+            $condition .= !empty($condition) ? ' AND ':'';
+            $condition .= "{$this->_prefixField}category_id=:category";
+            $params[':category'] = $options['category'];
+        }
 
         $arr['total'] = $this->db->count($this->_table, $condition, $params);
 
@@ -78,22 +90,24 @@ class Room_Offers extends Model
         return $data;
     }
 
+
+
 	public function insert(&$data)
 	{
 		if( !isset($data[$this->_prefixField.'enabled']) ) $data[$this->_prefixField.'enabled'] = 1;
 
-		$this->db->insert($this->_table, $data);
+		$this->db->insert($this->_obj, $data);
         $data['id'] = $this->db->lastInsertId();
 	}
 
 	public function update($id, $data)
 	{
-		$this->db->update($this->_table, $data, "{$this->_prefixField}id={$id}");
+		$this->db->update($this->_obj, $data, "{$this->_prefixField}id={$id}");
 	}
 
     public function delete($id)
     {
-        $this->db->delete( $this->_table, "{$this->_prefixField}id={$id}" );
+        $this->db->delete( $this->_obj, "{$this->_prefixField}id={$id}" );
     }
 
 

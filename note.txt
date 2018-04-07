@@ -44,3 +44,6 @@ Database:	getthatf_placedb
 Host:		localhost
 Username:	getthatf_place
 Password:	m26zYt3SY2
+
+https://ycs.agoda.com/th-th/HotelRoomSetup/Index/4887777?#
+https://partners.agoda.com/th-th/Profile/PersonalDetails

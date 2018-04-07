@@ -1,4 +1,4 @@
-<div style="max-width: 750px;padding-top: 24px;">
+<div style="max-width: 750px;padding: 24px 0;">
 
 	<form class="mbl" data-action-contact="search">
 		<table>
@@ -7,7 +7,7 @@
 					<h3 class="fwn">Property Rooms</h3>
 					<?=!empty($this->roomsList) ? '<div class="fsm" style="margin-top: 2px">'.count( $this->roomsList ).' results</div>': '<span class="fss">Results Not Found</span>'; ?>
 				</td>
-				<td><a data-plugins="lightbox" href="<?=URL?>property/add/room?building=<?=$this->item['id']?>&category=<?= !empty($_GET['category']) ? $_GET['category']: '' ?>" class="btn btn-blue"><i class="icon-plus mrs"></i><span>New Room</span></a></td>
+				<td><a data-plugins="lightbox" href="<?=URL?>property/add/room?building=<?=$this->item['id']?>&category=1" class="btn btn-blue"><i class="icon-plus mrs"></i><span>Create Room</span></a></td>
 			</tr>
 		</tbody></table>
 	</form>
@@ -23,23 +23,13 @@ foreach ($this->roomsList as $key => $val) {
 <div class="section-table-item">
 	<div class="sequence-float"><?=$i?></div>
 	<header class="section-table-item-header clearfix">
-
-		<!-- <div class="title anchor clearfix">
-			<div class="lfloat mrm pic">
-				
-			</div>
-			<div class="content"><div class="spacer"></div><div class="massages">
-				
-				<div class="subname">Super Admin</div>
-			</div></div>
-
-		</div> -->
+		
 		<div class="title">
 			<h3><?=$val['name']?></h3>
 		</div>
 
 		<div class="actions">
-			<a class="btn-icon" data-plugins="lightbox" href="<?=URL?>property/edit/room/<?=$val['id']?>"><i class="icon-pencil"></i></a>
+			<a class="btn-icon" data-plugins="lightbox" href="<?=URL?>property/edit/room/<?=$val['id']?>&category=1"><i class="icon-pencil"></i></a>
 			<a class="btn-icon" data-plugins="lightbox" href="<?=URL?>property/del/room/<?=$val['id']?>"><i class="icon-trash-o"></i></a>
 		</div>
 	</header>
@@ -50,7 +40,13 @@ foreach ($this->roomsList as $key => $val) {
 			
 			<tr>
 				<td style="width:300px;padding: 10px;">
-					<div class="pic" style="display: block;height: 0;width: 100%;overflow: hidden;position: relative;padding-top: 56.25%;background-color: #f0f0f0;"></div>
+					<div class="pic" style="display: block;height: 0;width: 100%;overflow: hidden;position: relative;padding-top: 56.25%;background-color: #f0f0f0;"><?php 
+
+					if( !empty($val['images'][0]) ){
+						echo '<img style="position: absolute;top: 0;left: 0;right: 0;bottom: 0;max-width: 100%;" src="'.$val['images'][0]['src'].'">';
+					}
+
+					?></div>
 				</td>
 
 				<td>
@@ -112,26 +108,7 @@ foreach ($this->roomsList as $key => $val) {
 					</table>
 					
 				</td>
-				<td width="width: 20%"></td>
-			</tr>
-
-			
-			<tr>
-				<td colspan="2">
-					<label>สิ่งอำนวยความสะดวกในห้องพัก:</label>
-
-					<ul class="uiList list-checkbox"><?php
-
-					$val['offers'] = !empty($val['offers']) ? $val['offers']: array();
-					foreach ($this->offersList as $value) {
-							
-						$icon = in_array($value['id'], $val['offers']) ? 'check': 'remove';
-						echo '<li><i class="icon-'.$icon.'"></i><span>'.$value['name'].'</span></li>';
-					}
-					?>
-					</ul>
-				</td>
-				<td>
+				<td style="width: 190px">
 					<label>อัพเดทข้อมูลล่าสุด:</label>
 
 					<div>
@@ -150,6 +127,45 @@ foreach ($this->roomsList as $key => $val) {
 						
 						?>
 					</div>
+				</td>
+			</tr>
+
+			
+			<tr>
+				<td colspan="3">
+					<!-- <label>สิ่งอำนวยความสะดวกในห้องพัก:</label> -->
+					<?php 
+
+					$val['offers'] = !empty($val['offers']) ? $val['offers']: array();
+
+					$offersList = array();
+					foreach ($this->offersList as $key => $value) {
+
+						if( empty($offersList[$value['type_id']]) ) $offersList[$value['type_id']] = array('name'=>$value['type_name'], 'items'=>array());
+						$offersList[$value['type_id']]['items'][] = $value;
+
+					}
+
+					
+					foreach ($offersList as $key => $item) {
+						echo '<div class="mvm">';
+						echo '<div><label>'.$item['name'].'</label></div>';
+
+						echo '<ul class="uiList list-checkbox">';
+						foreach ($item['items'] as $value) {
+
+							$icon = in_array($value['id'], $val['offers']) ? 'check': 'remove';
+							echo '<li style="color:'.($icon=='check' ? '#673AB7': '#F44336').'"><i class="icon-'.$icon.'"></i><span class="mls">'.$value['name'].'</span></li>';
+						}
+						echo '</ul>';
+						echo '</div>';
+					}
+
+					
+
+
+					?>
+
 				</td>
 				
 			</tr>

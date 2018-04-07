@@ -116,7 +116,6 @@ class Admin_Controller extends Controller
             if( empty($item) ) $this->error();
 
             $this->view->setData('item', $item );
-
             
             // print_r($results); die;            
 
@@ -124,7 +123,6 @@ class Admin_Controller extends Controller
                 $pageOptions['tab'] = $section;
 
                 # Room
-                // if( $section=='room' ){
                 $roomOptions = array('building'=>$id);
                 if( isset($_REQUEST['category']) ){
                     $roomOptions['category'] = $_REQUEST['category'];
@@ -132,9 +130,8 @@ class Admin_Controller extends Controller
                 $results = $this->model->query('property')->room->find( $roomOptions );
                 $this->view->setData('roomsList', $results['items'] );
 
-                $offers = $this->model->query('property')->offers->find();
+                $offers = $this->model->query('property')->room_offers->find();
                 $this->view->setData('offersList', $offers['items'] );
-                // }
 
                 $type = $this->model->query('property')->type->find();
                 $this->view->setData('typeList', $type['items'] );
@@ -324,6 +321,11 @@ class Admin_Controller extends Controller
 
         if( $section=='property' ){
 
+            if( $tap=='facility' ){
+                $category = $this->model->query('property')->facility_types->find();
+                $this->view->setData('typesList', $category['items'] );
+            }
+
             if( in_array($tap, array('type', 'facility', 'facility_types' )) ) {
                 $results = $this->model->query('property')->{$tap}->find();
                 $this->view->setData('dataList', $results['items'] );
@@ -331,6 +333,18 @@ class Admin_Controller extends Controller
         }
 
         if( $section=='room' ){
+
+
+            if( $tap=='offer_types' || $tap=='offers' ){
+                $category = $this->model->query('property')->room_category->find();
+                $this->view->setData('categoryList', $category['items'] );
+            }
+
+            if( $tap=='offers' ){
+                $types = $this->model->query('property')->room_offer_types->find();
+                $this->view->setData('typesList', $types['items'] );
+            }
+
 
             if( in_array($tap, array('category', 'offer_types', 'offers' )) ) {
                 $model = "{$section}_{$tap}";

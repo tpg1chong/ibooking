@@ -83,6 +83,7 @@ class System_Model extends Model{
             $arr['settings'] = array('view'=>1,'edit'=>1,'del'=>1, 'add'=>1);
             $arr['settings_email'] = array('view'=>1,'edit'=>1,'del'=>1, 'add'=>1);
 
+            $arr['settings_property_category'] = array('view'=>1,'edit'=>1,'del'=>1, 'add'=>1);
             $arr['settings_property_type'] = array('view'=>1,'edit'=>1,'del'=>1, 'add'=>1);
             $arr['settings_property_facility'] = array('view'=>1,'edit'=>1,'del'=>1, 'add'=>1);
             $arr['settings_property_facility_type'] = array('view'=>1,'edit'=>1,'del'=>1, 'add'=>1);

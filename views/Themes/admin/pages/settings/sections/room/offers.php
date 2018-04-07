@@ -8,7 +8,7 @@ $this->direction = URL.'property/';
 
 		<div class="rfloat">
 
-			<a class="btn btn-blue" data-plugins="lightbox" href="<?=$this->direction?>add/type"><i class="icon-plus mrs"></i><span><?=Translate::Val('Add New')?></span></a>
+			<a class="btn btn-blue" data-plugins="lightbox" href="<?=$this->direction?>add/room_offers"><i class="icon-plus mrs"></i><span><?=Translate::Val('Add New')?></span></a>
 
 		</div>
 
@@ -19,7 +19,9 @@ $this->direction = URL.'property/';
 		<table class="settings-table admin"><tbody>
 			<tr>
 				<th class="name">Offer Name</th>
-				<th class="status">เปิดใช้งาน</th>
+				<th class="status">Category</th>
+				<th class="status">Type</th>
+				<th class="status">Enabled</th>
 				<th class="actions"></th>
 			</tr>
 
@@ -27,9 +29,30 @@ $this->direction = URL.'property/';
 			<tr data-id="<?=$item['id']?>">
 				<td class="name fwb"><?php
 
-					echo '<a href="'.$this->direction.'edit/type/'.$item['id'].'" data-plugins="lightbox">'.$item['name'].'</a>';
+					echo '<a href="'.$this->direction.'edit/room_offers/'.$item['id'].'" data-plugins="lightbox">'.$item['name'].'</a>';
 				?></td>
 
+				<td class="check-box">
+					<select class="inputtext"><?php
+						foreach ($this->categoryList as $i => $value) { 
+
+							$active = $item['category_id']==$value['id'] ? ' selected': '';
+
+							echo '<option'.$active.' value="'.$value['id'].'">'.$value['name'].'</option>';
+
+						} ?></select>
+				</td>
+
+				<td class="check-box">
+					<select class="inputtext"><?php
+						foreach ($this->typesList as $i => $value) { 
+
+							$active = $item['type_id']==$value['id'] ? ' selected': '';
+
+							echo '<option'.$active.' value="'.$value['id'].'">'.$value['name'].'</option>';
+
+						} ?></select>
+				</td>
 
 				<td class="status">
 					<label class="checkbox"><input data-action="change" type="checkbox" name="forum_enabled"<?=( !empty($item['enabled'])? ' checked':'' )?>></label>
@@ -42,14 +65,14 @@ $this->direction = URL.'property/';
 
 					$dropdown[] = array(
 		                'text' => Translate::Val('Edit'),
-		                'href' => $this->direction.'edit/type/'.$item['id'],
+		                'href' => $this->direction.'edit/room_offers/'.$item['id'],
 		                'attr' => array('data-plugins'=>'lightbox'),
 		                // 'icon' => 'pencil'
 		            );
 
 					$dropdown[] = array(
 		                'text' => Translate::Val('Delete'),
-		                'href' => $this->direction.'del/type/'.$item['id'],
+		                'href' => $this->direction.'del/room_offers/'.$item['id'],
 		                'attr' => array('data-plugins'=>'lightbox'),
 		                // 'icon' => 'remove'
 		            );

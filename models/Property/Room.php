@@ -1,9 +1,15 @@
 <?php
 
+# Photo
+require_once 'Room_Photo.php';
+
 class Room extends Model
 {
 	public function __construct() {
 		parent::__construct();
+
+        # Photo
+        $this->photo = new Room_Photo();
     }
 
 
@@ -100,6 +106,11 @@ class Room extends Model
 
         $data['offers'] = json_decode($data['offers'], 1);
         $data['group_price'] = json_decode($data['group_price'], 1);
+        $data['size'] = json_decode($data['size'], 1);
+        $data['capacity'] = json_decode($data['capacity'], 1);
+
+        $data['images'] = $this->photo->findByAlbumId( $data['id'] );
+
         return $data;
     }
 
