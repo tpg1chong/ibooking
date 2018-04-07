@@ -1,6 +1,3 @@
-
-
-
 <div style="max-width: 750px;padding-top: 24px;">
 
 	<form class="mbl" data-action-contact="search">
@@ -8,9 +5,9 @@
 			<tbody><tr>
 				<td style="width: 100%">
 					<h3 class="fwn">Property Rooms</h3>
-					<div class="fsm" style="margin-top: 2px">1 results</div>
+					<?=!empty($this->roomsList) ? '<div class="fsm" style="margin-top: 2px">'.count( $this->roomsList ).' results</div>': '<span class="fss">Results Not Found</span>'; ?>
 				</td>
-				<td><a data-plugins="lightbox" href="<?=URL?>property/add/room?building=<?=$this->item['id']?>" class="btn btn-blue"><i class="icon-plus mrs"></i><span>New Room</span></a></td>
+				<td><a data-plugins="lightbox" href="<?=URL?>property/add/room?building=<?=$this->item['id']?>&category=<?= !empty($_GET['category']) ? $_GET['category']: '' ?>" class="btn btn-blue"><i class="icon-plus mrs"></i><span>New Room</span></a></td>
 			</tr>
 		</tbody></table>
 	</form>

@@ -1,6 +1,10 @@
 <?php require 'incs/init.php'; ?>
 <div id="mainContainer" class="clearfix" data-plugins="main" data-ref="forumlists">
-<div id="forum" class="forum hasLeft" data-plugins="mainforum">
+	
+<div id="forum" class="forum hasLeft" data-plugins="mainforum" data-options="<?=$this->fn->stringify( array(
+	'load'=>URL."admin/place/{$this->item['id']}/",
+	'tab' => !empty($this->pageOptions['tab']) ? $this->pageOptions['tab']: ''
+) )?>">
 	<div class="forum-toolbar" role="topbar">
 		<div class="clearfix">
 			<div class="forum-toolbar-title lfloat">
@@ -16,14 +20,13 @@
 			<div class="rfloat">
 				<a class="btn btn-red" data-plugins="lightbox" href="<?=URL?>place/del/<?=$this->item['id']?>?next=<?=URL?>admin/place"><i class="icon-remove"></i><span class="mls">Delate</span></a>
 			</div>
-
 		</div>
 
 		<nav class="forum-toolbar-nav"><?php
 
 			foreach ($this->tabs as $key => $value) {
 
-				echo '<a class="forum-toolbar-navItem" data-action-tab="'.$value['id'].'"><i class="icon-'.$value['icon'].'"></i><span class="mls">'.$value['name'].'</span><span class="mls hidden_elem">[<span data-profile="contactTotal">0</span>]</span></a>';
+				echo '<a class="forum-toolbar-navItem" data-action-tab="'.$value['tab'].'" data-options="'.$this->fn->stringify( $value ).'"><i class="icon-'.$value['icon'].'"></i><span class="mls">'.$value['name'].'</span><span class="mls hidden_elem">[<span data-profile="contactTotal">0</span>]</span></a>';
 			}
 		?></nav>
 	</div>
@@ -70,14 +73,17 @@
 	<div class="forum-content hasLeft has-empty" role="content">
 
 		<div class="forum-profile-wrap" role="main">
-			<div class="forum-profile-forms">
+			<?php
+
+			/*<div class="forum-profile-forms">
 			<?php foreach ($this->tabs as $key => $value) { 
 
 				echo '<div class="forum-profile-section" data-section="'.$value['id'].'">';
 				require_once "sections/{$value['id']}.php";
 				echo '</div>';
 			} ?>
-			</div>
+			</div>*/
+			?>
 
 			<!-- <div class="forum-content-alert forum-alert">
 				<div class="loading">Loading...</div>

@@ -4,9 +4,19 @@ if( !empty($this->item) ){
 	$this->building = $this->item['building_id'];
 	$arr['hiddenInput'][] = array('name'=>'id','value'=> $this->item['id'] );
 }
-else if( isset($_GET['building']) ){
-	$this->building = $_GET['building'];
+else{
+
+	if( isset($_GET['building']) ){
+		$this->building = $_GET['building'];
+	}
+
+	if( isset($_GET['category']) ){
+		$this->category = $_GET['category'];
+	}
 }
+
+
+
 
 $form = new Form();
 $form = $form->create()->elem('div')->addClass('form-insert form-room');
@@ -28,6 +38,7 @@ $formRoom = $form->html();
 # title
 $arr['title'] = 'Create Room';
 $arr['hiddenInput'][] = array('name'=>'property_building_id','value'=> !empty($this->building) ? $this->building: '' );
+$arr['hiddenInput'][] = array('name'=>'property_category_id','value'=> !empty($this->category) ? $this->category: '' );
 
 $arr['body'] = '<div style="height: 560px;margin: -20px;">'.
 

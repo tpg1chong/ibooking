@@ -122,7 +122,6 @@ class Place_Controller extends Controller {
         echo json_encode($arr);
     }
 
-
     public function del($id=null)
     {
         $id = isset($_REQUEST['id']) ? $_REQUEST['id'] : $id;
@@ -185,6 +184,5 @@ class Place_Controller extends Controller {
             $this->view->setPage('path','Themes/admin/forms/place');
             $this->view->render("invite_partner");
         }
-        
     }
 }

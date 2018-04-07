@@ -328,6 +328,8 @@ class Create_Form
 							$value['attr']['id'] = $id.'_'. strtolower($v);
 
 							$values = !empty($value['attr']['value']) ? $value['attr']['value']: array();
+							if( !is_array($values) ) $values = array($values);
+
 							$value['attr']['value'] = $v;
 
 							if( in_array($v, $values) ){

@@ -14,6 +14,8 @@ if ( typeof Object.create !== 'function' ) {
 			var self = this;
 
 			self.$elem = $(elem);
+			self.$main = self.$elem.find('[role=main]');
+
 			/*
 			$.each( self.$form.find('[data-ref]'), function () {
 				var key = $(this).attr('data-ref');
@@ -28,17 +30,17 @@ if ( typeof Object.create !== 'function' ) {
 
 
 			self.options = $.extend( {}, $.fn.mainforum.options, options );
+			self.dataPost = {};
 
 			if( !self.options.tab ){
 				self.options.tab = self.$elem.find('[data-action-tab]').eq( 0 ).attr('data-action-tab');
 			}
 
-
 			self.$elem.find('[data-action-tab]').click(function() {
 
 				if( $(this).hasClass('active') ) return false;
-
 				self.options.tab = $(this).attr('data-action-tab');
+				
 				self.active();
 			});
 
@@ -58,10 +60,20 @@ if ( typeof Object.create !== 'function' ) {
 			var self = this;
 
 			setTimeout(function () {
-
+				
+				var uri = self.options.load + self.options.tab;
 
 				self.$elem.find('[data-action-tab='+ self.options.tab +']').addClass('active').siblings().removeClass('active');
-				self.$elem.find('[data-section='+ self.options.tab +']').addClass('active').siblings().removeClass('active');
+				self.dataPost = $.parseJSON( self.$elem.find('.active[data-action-tab]').attr('data-options') );
+
+				$.get( uri, self.dataPost, function ( res ) {
+					
+					self.$main.html( res );
+
+					Event.plugins( self.$main );
+					
+				});
+
 			}, 1);
 			
 		}
@@ -75,7 +87,7 @@ if ( typeof Object.create !== 'function' ) {
 	};
 	$.fn.mainforum.options = {
 		index: 0,
-		tab: 'rooms',
+		tab: '',
 	};
 	
 })( jQuery, window, document );

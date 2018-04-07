@@ -28,6 +28,12 @@ class Room extends Model
     }
     public function find($options=array())
     {
+        foreach (array('enabled') as $key) {
+            if( isset($_REQUEST[$key]) ){
+                $options[$key] = $_REQUEST[$key];
+            }
+        }
+
     	$options = array_merge(array(
             'more' => true,
 
@@ -41,14 +47,23 @@ class Room extends Model
         $condition = "";
         $params = array();
 
+
         if( isset($options['enabled']) ){
-            $condition = "enabled=:enabled";
+            $condition .= !empty($condition) ? ' AND ':'';
+            $condition .= "enabled=:enabled";
             $params[':enabled'] = $options['enabled'];
         }
 
         if( isset($options['building']) ){
-            $condition = "{$this->_prefixField}building_id=:building";
+            $condition .= !empty($condition) ? ' AND ':'';
+            $condition .= "{$this->_prefixField}building_id=:building";
             $params[':building'] = $options['building'];
+        }
+
+        if( isset($options['category']) ){
+            $condition .= !empty($condition) ? ' AND ':'';
+            $condition .= "{$this->_prefixField}category_id=:category";
+            $params[':category'] = $options['category'];
         }
 
 
@@ -57,6 +72,7 @@ class Room extends Model
         $orderby = $this->orderby( $this->_prefixField.$options['sort'], $options['dir'] );
         $where = !empty($condition) ? "WHERE {$condition}":'';
         $sql = "SELECT {$this->_field} FROM {$this->_table} {$where} {$orderby} {$limit}";
+
 
         $arr['items'] = $this->buildFrag( $this->db->select($sql, $params), $options );
 

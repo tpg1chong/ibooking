@@ -46,7 +46,6 @@ class Property_Controller extends Controller {
 
         if( empty($this->me) || $this->format!='json' || empty($_POST) ) $this->error();
 
-
         /* Save: type  */
         if( $action=='type' ) {
             $id = isset($_POST['id']) ? $_POST['id']: null;
@@ -201,6 +200,7 @@ class Property_Controller extends Controller {
             try {
                 $form = new Form();
                 $form   ->post('property_building_id')->val('is_empty')
+                        ->post('property_category_id')->val('is_empty')
                         ->post('property_name')->val('is_empty')
                         ->post('property_room_total')
                         ->post('property_guests')
@@ -249,7 +249,6 @@ class Property_Controller extends Controller {
             } catch (Exception $e) {
                 $arr['error'] = $this->_getError($e->getMessage());
             }
-
         }
         else if( $action=='room_type' ) {
             $id = isset($_POST['id']) ? $_POST['id']: null;
@@ -451,6 +450,7 @@ class Property_Controller extends Controller {
                 $arr['error'] = $this->_getError($e->getMessage());
             }
         }
+
         /* Save: 	country  */
         else if( $action=='country' ) {
             $id = isset($_POST['id']) ? $_POST['id']: null;

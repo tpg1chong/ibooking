@@ -102,36 +102,60 @@ class Admin_Controller extends Controller
 
 
     /* -- Place -- */
-    public function place($id=null)
+    public function place($id=null, $section='')
     {
         // print_r($this->model->query('place')->find()); die;
         if( !empty($id) ){
+            Session::init();
+            $pageOptions = Session::get('admin_place_options');
+            if( empty($pageOptions) ){ $pageOptions = array(); }
+            // else{ print_r($pageOptions); die; }
+
+
             $item = $this->model->query('place')->findById( $id );
             if( empty($item) ) $this->error();
 
             $this->view->setData('item', $item );
 
-            $type = $this->model->query('property')->type->find();
-            $this->view->setData('typeList', $type['items'] );
-
-            $country = $this->model->query('location')->country->find();
-            $this->view->setData('countryList', $country['items'] );
-
-            $facilities = $this->model->query('property')->facilities->find();
-            $this->view->setData('facilitiesList', $facilities['items'] );
-
-
-            # Room
-            $results = $this->model->query('property')->room->find( array('building'=>9) );
-            $this->view->setData('roomsList', $results['items'] );
-            // print_r($results); die;
             
-            $offers = $this->model->query('property')->offers->find();
-            $this->view->setData('offersList', $offers['items'] );
+            // print_r($results); die;            
 
+            if( !empty($section) ){
+                $pageOptions['tab'] = $section;
 
-            $this->view->setPage('on', 'place' );
-            $this->view->render("place/profile/display");
+                # Room
+                // if( $section=='room' ){
+                $roomOptions = array('building'=>$id);
+                if( isset($_REQUEST['category']) ){
+                    $roomOptions['category'] = $_REQUEST['category'];
+                }
+                $results = $this->model->query('property')->room->find( $roomOptions );
+                $this->view->setData('roomsList', $results['items'] );
+
+                $offers = $this->model->query('property')->offers->find();
+                $this->view->setData('offersList', $offers['items'] );
+                // }
+
+                $type = $this->model->query('property')->type->find();
+                $this->view->setData('typeList', $type['items'] );
+
+                $country = $this->model->query('location')->country->find();
+                $this->view->setData('countryList', $country['items'] );
+
+                $facilities = $this->model->query('property')->facilities->find();
+                $this->view->setData('facilitiesList', $facilities['items'] );
+                
+
+                Session::set('admin_place_options', $pageOptions);
+                $this->view->render("place/profile/sections/{$section}");
+            }
+            else{
+                $this->view->setPage('on', 'place' );
+                $this->view->setData('pageOptions', $pageOptions );
+                $this->view->render("place/profile/display");
+            }
+
+            
         }
         else{
             if( $this->format == 'json' ){
