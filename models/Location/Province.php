@@ -52,7 +52,7 @@ class Province extends Model
 
         if( isset($options['country']) ){
             $condition .= !empty($condition) ? ' AND ':'';
-            $condition .= "enabled=:country";
+            $condition .= "{$this->_prefixField}country_id=:country";
             $params[':country'] = $options['country'];
         }
 

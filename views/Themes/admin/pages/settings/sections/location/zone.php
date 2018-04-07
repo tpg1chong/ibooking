@@ -23,7 +23,7 @@ $url = URL.'property/';
 		<div class="mtm clearfix">
 			<ul class="lfloat SettingCol-headerActions clearfix">
 				
-				<li><label class="label" for="country">Country:</label><select id="country" class="inputtext" name="country" ref="selector"><?php foreach ($this->countryList as $key => $value) {
+				<li><label class="label" for="country">Country:</label><select id="country" class="inputtext" name="country" ref="selector" stop><?php foreach ($this->countryList as $key => $value) {
 					echo '<option value="'.$value['id'].'">'.$value['name'].'</option>';
 				} ?></select></li>
 				<li><label class="label" for="country">Province:</label><select id="province" class="inputtext" name="province" ref="selector"></select></li>
@@ -94,6 +94,8 @@ $url = URL.'property/';
 			$.each(res, function(i, obj) {
 				$el.province.append( $('<option>', { value: obj.id, text: obj.name}) );
 			});
+
+			$el.province.parent().toggleClass('hidden_elem', res.length==0);
 
 			$el.province.trigger('change');
 		}, 'json');

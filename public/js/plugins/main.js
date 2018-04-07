@@ -505,7 +505,7 @@ if ( typeof Object.create !== 'function' ) {
 		_Events: function () {
 			var self = this;
 
-			self.$load.find('.js-refresh').click(function (e) {
+			self.$load.find('.js-refresh, [data-action=refresh]').click(function (e) {
 
 				delete self.data.options.time;
 
@@ -535,10 +535,12 @@ if ( typeof Object.create !== 'function' ) {
 
 			self.$load.find('select[ref=selector], select[data-action=selector]').change(function () {
 				self.data.options.q = self.$load.find('.search-input').val();
-				self.data.options.pager = 1;
 				self.data.options[ $(this).attr('name') ] = $(this).val();
-
-				self.refresh( 1 );
+					
+				if( typeof $(this).attr('stop')==='undefined' ){
+					self.data.options.pager = 1;
+					self.refresh( 1 );
+				}
 			});
 
 			self.$load.find('input[type=checkbox][data-action=checkbox]').change(function () {

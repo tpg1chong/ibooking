@@ -19,6 +19,12 @@ class Location_Controller extends Controller {
         $path = 'Themes/admin/forms/location';
         $path .= !empty( $action ) ? "/{$action}":'';
 
+        if( !empty($action=='province') ){
+
+            $country = $this->model->query('location')->country->find();
+            $this->view->setData('countryList',  $country['items']);
+        }
+
         $this->view->setPage('path', $path);
         $this->view->render('add');
     }
@@ -266,7 +272,40 @@ class Location_Controller extends Controller {
                 $arr['error'] = $this->_getError($e->getMessage());
             }
         }
+        /* Save: zone  */
+        else if( $action=='province' ) {
+            $id = isset($_POST['id']) ? $_POST['id']: null;
+            if( !empty($id) ){
+                $item = $this->model->{$action}->get($id);
+                if( empty($item) ) $this->error();
+            }
 
+            try {
+                $form = new Form();
+                $form   ->post('province_country_id')->val('is_empty')
+                        ->post('province_name')->val('is_empty');
+
+                $form->submit();
+                $postData = $form->fetch();
+
+                if( empty($arr['error']) ){
+
+                    if( !empty($item) ){
+                        $this->model->{$action}->update( $id, $postData );
+                    }
+                    else{
+                        $this->model->{$action}->insert( $postData );
+                        $id = $postData['id'];
+                    }
+
+                    $arr['message'] = 'Saved!';
+                    $arr['url'] = !empty($_REQUEST['next']) ? $_REQUEST['next'] : 'refresh';
+                }
+
+            } catch (Exception $e) {
+                $arr['error'] = $this->_getError($e->getMessage());
+            }
+        }
         /* Save: zone  */
         else if( $action=='zone' ) {
             $id = isset($_POST['id']) ? $_POST['id']: null;
@@ -377,8 +416,7 @@ class Location_Controller extends Controller {
             $this->model->{$action}->update($id, $dataPost);
         }
 
-        echo json_encode(array('message'=>'Saved.'));
-        
+        echo json_encode(array('message'=>'Saved.'));  
     }
 
     /* -- Fide Data -- */
@@ -393,6 +431,10 @@ class Location_Controller extends Controller {
         $results = $this->model->query('location')->province->find();
 
         if( isset($_REQUEST['has_item']) ){
+
+            $country = $this->model->query('location')->country->find();
+            $this->view->setData('countryList',  $country['items']);
+            
             $this->view->setData('results', $results );
             $this->view->setPage('path', 'Themes/admin/layouts/location/province/items/');
             $this->view->render('json');

@@ -2,7 +2,6 @@
 
 $tr = "";
 $tr_total = "";
-$url = URL .'employees/';
 if( !empty($this->results['items']) ){ 
 
     $seq = 0;
@@ -12,11 +11,13 @@ if( !empty($this->results['items']) ){
         
         $tr .= '<tr class="'.$cls.'" data-id="'.$item['id'].'">'.
 
+            '<td class="name">'. $item['name']. '</td>'.
             '<td class="check"><label class="checkbox"><input id="toggle_checkbox"'. (!empty($item['enabled'])?' checked':'') .' type="checkbox" value="'.$item['id'].'"></label></td>'.
 
-            '<td class="name">'. $item['name']. '</td>'.
-
-            '<td class="actions">'. '</td>'.
+            '<td class="actions">'.
+            	'<span class="gbtn"><a class="btn" title="Edit"><i class="icon-pencil"></i></a></span>'.
+            	'<span class="gbtn"><a class="btn" title="Remove"><i class="icon-trash"></i></a></span>'.
+            '</td>'.
               
         '</tr>';
         

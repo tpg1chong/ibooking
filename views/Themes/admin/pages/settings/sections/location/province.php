@@ -13,16 +13,14 @@ $url = URL.'property/';
 				
 			</ul>
 			<ul class="rfloat SettingCol-headerActions clearfix">
-				<li><a class="btn btn-blue" href="<?=URL?>admin/location/create"><i class="icon-plus mrs"></i><span><?=$this->lang->translate('Add New')?></span></a></li>
+				<li><a class="btn btn-blue" data-plugins="lightbox" href="<?=URL?>location/add/province"><i class="icon-plus mrs"></i><span><?=$this->lang->translate('Add New')?></span></a></li>
 			</ul>
-
-		
 		</div>
 
 		<div class="mtm clearfix">
 			<ul class="lfloat SettingCol-headerActions clearfix">
 				
-				<li><label class="label" for="country">Country:</label><select id="country" class="inputtext" name="country"><?php foreach ($this->countryList as $key => $value) {
+				<li><label class="label" for="country">Country:</label><select id="country" class="inputtext" name="country" ref="selector"><?php foreach ($this->countryList as $key => $value) {
 					echo '<option value="'.$value['id'].'">'.$value['name'].'</option>';
 				} ?></select></li>
 			</ul>
@@ -42,9 +40,10 @@ $url = URL.'property/';
 	<div class="SettingCol-main">
 		<div class="SettingCol-tableHeader"><div class="SettingCol-contentInner">
 			<table class="settings-table admin"><thead><tr>
-				<th class="check" data-col="0"></th>
-				<th class="name" data-col="1">Name</th>
-				<th class="actions" data-col="2">Action</th>
+				<th class="name" data-col="0">Name</th>
+				<th class="check" data-col="1">Country</th>
+				<th class="check" data-col="2">Enabled</th>
+				<th class="actions" data-col="3">Action</th>
 			</tr></thead></table>
 		</div></div>
 		<div class="SettingCol-contentInner">
@@ -78,4 +77,43 @@ $url = URL.'property/';
 
 <script type="text/javascript">
 	
+	var $el = {
+		country: $('select#country'),
+	}
+	
+	/*function changeCountry() {
+		var val = $el.country.val();
+
+		$.get( app.getUri( 'location/provinceList' ), {country: val, enabled: 1}, function (res) {
+			
+			$el.province.empty();
+			$.each(res, function(i, obj) {
+				$el.province.append( $('<option>', { value: obj.id, text: obj.name}) );
+			});
+
+			
+		}, 'json');
+
+		$el.province.trigger('change');
+	}
+
+	$el.country.change(function() {
+		changeCountry();
+	});*/
+
+	/*setTimeout( function () {
+		changeCountry();
+	}, 3);
+
+
+	$('body').delegate(':input[data-action-update=checked]', 'change', function (e) {
+		var $this=$(this), id = $this.closest('tr').attr('data-id');
+
+		$.get( app.getUri('location/update/zone'), {
+			id: id,
+			name: $this.attr('name'),
+			value: $this.prop('checked') ? 1: 0
+		});
+	});*/
+
 </script>

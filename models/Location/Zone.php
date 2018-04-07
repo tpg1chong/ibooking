@@ -25,7 +25,7 @@ class Location_Zone extends Model
 	}
     public function find($options=array())
     {
-        foreach (array('enabled', 'province') as $key) {
+        foreach (array('enabled', 'country', 'province', 'q') as $key) {
             if( isset($_REQUEST[$key]) ){
                 $options[$key] = $_REQUEST[$key];
             }
@@ -51,10 +51,22 @@ class Location_Zone extends Model
         	$params[':enabled'] = $options['enabled'];
         }
 
+        if( isset($options['country']) ){
+            $condition .= !empty($condition) ? ' AND ':'';
+            $condition .= "{$this->_prefixField}country_id=:country";
+            $params[':country'] = $options['country'];
+        }
+
         if( isset($options['province']) ){
             $condition .= !empty($condition) ? ' AND ':'';
-            $condition .= "zone_province_id=:province";
+            $condition .= "{$this->_prefixField}province_id=:province";
             $params[':province'] = $options['province'];
+        }
+
+        if( isset($options['q']) ){
+            $condition .= !empty($condition) ? ' AND ':'';
+            $condition .= "{$this->_prefixField}name LIKE '%{$options['q']}%'";
+            // $params[':q'] = "";
         }
 
         $arr['total'] = $this->db->count($this->_table, $condition, $params);
