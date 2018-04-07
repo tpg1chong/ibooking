@@ -14,7 +14,7 @@ $url = URL.'property/';
 			</ul>
 			
 			<ul class="rfloat SettingCol-headerActions clearfix">
-				<li><a class="btn btn-blue" href="<?=URL?>admin/location/create"><i class="icon-plus mrs"></i><span><?=$this->lang->translate('Add New')?></span></a></li>
+				<li><a class="btn btn-blue" data-plugins="lightbox" href="<?=URL?>location/add/zone"><i class="icon-plus mrs"></i><span><?=$this->lang->translate('Add New')?></span></a></li>
 			</ul>
 
 		

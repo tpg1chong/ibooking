@@ -19,11 +19,20 @@ class Location_Controller extends Controller {
         $path = 'Themes/admin/forms/location';
         $path .= !empty( $action ) ? "/{$action}":'';
 
-        if( !empty($action=='province') ){
+        if( !empty($action=='province') || !empty($action=='zone')  ){
 
             $country = $this->model->query('location')->country->find();
             $this->view->setData('countryList',  $country['items']);
         }
+
+
+        if( !empty($action=='zone') ){
+
+            $province = $this->model->query('location')->province->find();
+            $this->view->setData('provinceList',  $province['items']);
+        }
+
+        
 
         $this->view->setPage('path', $path);
         $this->view->render('add');
