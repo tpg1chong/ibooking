@@ -228,12 +228,15 @@ class Controller {
         $this->pageOptions = array_merge($this->pageOptions, $this->model->query('system')->get() );
         $this->pageOptions['on'] = $on;
 
+        // print_r($this->pageOptions); die;
+
         // set Theme
 
         if( empty($this->pageOptions['theme']) ){
 
             $this->pageOptions['theme'] = 'default';
             $this->pageOptions['theme_options'] = array('topbar'=>true, 'footer'=>true);
+            $this->pageOptions['favicon'] = IMAGES.'favicon-v2.png';
         }
 
         $this->view->page = $this->pageOptions;

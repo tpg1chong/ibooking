@@ -4,8 +4,8 @@
 $fristStep = 'location';
 
 $step = array();
-$step[] = array('text'=>'Location', 'name'=>'location');
 $step[] = array('text'=>'Basic Info', 'name'=>'basic');
+$step[] = array('text'=>'Location', 'name'=>'location');
 $step[] = array('text'=>'Facilities', 'name'=>'detail');
 $step[] = array('text'=>'Picture', 'name'=>'picture');
 
@@ -26,7 +26,7 @@ if( file_exists($path) ){*/
 
     $active = $fristStep==$value['name'] ? ' active':'';
     $body .='<div class="form-places-section clearfix'.$active.'" data-section="'.$value['name'].'">';
-    include_once "create/{$value['name']}.php";
+    include_once "steps/{$value['name']}.php";
     $body .='</div>';
 // }
 }

@@ -86,6 +86,23 @@ class Admin_Controller extends Controller
         header('location:' . $url);
     }
 
+    public function config()
+    {
+        if( !empty($_POST) && $this->format=='json' ){
+            foreach ($_POST as $key => $value) {
+                $this->model->query('system')->set( $key, $value);
+            }
+
+            $arr['url'] = 'refresh';
+            $arr['message'] = 'บันทึกเรียบร้อย';
+
+            echo json_encode($arr);
+        }
+        else{
+            $this->error();
+        }
+    }
+
     /* -- site -- */
     public function site($section='')
     {

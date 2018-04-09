@@ -10,6 +10,7 @@ $sub[] = array('key'=>'font', 'text'=>'Font', 'url' => $this->pageURL.'font');
 $sub[] = array('key'=>'colors', 'text'=>'Colors', 'url' => $this->pageURL.'colors');
 $sub[] = array('key'=>'localization', 'text'=>'Language & Region', 'url' => $this->pageURL.'localization');
 $sub[] = array('key'=>'favicon', 'text'=>'Favicon', 'url' => $this->pageURL.'favicon');
+$sub[] = array('key'=>'copyright', 'text'=>'Copyright', 'url' => $this->pageURL.'copyright');
 $this->count_nav+=count($sub);
 $menu[] = array('text' => 'Design', 'url' => '', 'sub' => $sub);
 

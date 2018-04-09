@@ -6,7 +6,7 @@ $menu = array();
 
 
 /* Preferences */
-/*$sub = array();
+$sub = array();
 $sub[] = array('text' => Translate::Menu('Email Settings'),'key' => 'settings_email','url' => $this->pageURL.'email', 'top_key'=>'blog_');
 
 foreach ($sub as $key => $value) {
@@ -15,7 +15,7 @@ foreach ($sub as $key => $value) {
 if( !empty($sub) ){
 	$this->count_nav+=count($sub);
 	$menu[] = array('text' => 'Preferences', 'url' => $this->pageURL.'settings/blog/forum', 'sub' => $sub);
-}*/
+}
 
 
 /* Locations */

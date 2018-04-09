@@ -93,7 +93,7 @@
 	</div>
 
 	<div class="clearfix globalfooter-footer">
-		<div class="lfloat copyright">Copyright © 2018 Demo Inc. สงวนสิทธิ์ทุกประการ</div>
+		<div class="lfloat copyright"><?=!empty($this->page['copyright']) ? $this->page['copyright']:''?></div>
 		
 		<ul class="globalfooter-footer-nav rfloat">
 			<li class="footer-locale"><a class="" href="/choose-country-region/" title="เลือกประเทศหรือภูมิภาค"><span class="i-locale-flag"></span>ไทย</a></li>

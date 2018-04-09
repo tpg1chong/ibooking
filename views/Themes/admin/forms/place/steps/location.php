@@ -2,54 +2,70 @@
 
 $form = new Form();
 $form = $form->create()
-	->elem('div')->style('horizontal')
-        ->attr( 'data-plugins', 'formLocation' )
+	->elem('div')
+    ->style('horizontal')
+    ->attr( 'data-plugins', 'formLocation' )
 	->addClass('pal form-insert form-location signin-screen');
 
 $form   ->field("location_country")
         ->name( 'location[country]' )
-        ->label( 'ประเทศ' )
+        ->label( 'Country / Region' )
         ->autocomplete('off')
         ->addClass('inputtext')
         ->select( $this->countryList, 'id', 'name', false );
 
-$form   ->field("location_province")
-        ->name( 'location[province]' )
-        ->label('จังหวัด')
+$form   ->field("location_address")
+        ->name( 'location[address]' )
+        ->label('Street address')
+        ->attr( 'data-plugins', 'autosize' )
         ->autocomplete('off')
         ->addClass('inputtext')
-        ->select( array() );
+        ->type('textarea');
+
 
 $form   ->field("location_zone")
         ->name( 'location[zone]' )
-        ->label('อำเภอ/เขต')
+        ->label('Amphoe / Khet')
         ->autocomplete('off')
         ->addClass('inputtext')
         ->select( array() );
 
 $form   ->field("location_district")
         ->name( 'location[district]' )
-        ->label('ตำบล/แขวง')
+        ->label('Tambon / Khwaeng')
         ->autocomplete('off')
         ->addClass('inputtext')
         ->select( array() );
 
-$form   ->field("location_road")
+/*$form   ->field("location_road")
         ->name( 'location[road]' )
         ->label('ถนน')
         ->autocomplete('off')
-        ->addClass('inputtext');
+        ->addClass('inputtext');*/
 
-$form   ->field("location_soi")
+/*$form   ->field("location_soi")
         ->name( 'location[soi]' )
         ->label('ซอย')
         ->autocomplete('off')
-        ->addClass('inputtext');
+        ->addClass('inputtext');*/
 
 
-$form   ->field("location_number")
+/*$form   ->field("location_number")
         ->name( 'location[number]' )
         ->label('บ้านเลขที่')
+        ->autocomplete('off')
+        ->addClass('inputtext');*/
+
+$form   ->field("location_province")
+        ->name( 'location[province]' )
+        ->label('Province')
+        ->autocomplete('off')
+        ->addClass('inputtext')
+        ->select( array() );
+
+$form   ->field("location_postal")
+        ->name( 'location[postal]' )
+        ->label('Postal code')
         ->autocomplete('off')
         ->addClass('inputtext');
 
@@ -66,19 +82,9 @@ $form   ->field("location_longitude")
         ->addClass('inputtext');
 
 
-/*$form   ->field("location_address")
-        ->name( 'location[address]' )
-        ->label('ที่อยู่')
-        ->autocomplete('off')
-        ->addClass('inputtext')
-        ->type('textarea');*/
 
 /*
-$form   ->field("location_moo")
-        ->name( 'location[moo]' )
-        ->label('หมู่ที่')
-        ->autocomplete('off')
-        ->addClass('inputtext');
+
 
 $form   ->field("location_address")
         ->name( 'location[address]' )
