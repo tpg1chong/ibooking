@@ -43,7 +43,6 @@ class Amenities extends Model
         	$params[':enabled'] = $options['enabled'];
         }
 
-
         $arr['total'] = $this->db->count($this->_table, $condition, $params);
 
 
